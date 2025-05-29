@@ -45,7 +45,7 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
     return (
       <>
         {isOpen && (
-          <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40" onClick={onClose} />
+          <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40\" onClick={onClose} />
         )}
         
         <div className={`fixed bottom-0 left-0 right-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-lg border-t border-gray-200/50 dark:border-gray-700/50 transition-transform duration-300 ${
@@ -77,7 +77,7 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
   return (
     <>
       {isOpen && (
-        <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden" onClick={onClose} />
+        <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden\" onClick={onClose} />
       )}
       
       <aside className={`fixed left-0 top-16 h-[calc(100vh-4rem)] w-64 bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg border-r border-gray-200/50 dark:border-gray-700/50 z-50 transition-transform duration-300 ${
