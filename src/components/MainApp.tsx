@@ -6,7 +6,7 @@ import { AIInsights } from './AIInsights';
 import { SearchPage } from './SearchPage';
 import { UserProfile } from './UserProfile';
 import { Settings } from './Settings';
-import { Discover } from './Discover';
+import Discover from '../pages/discover';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 export const MainApp = ({ userProfile }) => {
@@ -60,4 +60,4 @@ export const MainApp = ({ userProfile }) => {
       </div>
     </div>
   );
-};
+}
