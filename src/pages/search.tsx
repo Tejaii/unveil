@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { debounce } from "@/lib/utils";
+import { useDebouncedValue } from "@/hooks/useDebouncedValue"; // import it
 
 type Article = {
   id: string;
@@ -13,31 +13,22 @@ type Article = {
 
 const fetchSearchResults = async (query: string): Promise<Article[]> => {
   if (!query) return [];
-  // Simulate API call
   await new Promise((res) => setTimeout(res, 700));
   return Array.from({ length: 4 }, (_, i) => ({
     id: `${query}-${i}`,
     title: `Result ${i + 1} for "${query}"`,
-    summary: `This is a brief summary of result ${i + 1}.`
+    summary: `This is a brief summary of result ${i + 1}.`,
   }));
 };
 
 const Search = () => {
   const [input, setInput] = useState("");
-  const [debouncedQuery, setDebouncedQuery] = useState("");
-
-  const debouncedSetQuery = debounce((val: string) => {
-    setDebouncedQuery(val);
-  }, 500);
-
-  useEffect(() => {
-    debouncedSetQuery(input);
-  }, [input]);
+  const debouncedQuery = useDebouncedValue(input, 500); // ⏳ debounce here
 
   const { data, isLoading } = useQuery({
     queryKey: ["search", debouncedQuery],
     queryFn: () => fetchSearchResults(debouncedQuery),
-    enabled: !!debouncedQuery
+    enabled: !!debouncedQuery,
   });
 
   return (
