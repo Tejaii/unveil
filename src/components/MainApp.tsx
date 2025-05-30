@@ -1,11 +1,9 @@
-
 import React, { useState } from 'react';
 import { Sidebar } from './Sidebar';
 import { TopNavigation } from './TopNavigation';
 import { NewsFeed } from './NewsFeed';
 import { AIInsights } from './AIInsights';
-import { SearchPage } from './SearchPage';
-import { SavedArticles } from './SavedArticles';
+import { Discover } from './Discover';
 import { UserProfile } from './UserProfile';
 import { Settings } from './Settings';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -21,10 +19,8 @@ export const MainApp = ({ userProfile }) => {
         return <NewsFeed userProfile={userProfile} />;
       case 'insights':
         return <AIInsights userProfile={userProfile} />;
-      case 'search':
-        return <SearchPage />;
-      case 'saved':
-        return <SavedArticles />;
+      case 'discover':
+        return <Discover />;
       case 'profile':
         return <UserProfile userProfile={userProfile} />;
       case 'settings':
@@ -35,7 +31,7 @@ export const MainApp = ({ userProfile }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50/90 to-gray-100/90 dark:from-gray-900/90 dark:to-gray-800/90">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50/90 to-gray-100/90 dark:from-gray-900 dark:to-gray-800/90">
       <TopNavigation 
         onMenuClick={() => setSidebarOpen(!sidebarOpen)}
         onViewChange={setCurrentView}
