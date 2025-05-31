@@ -3,29 +3,55 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+import { useTheme } from "next-themes";
 
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-import Saved from "./pages/saved";     // ensure file is named: saved.tsx (lowercase)
-import Profile from "./pages/profile"; // ensure file is named: profile.tsx (lowercase)
+import Profile from "./pages/profile";
+import { SearchDialog } from "./components/SearchDialog";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/saved" element={<Saved />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+const App = () => {
+  const { setTheme } = useTheme();
+
+  useEffect(() => {
+    // Handle keyboard shortcuts
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Command/Ctrl + K for search
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        document.dispatchEvent(new CustomEvent("toggle-search"));
+      }
+
+      // Command/Ctrl + D for dark mode toggle
+      if ((e.metaKey || e.ctrlKey) && e.key === "d") {
+        e.preventDefault();
+        setTheme(document.documentElement.classList.contains("dark") ? "light" : "dark");
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [setTheme]);
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <SearchDialog />
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;
