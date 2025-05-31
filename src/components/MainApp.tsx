@@ -3,7 +3,7 @@ import { Sidebar } from './Sidebar';
 import { TopNavigation } from './TopNavigation';
 import { NewsFeed } from './NewsFeed';
 import { AIInsights } from './AIInsights';
-import { Discover } from './Discover';
+import Discover from './Discover';
 import { UserProfile } from './UserProfile';
 import { Settings } from './Settings';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -57,4 +57,4 @@ export const MainApp = ({ userProfile }) => {
       </div>
     </div>
   );
-};
+}
