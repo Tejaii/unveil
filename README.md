@@ -2,6 +2,13 @@
 
 A modern news aggregation platform powered by AI, built with React, TypeScript, and Tailwind CSS.
 
+```bash
+npm run build
+```
+
+## License
+
+MIT
 ## Features
 
 - AI-powered news insights and analysis
@@ -37,13 +44,3 @@ The project uses:
 - TypeScript for type safety
 - Tailwind CSS for styling
 - shadcn/ui for UI components
-
-## Building for Production
-
-```bash
-npm run build
-```
-
-## License
-
-MIT
