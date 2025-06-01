@@ -1,25 +1,23 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { 
-  Home, TrendingUp, Bookmark, Brain, Settings, 
-  X, Clock, User, Calendar, BookOpen
+  Home, TrendingUp, Brain, Settings, 
+  X, Clock, User, Calendar, Compass
 } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 const navigationItems = [
   { id: 'feed', label: 'For You', icon: Home, desc: 'Personalized feed' },
-  { id: 'trending', label: 'Trending', icon: TrendingUp, desc: 'What\'s hot now' },
+  { id: 'discover', label: 'Discover', icon: Compass, desc: 'Explore new content' },
   { id: 'insights', label: 'AI Insights', icon: Brain, desc: 'AI analysis' },
-  { id: 'saved', label: 'Saved', icon: Bookmark, desc: 'Your bookmarks' },
 ];
 
 const getProfileZones = (userType) => {
   const zones = {
     student: [
-      { id: 'campus', label: 'Campus Central', icon: BookOpen },
+      { id: 'campus', label: 'Campus Central', icon: Calendar },
       { id: 'research', label: 'Research Hub', icon: Brain },
     ],
     developer: [
@@ -46,14 +44,14 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
     return (
       <>
         {isOpen && (
-          <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40" onClick={onClose} />
+          <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40\" onClick={onClose} />
         )}
         
         <div className={`fixed bottom-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-lg border-t border-gray-200/50 transition-transform duration-300 ${
           isOpen ? 'translate-y-0' : 'translate-y-full'
         }`}>
           <div className="flex justify-around py-2">
-            {navigationItems.slice(0, 4).map((item) => (
+            {navigationItems.map((item) => (
               <Button
                 key={item.id}
                 variant="ghost"
@@ -78,7 +76,7 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
   return (
     <>
       {isOpen && (
-        <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden" onClick={onClose} />
+        <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden\" onClick={onClose} />
       )}
       
       <aside className={`fixed left-0 top-16 h-[calc(100vh-4rem)] w-64 bg-white/80 backdrop-blur-lg border-r border-gray-200/50 z-50 transition-transform duration-300 ${
