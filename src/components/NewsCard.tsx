@@ -2,12 +2,18 @@ import React, { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { 
-  ThumbsUp, ThumbsDown, Share2, Clock, TrendingUp, TrendingDown, 
-  Minus, ExternalLink 
+import {
+  ThumbsUp,
+  ThumbsDown,
+  Share2,
+  Clock,
+  TrendingUp,
+  TrendingDown,
+  Minus,
+  ExternalLink
 } from 'lucide-react';
 
-const getSentimentIcon = (sentiment) => {
+const getSentimentIcon = (sentiment: string) => {
   switch (sentiment) {
     case 'positive':
       return <TrendingUp className="w-3 h-3" />;
@@ -18,7 +24,7 @@ const getSentimentIcon = (sentiment) => {
   }
 };
 
-const getSentimentColor = (sentiment) => {
+const getSentimentColor = (sentiment: string) => {
   switch (sentiment) {
     case 'positive':
       return 'bg-green-100/80 text-green-800 border-green-200/50';
@@ -29,7 +35,25 @@ const getSentimentColor = (sentiment) => {
   }
 };
 
-export const NewsCard = ({ article, aiEnhanced, userProfile }) => {
+interface Article {
+  title?: string;
+  source?: string;
+  date?: string;
+  readTime?: string;
+  category?: string;
+  sentiment?: string;
+  summary?: string;
+  image?: string;
+  url?: string;
+}
+
+interface NewsCardProps {
+  article: Article;
+  aiEnhanced?: boolean;
+  userProfile?: unknown;
+}
+
+export const NewsCard = ({ article, aiEnhanced = false, userProfile }: NewsCardProps) => {
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
 
@@ -46,17 +70,18 @@ export const NewsCard = ({ article, aiEnhanced, userProfile }) => {
   const handleShare = () => {
     if (navigator.share) {
       navigator.share({
-        title: article.title,
+        title: article?.title,
         url: window.location.href
       });
     }
   };
 
-  const formatDate = (dateString) => {
+  const formatDate = (dateString: string) => {
+    if (!dateString) return '';
     const date = new Date(dateString);
     const now = new Date();
-    const diffInHours = Math.floor((now - date) / (1000 * 60 * 60));
-    
+    const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60));
+
     if (diffInHours < 1) return 'Just now';
     if (diffInHours < 24) return `${diffInHours}h ago`;
     return date.toLocaleDateString();
@@ -70,39 +95,46 @@ export const NewsCard = ({ article, aiEnhanced, userProfile }) => {
             <div className="flex items-start justify-between gap-4">
               <div className="flex-1">
                 <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 leading-tight group-hover:text-gray-800 dark:group-hover:text-white transition-colors">
-                  {article.title}
+                  {article?.title || 'Untitled'}
                 </h2>
-                
+
                 <div className="flex items-center gap-2 mt-2 text-sm text-gray-500 dark:text-gray-400">
-                  <span className="font-medium">{article.source}</span>
+                  <span className="font-medium">{article?.source || 'Unknown Source'}</span>
                   <span>•</span>
                   <div className="flex items-center gap-1">
                     <Clock className="w-3 h-3" />
-                    {formatDate(article.date)}
+                    {formatDate(article?.date)}
                   </div>
-                  <span>•</span>
-                  <span>{article.readTime}</span>
+                  {article?.readTime && (
+                    <>
+                      <span>•</span>
+                      <span>{article.readTime}</span>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
 
             <div className="flex items-center gap-2 flex-wrap">
-              <Badge variant="outline" className="bg-gray-50/80 dark:bg-gray-700/80 text-gray-700 dark:text-gray-300 border-gray-200/50">
-                {article.category}
-              </Badge>
-              
-              <Badge 
-                variant="outline" 
-                className={`${getSentimentColor(article.sentiment)} dark:bg-gray-700/80 dark:text-gray-300 border`}
+              <Badge
+                variant="outline"
+                className="bg-gray-50/80 dark:bg-gray-700/80 text-gray-700 dark:text-gray-300 border-gray-200/50"
               >
-                {getSentimentIcon(article.sentiment)}
-                <span className="ml-1 capitalize">{article.sentiment}</span>
+                {article?.category || 'General'}
+              </Badge>
+
+              <Badge
+                variant="outline"
+                className={`${getSentimentColor(article?.sentiment || 'neutral')} dark:bg-gray-700/80 dark:text-gray-300 border`}
+              >
+                {getSentimentIcon(article?.sentiment || 'neutral')}
+                <span className="ml-1 capitalize">{article?.sentiment || 'neutral'}</span>
               </Badge>
             </div>
 
             <div className="space-y-2">
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                {article.summary || article.title}
+                {article?.summary || article?.title || 'No summary available.'}
               </p>
             </div>
 
@@ -115,7 +147,7 @@ export const NewsCard = ({ article, aiEnhanced, userProfile }) => {
               >
                 <ThumbsUp className="w-4 h-4" />
               </Button>
-              
+
               <Button
                 variant="ghost"
                 size="sm"
@@ -124,7 +156,7 @@ export const NewsCard = ({ article, aiEnhanced, userProfile }) => {
               >
                 <ThumbsDown className="w-4 h-4" />
               </Button>
-              
+
               <Button
                 variant="ghost"
                 size="sm"
@@ -138,14 +170,14 @@ export const NewsCard = ({ article, aiEnhanced, userProfile }) => {
                 variant="ghost"
                 size="sm"
                 className="ml-auto text-gray-600 dark:text-gray-400 hover:bg-gray-100/80 dark:hover:bg-gray-700/80"
-                onClick={() => window.open(article.url, '_blank')}
+                onClick={() => window.open(article?.url || '#', '_blank')}
               >
                 <ExternalLink className="w-4 h-4" />
               </Button>
             </div>
           </div>
 
-          {article.image && (
+          {article?.image && (
             <div className="lg:w-48 lg:flex-shrink-0">
               <img
                 src={article.image}
@@ -159,3 +191,4 @@ export const NewsCard = ({ article, aiEnhanced, userProfile }) => {
     </Card>
   );
 };
+
