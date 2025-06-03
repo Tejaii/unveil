@@ -40,7 +40,7 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
   const isMobile = useIsMobile();
   const profileZones = getProfileZones(userProfile?.userType);
 
-  // Auto-close sidebar when switching to large screens
+  // Auto-close sidebar on resize to desktop
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1024) onClose();
@@ -82,19 +82,21 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
     );
   }
 
-  // Desktop / wider screens
+  // Desktop / tablet sidebar
   return (
     <>
-      {!isMobile && isOpen && (
+      {isMobile && isOpen && (
         <div
-          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden"
+          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40"
           onClick={onClose}
         />
       )}
 
-      <aside className={`fixed left-0 top-16 h-[calc(100vh-4rem)] w-64 bg-white/80 backdrop-blur-lg border-r border-gray-200/50 z-50 transition-transform duration-300 ${
-        isOpen ? 'translate-x-0' : '-translate-x-full'
-      } lg:translate-x-0`}>
+      <aside
+        className={`fixed left-0 top-16 h-[calc(100vh-4rem)] bg-white/80 backdrop-blur-lg border-r border-gray-200/50 z-50 transition-transform duration-300
+          ${isOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0
+          w-56 sm:w-60 md:w-64 lg:w-72 xl:w-80`}
+      >
         <div className="p-4 h-full overflow-y-auto">
           <div className="flex justify-between items-center mb-6 lg:hidden">
             <h2 className="font-semibold text-gray-900">Navigation</h2>
