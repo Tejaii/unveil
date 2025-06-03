@@ -92,11 +92,10 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
         />
       )}
 
-      <aside
-        className={`fixed left-0 top-16 h-[calc(100vh-4rem)] bg-white/80 backdrop-blur-lg border-r border-gray-200/50 z-50 transition-transform duration-300
-          ${isOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0
-          w-56 sm:w-60 md:w-64 lg:w-72 xl:w-80`}
-      >
+            <aside className={`fixed left-0 top-16 h-[calc(100vh-4rem)] w-64 bg-white/80 backdrop-blur-lg border-r border-gray-200/50 z-50 transition-transform duration-300 ${
+        isMobile ? (isOpen ? 'translate-x-0' : '-translate-x-full') : ''
+      }`}>
+
         <div className="p-4 h-full overflow-y-auto">
           <div className="flex justify-between items-center mb-6 lg:hidden">
             <h2 className="font-semibold text-gray-900">Navigation</h2>
