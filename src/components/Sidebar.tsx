@@ -53,12 +53,20 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
   if (isMobile) {
     return (
       <>
+        {/* Mobile Overlay - Only shown when sidebar is open */}
         {isOpen && (
-          <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40" onClick={onClose} />
+          <div 
+            className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40" 
+            onClick={onClose}
+          />
         )}
-        <div className={`fixed bottom-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-lg border-t border-gray-200/50 transition-transform duration-300 ${
-          isOpen ? 'translate-y-0' : 'translate-y-full'
-        }`}>
+        
+        {/* Mobile Bottom Navigation */}
+        <div 
+          className={`fixed bottom-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-lg border-t border-gray-200/50 transition-transform duration-300 ${
+            isOpen ? 'translate-y-0' : 'translate-y-full'
+          }`}
+        >
           <div className="flex justify-around py-2">
             {navigationItems.map((item) => (
               <Button
@@ -82,79 +90,89 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
     );
   }
 
-  // Desktop / tablet sidebar
+  // Desktop sidebar
   return (
     <>
-      {isMobile && isOpen && (
-        <div
-          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40"
-          onClick={onClose}
-        />
-      )}
-
-            <aside className={`fixed left-0 top-16 h-[calc(100vh-4rem)] w-64 bg-white/80 backdrop-blur-lg border-r border-gray-200/50 z-50 transition-transform duration-300 ${
-        isMobile ? (isOpen ? 'translate-x-0' : '-translate-x-full') : ''
-      }`}>
-
-        <div className="p-4 h-full overflow-y-auto">
-          <div className="flex justify-between items-center mb-6 lg:hidden">
-            <h2 className="font-semibold text-gray-900">Navigation</h2>
-            <Button variant="ghost" size="sm" onClick={onClose}>
-              <X className="w-4 h-4" />
-            </Button>
-          </div>
-
-          <div className="space-y-6">
-            <div>
-              <h3 className="text-sm font-medium text-gray-500 mb-3 uppercase tracking-wide">Main</h3>
-              <div className="space-y-1">
-                {navigationItems.map((item) => (
-                  <Button
-                    key={item.id}
-                    variant="ghost"
-                    className={`w-full justify-start text-left h-auto p-3 ${
-                      currentView === item.id
-                        ? 'bg-gray-100/80 text-gray-900 shadow-sm'
-                        : 'text-gray-600 hover:bg-gray-50/80'
-                    }`}
-                    onClick={() => {
-                      onViewChange(item.id);
-                      if (isMobile) onClose();
-                    }}
-                  >
-                    <item.icon className="w-5 h-5 mr-3" />
-                    <div>
-                      <div className="font-medium">{item.label}</div>
-                      <div className="text-xs text-gray-500">{item.desc}</div>
-                    </div>
-                  </Button>
-                ))}
-              </div>
+      {/* Desktop Sidebar */}
+      <aside 
+        className={`
+          fixed left-0 top-16 h-[calc(100vh-4rem)] w-64 
+          bg-white/80 backdrop-blur-lg border-r border-gray-200/50 
+          z-50 overflow-hidden lg:translate-x-0
+          transition-transform duration-300 ease-in-out
+          ${isMobile ? (isOpen ? 'translate-x-0' : '-translate-x-full') : ''}
+        `}
+      >
+        <div className="flex flex-col h-full overflow-hidden">
+          {/* Close button - Only shown on mobile */}
+          {isMobile && (
+            <div className="flex justify-between items-center p-4 lg:hidden">
+              <h2 className="font-semibold text-gray-900">Navigation</h2>
+              <Button variant="ghost" size="sm" onClick={onClose}>
+                <X className="w-4 h-4" />
+              </Button>
             </div>
+          )}
 
-            {profileZones.length > 0 && (
+          {/* Scrollable content area */}
+          <div className="flex-1 overflow-y-auto px-4 py-2">
+            <div className="space-y-6">
+              {/* Main Navigation */}
               <div>
-                <h3 className="text-sm font-medium text-gray-500 mb-3 uppercase tracking-wide">Your Zones</h3>
+                <h3 className="text-sm font-medium text-gray-500 mb-3 uppercase tracking-wide">
+                  Main
+                </h3>
                 <div className="space-y-1">
-                  {profileZones.map((zone) => (
+                  {navigationItems.map((item) => (
                     <Button
-                      key={zone.id}
+                      key={item.id}
                       variant="ghost"
-                      className="w-full justify-start text-gray-600 hover:bg-gray-50/80 h-auto p-3"
+                      className={`w-full justify-start text-left h-auto p-3 ${
+                        currentView === item.id
+                          ? 'bg-gray-100/80 text-gray-900 shadow-sm'
+                          : 'text-gray-600 hover:bg-gray-50/80'
+                      }`}
                       onClick={() => {
-                        onViewChange(zone.id);
+                        onViewChange(item.id);
                         if (isMobile) onClose();
                       }}
                     >
-                      <zone.icon className="w-5 h-5 mr-3" />
-                      <span className="font-medium">{zone.label}</span>
+                      <item.icon className="w-5 h-5 mr-3" />
+                      <div>
+                        <div className="font-medium">{item.label}</div>
+                        <div className="text-xs text-gray-500">{item.desc}</div>
+                      </div>
                     </Button>
                   ))}
                 </div>
               </div>
-            )}
 
-            <div>
+              {/* Profile Zones */}
+              {profileZones.length > 0 && (
+                <div>
+                  <h3 className="text-sm font-medium text-gray-500 mb-3 uppercase tracking-wide">
+                    Your Zones
+                  </h3>
+                  <div className="space-y-1">
+                    {profileZones.map((zone) => (
+                      <Button
+                        key={zone.id}
+                        variant="ghost"
+                        className="w-full justify-start text-gray-600 hover:bg-gray-50/80 h-auto p-3"
+                        onClick={() => {
+                          onViewChange(zone.id);
+                          if (isMobile) onClose();
+                        }}
+                      >
+                        <zone.icon className="w-5 h-5 mr-3" />
+                        <span className="font-medium">{zone.label}</span>
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Progress Card */}
               <Card className="bg-gradient-to-br from-gray-50/80 to-gray-100/80 border-gray-200/50">
                 <CardContent className="p-4">
                   <div className="flex items-center gap-3 mb-3">
@@ -174,20 +192,21 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
                 </CardContent>
               </Card>
             </div>
+          </div>
 
-            <div className="pt-4 border-t border-gray-200/50">
-              <Button
-                variant="ghost"
-                className="w-full justify-start text-gray-600 hover:bg-gray-50/80"
-                onClick={() => {
-                  onViewChange('settings');
-                  if (isMobile) onClose();
-                }}
-              >
-                <Settings className="w-5 h-5 mr-3" />
-                Settings
-              </Button>
-            </div>
+          {/* Settings Button */}
+          <div className="p-4 border-t border-gray-200/50">
+            <Button
+              variant="ghost"
+              className="w-full justify-start text-gray-600 hover:bg-gray-50/80"
+              onClick={() => {
+                onViewChange('settings');
+                if (isMobile) onClose();
+              }}
+            >
+              <Settings className="w-5 h-5 mr-3" />
+              Settings
+            </Button>
           </div>
         </div>
       </aside>
