@@ -36,18 +36,18 @@ const getProfileZones = (userType: string) => {
   return zones[userType] || [];
 };
 
-export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfile }) => {
+export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfile, isWideScreen }) => {
   const isMobile = useIsMobile();
   const profileZones = getProfileZones(userProfile?.userType);
 
-  // Auto-close sidebar on resize to desktop
+  // Auto-close sidebar on resize to desktop (unless wide screen)
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 1024) onClose();
+      if (window.innerWidth >= 1024 && !isWideScreen) onClose();
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [onClose]);
+  }, [onClose, isWideScreen]);
 
   // Mobile bottom nav
   if (isMobile) {
@@ -63,7 +63,7 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
         
         {/* Mobile Bottom Navigation */}
         <div 
-          className={`fixed bottom-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-lg border-t border-gray-200/50 transition-transform duration-300 ${
+          className={`fixed bottom-0 left-0 right-0 z-50 bg-card/90 backdrop-blur-lg border-t border-border/50 transition-transform duration-300 ${
             isOpen ? 'translate-y-0' : 'translate-y-full'
           }`}
         >
@@ -73,7 +73,7 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
                 key={item.id}
                 variant="ghost"
                 className={`flex flex-col items-center gap-1 p-2 h-auto ${
-                  currentView === item.id ? 'text-gray-900 bg-gray-100/80' : 'text-gray-600'
+                  currentView === item.id ? 'text-foreground bg-accent/80' : 'text-muted-foreground'
                 }`}
                 onClick={() => {
                   onViewChange(item.id);
@@ -90,24 +90,23 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
     );
   }
 
-  // Desktop sidebar
   return (
     <>
       {/* Desktop Sidebar */}
       <aside 
         className={`
           fixed left-0 top-16 h-[calc(100vh-4rem)] w-64 
-          bg-white/80 backdrop-blur-lg border-r border-gray-200/50 
+          bg-card/80 backdrop-blur-lg border-r border-border/50 
           z-50 overflow-hidden lg:translate-x-0
           transition-transform duration-300 ease-in-out
-          ${isMobile ? (isOpen ? 'translate-x-0' : '-translate-x-full') : ''}
+          ${!isWideScreen && !isOpen ? '-translate-x-full' : 'translate-x-0'}
         `}
       >
         <div className="flex flex-col h-full overflow-hidden">
           {/* Close button - Only shown on mobile */}
           {isMobile && (
             <div className="flex justify-between items-center p-4 lg:hidden">
-              <h2 className="font-semibold text-gray-900">Navigation</h2>
+              <h2 className="font-semibold text-foreground">Navigation</h2>
               <Button variant="ghost" size="sm" onClick={onClose}>
                 <X className="w-4 h-4" />
               </Button>
@@ -119,7 +118,7 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
             <div className="space-y-6">
               {/* Main Navigation */}
               <div>
-                <h3 className="text-sm font-medium text-gray-500 mb-3 uppercase tracking-wide">
+                <h3 className="text-sm font-medium text-muted-foreground mb-3 uppercase tracking-wide">
                   Main
                 </h3>
                 <div className="space-y-1">
@@ -129,18 +128,18 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
                       variant="ghost"
                       className={`w-full justify-start text-left h-auto p-3 ${
                         currentView === item.id
-                          ? 'bg-gray-100/80 text-gray-900 shadow-sm'
-                          : 'text-gray-600 hover:bg-gray-50/80'
+                          ? 'bg-accent text-foreground shadow-sm'
+                          : 'text-muted-foreground hover:bg-accent/80'
                       }`}
                       onClick={() => {
                         onViewChange(item.id);
-                        if (isMobile) onClose();
+                        if (!isWideScreen) onClose();
                       }}
                     >
                       <item.icon className="w-5 h-5 mr-3" />
                       <div>
                         <div className="font-medium">{item.label}</div>
-                        <div className="text-xs text-gray-500">{item.desc}</div>
+                        <div className="text-xs text-muted-foreground">{item.desc}</div>
                       </div>
                     </Button>
                   ))}
@@ -150,7 +149,7 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
               {/* Profile Zones */}
               {profileZones.length > 0 && (
                 <div>
-                  <h3 className="text-sm font-medium text-gray-500 mb-3 uppercase tracking-wide">
+                  <h3 className="text-sm font-medium text-muted-foreground mb-3 uppercase tracking-wide">
                     Your Zones
                   </h3>
                   <div className="space-y-1">
@@ -158,10 +157,10 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
                       <Button
                         key={zone.id}
                         variant="ghost"
-                        className="w-full justify-start text-gray-600 hover:bg-gray-50/80 h-auto p-3"
+                        className="w-full justify-start text-muted-foreground hover:bg-accent/80 h-auto p-3"
                         onClick={() => {
                           onViewChange(zone.id);
-                          if (isMobile) onClose();
+                          if (!isWideScreen) onClose();
                         }}
                       >
                         <zone.icon className="w-5 h-5 mr-3" />
@@ -173,20 +172,20 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
               )}
 
               {/* Progress Card */}
-              <Card className="bg-gradient-to-br from-gray-50/80 to-gray-100/80 border-gray-200/50">
+              <Card className="bg-accent/50 border-border/50">
                 <CardContent className="p-4">
                   <div className="flex items-center gap-3 mb-3">
-                    <Clock className="w-5 h-5 text-gray-600" />
-                    <h4 className="font-medium text-gray-900">Today's Progress</h4>
+                    <Clock className="w-5 h-5 text-muted-foreground" />
+                    <h4 className="font-medium text-foreground">Today's Progress</h4>
                   </div>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Articles read</span>
-                      <Badge variant="secondary" className="bg-gray-200/80">12</Badge>
+                      <span className="text-muted-foreground">Articles read</span>
+                      <Badge variant="secondary" className="bg-accent text-foreground">12</Badge>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Reading streak</span>
-                      <Badge variant="secondary" className="bg-gray-200/80">7 days</Badge>
+                      <span className="text-muted-foreground">Reading streak</span>
+                      <Badge variant="secondary" className="bg-accent text-foreground">7 days</Badge>
                     </div>
                   </div>
                 </CardContent>
@@ -195,13 +194,13 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
           </div>
 
           {/* Settings Button */}
-          <div className="p-4 border-t border-gray-200/50">
+          <div className="p-4 border-t border-border/50">
             <Button
               variant="ghost"
-              className="w-full justify-start text-gray-600 hover:bg-gray-50/80"
+              className="w-full justify-start text-muted-foreground hover:bg-accent/80"
               onClick={() => {
                 onViewChange('settings');
-                if (isMobile) onClose();
+                if (!isWideScreen) onClose();
               }}
             >
               <Settings className="w-5 h-5 mr-3" />

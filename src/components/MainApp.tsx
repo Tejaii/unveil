@@ -12,6 +12,7 @@ export const MainApp = ({ userProfile }) => {
   const [currentView, setCurrentView] = useState('feed');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const isMobile = useIsMobile();
+  const isWideScreen = window.innerWidth / window.innerHeight >= 2;
 
   const renderContent = () => {
     switch (currentView) {
@@ -31,26 +32,27 @@ export const MainApp = ({ userProfile }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50/90 to-gray-100/90 dark:from-gray-900 dark:to-gray-800/90">
+    <div className="min-h-screen bg-background text-foreground">
       <TopNavigation 
-        onMenuClick={() => setSidebarOpen(!sidebarOpen)}
+        onMenuClick={() => !isWideScreen && setSidebarOpen(!sidebarOpen)}
         onViewChange={setCurrentView}
         currentView={currentView}
       />
       
       <div className="flex">
         <Sidebar 
-          isOpen={sidebarOpen}
+          isOpen={isWideScreen || sidebarOpen}
           onClose={() => setSidebarOpen(false)}
           currentView={currentView}
           onViewChange={setCurrentView}
           userProfile={userProfile}
+          isWideScreen={isWideScreen}
         />
         
         <main className={`flex-1 transition-all duration-300 ${
-          !isMobile && sidebarOpen ? 'ml-64' : 'ml-0'
+          (!isMobile && (isWideScreen || sidebarOpen)) ? 'ml-64' : 'ml-0'
         }`}>
-          <div className="pt-16 pb-20 md:pb-4">
+          <div className="pt-16 pb-20 md:pb-4 max-w-4xl mx-auto">
             {renderContent()}
           </div>
         </main>

@@ -1,37 +1,67 @@
 "use client";
 
+import { useRef, useCallback } from "react";
 import { Flame } from "lucide-react";
 import { useNewsData } from "@/hooks/useNewsData";
 import { NewsCard } from "@/components/NewsCard";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const Discover = () => {
-  const { articles, loading, error } = useNewsData("technology"); // You can change this to dynamic category if needed
+  const { articles, loading, error, loadMore } = useNewsData("technology");
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const loaderRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      if (loading) return;
+      if (observerRef.current) observerRef.current.disconnect();
+
+      observerRef.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && loadMore) {
+          loadMore();
+        }
+      });
+
+      if (node) observerRef.current.observe(node);
+    },
+    [loading, loadMore]
+  );
 
   return (
-    <div className="p-6 space-y-6">
-      {/* Header */}
+    <div className="p-6 space-y-6 max-w-4xl mx-auto">
       <div className="flex items-center gap-2 mb-4">
         <Flame className="text-orange-600" />
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Discover</h1>
+        <h1 className="text-2xl font-bold text-foreground">Discover</h1>
       </div>
 
-      {/* Loading State */}
-      {loading && (
-        <p className="text-muted-foreground text-sm">Loading articles...</p>
+      {loading && !articles.length && (
+        <div className="space-y-4">
+          {[...Array(4)].map((_, i) => (
+            <Skeleton key={i} className="h-[200px] w-full rounded-xl" />
+          ))}
+        </div>
       )}
 
-      {/* Error State */}
       {error && (
         <p className="text-red-500 text-sm">Failed to load: {error}</p>
       )}
 
-      {/* Articles */}
-      <div className="w-full max-w-4xl mx-auto px-4 flex flex-col gap-6">
+      <div className="w-full flex flex-col gap-6">
         {articles.map((article) => (
           <NewsCard key={article.title} article={article} />
         ))}
-      </div>
 
+        {/* Infinite scroll loader */}
+        {!error && (
+          <div ref={loaderRef} className="py-4 text-center">
+            {loading && (
+              <div className="flex items-center justify-center gap-2">
+                <div className="w-2 h-2 bg-foreground/60 rounded-full animate-bounce [animation-delay:-0.3s]" />
+                <div className="w-2 h-2 bg-foreground/60 rounded-full animate-bounce [animation-delay:-0.15s]" />
+                <div className="w-2 h-2 bg-foreground/60 rounded-full animate-bounce" />
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
