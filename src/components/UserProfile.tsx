@@ -37,7 +37,7 @@ export const UserProfile = ({ userProfile }) => {
             </Avatar>
             
             <div className="flex-1">
-              <h1 className="text-2xl font-bold text-gray-900 mb-2">Your Profile</h1>
+              <h1 className="text-2xl font-bold text-gray-900 mb-2">Unnati</h1>
               <div className="flex items-center gap-2 mb-3">
                 <Badge variant="outline" className="bg-blue-50/80 text-blue-700 border-blue-200/50">
                   {userProfile?.userType || 'User'}
