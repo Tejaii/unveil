@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { NewsCard } from './NewsCard';
 import { Button } from '@/components/ui/button';
@@ -61,31 +60,31 @@ export const NewsFeed = ({ userProfile }) => {
       {/* Header Controls */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">For You</h1>
-          <p className="text-gray-600">Personalized for {userProfile?.userType || 'you'}</p>
+          <h1 className="text-2xl font-bold text-gray-100">For You</h1>
+          <p className="text-gray-400">Personalized for {userProfile?.userType || 'you'}</p>
         </div>
         
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
-            <span className="text-sm text-gray-600">AI Enhanced</span>
+            <span className="text-sm text-gray-400">AI Enhanced</span>
             <Switch 
               checked={aiEnhanced} 
               onCheckedChange={setAiEnhanced}
-              className="data-[state=checked]:bg-gray-900"
+              className="data-[state=checked]:bg-gray-700"
             />
-            <Brain className="w-4 h-4 text-gray-600" />
+            <Brain className="w-4 h-4 text-gray-400" />
           </div>
         </div>
       </div>
 
       {/* Today's Briefing */}
-      <Card className="bg-gradient-to-r from-gray-50/80 to-gray-100/80 backdrop-blur-sm border-gray-200/50">
+      <Card className="bg-[#1e1e1e] border-gray-800">
         <CardHeader>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Calendar className="w-5 h-5 text-gray-700" />
-              <CardTitle className="text-lg text-gray-900">Today's Briefing</CardTitle>
-              <Badge variant="secondary" className="bg-gray-200/80">
+              <Calendar className="w-5 h-5 text-gray-300" />
+              <CardTitle className="text-lg text-gray-100">Today's Briefing</CardTitle>
+              <Badge variant="secondary" className="bg-gray-800 text-gray-300">
                 {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
               </Badge>
             </div>
@@ -93,7 +92,7 @@ export const NewsFeed = ({ userProfile }) => {
               variant="ghost"
               size="sm"
               onClick={() => setBriefingExpanded(!briefingExpanded)}
-              className="text-gray-600 hover:bg-gray-100/80"
+              className="text-gray-400 hover:bg-gray-800"
             >
               <ChevronDown className={`w-4 h-4 transition-transform ${briefingExpanded ? 'rotate-180' : ''}`} />
             </Button>
@@ -106,7 +105,7 @@ export const NewsFeed = ({ userProfile }) => {
               {getTodaysBriefing().map((item, index) => (
                 <div key={index} className="flex items-start gap-2">
                   <Sparkles className="w-4 h-4 text-gray-500 mt-0.5 flex-shrink-0" />
-                  <p className="text-sm text-gray-700">{item}</p>
+                  <p className="text-sm text-gray-300">{item}</p>
                 </div>
               ))}
             </div>
@@ -130,7 +129,7 @@ export const NewsFeed = ({ userProfile }) => {
       <div className="text-center py-8">
         <Button 
           variant="outline" 
-          className="bg-white/70 border-gray-200/70 hover:bg-gray-50/80"
+          className="bg-[#2e2e2e] border-gray-700 hover:bg-gray-800 text-gray-300"
         >
           Load More Articles
         </Button>
