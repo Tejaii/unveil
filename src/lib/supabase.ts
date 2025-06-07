@@ -26,7 +26,8 @@ export const auth = {
     const { data, error } = await supabase.auth.signInWithOtp({
       email,
       options: {
-        emailRedirectTo: `${window.location.origin}/auth/callback`,
+        emailRedirectTo: import.meta.env.VITE_SITE_URL + "/auth/callback"
+
       },
     });
     return { data, error };
