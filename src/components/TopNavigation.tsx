@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Menu, Search, Settings, User, Bell, Sun, Moon, Keyboard } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useTheme } from 'next-themes';
+import { AuthButton } from './auth/AuthButton';
 
 export const TopNavigation = ({ onMenuClick, onViewChange, currentView }) => {
   const [searchValue, setSearchValue] = useState('');
@@ -78,29 +78,7 @@ export const TopNavigation = ({ onMenuClick, onViewChange, currentView }) => {
             <Bell className="w-4 h-4" />
           </Button>
 
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 rounded-full p-0">
-                <Avatar className="h-8 w-8">
-                  <AvatarFallback className="bg-gray-700 text-gray-300">U</AvatarFallback>
-                </Avatar>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56 bg-[#1e1e1e] border-gray-700">
-              <DropdownMenuItem onClick={() => onViewChange('profile')} className="cursor-pointer text-gray-300 hover:bg-gray-800">
-                <User className="mr-2 h-4 w-4" />
-                Profile
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => onViewChange('settings')} className="cursor-pointer text-gray-300 hover:bg-gray-800">
-                <Settings className="mr-2 h-4 w-4" />
-                Settings
-              </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer text-gray-300 hover:bg-gray-800">
-                <Keyboard className="mr-2 h-4 w-4" />
-                Keyboard Shortcuts
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <AuthButton />
         </div>
       </div>
 
