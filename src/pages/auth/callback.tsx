@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { supabase } from '@/lib/supabase';
-import { Loader2 } from 'lucide-react';
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { supabase, auth, userProfile } from "@/lib/supabase";
+import { Loader2 } from "lucide-react";
 
 const AuthCallback = () => {
   const navigate = useNavigate();
@@ -9,24 +9,30 @@ const AuthCallback = () => {
   useEffect(() => {
     const handleAuthCallback = async () => {
       try {
-        const { data, error } = await supabase.auth.getSession();
-        
-        if (error) {
-          console.error('Auth callback error:', error);
-          navigate('/?error=auth_error');
+        const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+
+        if (sessionError || !sessionData.session) {
+          console.error("Auth callback error:", sessionError?.message);
+          navigate("/?error=auth_failed");
           return;
         }
 
-        if (data.session) {
-          // Successful authentication
-          navigate('/?auth=success');
-        } else {
-          // No session found
-          navigate('/');
+        // Optional: fetch user and update profile
+        const { user, error: userError } = await auth.getUser();
+        if (userError || !user) {
+          console.error("Failed to fetch user:", userError?.message);
+          navigate("/?error=user_fetch_failed");
+          return;
         }
-      } catch (error) {
-        console.error('Auth callback error:', error);
-        navigate('/?error=auth_error');
+
+        // ✅ Optional: store user profile in DB (only if you want to track users)
+        await userProfile.upsertProfile(user.id, user.email);
+
+        // ✅ Redirect to home or dashboard
+        navigate("/discover"); // Or replace with your preferred landing route
+      } catch (err) {
+        console.error("Unexpected error:", err);
+        navigate("/?error=unexpected_error");
       }
     };
 
