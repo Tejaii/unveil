@@ -1,20 +1,20 @@
 import { createClient } from "@supabase/supabase-js";
 
-// Environment variables from .env or Vercel
+// 🌍 Env vars (Vercel or local .env)
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 const siteLink = import.meta.env.VITE_SITE_URL;
 
-if (!supabaseUrl || !supabaseAnonKey) {
+if (!supabaseUrl || !supabaseAnonKey || !siteLink) {
   throw new Error("Missing Supabase environment variables");
 }
 
-// Create Supabase client
+// ✅ Supabase client
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-// =======================
+// ===================
 // 📌 Types
-// =======================
+// ===================
 export interface UserProfile {
   id: string;
   email: string;
@@ -24,56 +24,56 @@ export interface UserProfile {
   updated_at: string;
 }
 
-// =======================
-// 🔐 Auth Utilities
-// =======================
+// ===================
+// 🔐 Auth Functions
+// ===================
 export const auth = {
-  // ✅ Send magic link to email
+  // 🚀 Sign in with magic link
   signInWithMagicLink: async (email: string) => {
     const { data, error } = await supabase.auth.signInWithOtp({
       email,
       options: {
-        emailRedirectTo: `${siteLink}/auth/callback`,
+        emailRedirectTo: `${https://vercel.com/tejaiis-projects/unveil-ong2}/auth/callback`,
       },
     });
 
     if (error) {
-      console.error("Sign-in error:", error.message);
+      console.error("Magic link error:", error.message);
       return { success: false, error };
     }
 
     return { success: true, data };
   },
 
-  // ✅ Sign out user
+  // 🔒 Sign out
   signOut: async () => {
     const { error } = await supabase.auth.signOut();
     return { success: !error, error };
   },
 
-  // ✅ Get current session
+  // 📥 Get current session
   getSession: async () => {
     const { data: { session }, error } = await supabase.auth.getSession();
     return { session, error };
   },
 
-  // ✅ Get current user (recommended for ID/email fetch)
+  // 🙋‍♂️ Get logged in user
   getUser: async () => {
     const { data: { user }, error } = await supabase.auth.getUser();
     return { user, error };
   },
 
-  // ✅ Listen to login/logout changes
+  // 🔁 Listen to auth state changes
   onAuthStateChange: (callback: (event: string, session: any) => void) => {
     return supabase.auth.onAuthStateChange(callback);
   },
 };
 
-// ==========================
-// 🧠 User Profile Utilities
-// ==========================
+// =============================
+// 👤 User Profile Management
+// =============================
 export const userProfile = {
-  // ✅ Create or update user profile
+  // ✍️ Create or update profile
   upsertProfile: async (
     userId: string,
     email: string,
@@ -81,14 +81,7 @@ export const userProfile = {
   ) => {
     const now = new Date().toISOString();
 
-    // Check if user exists already
-    const { data: existing, error: fetchError } = await supabase
-      .from("users")
-      .select("id")
-      .eq("id", userId)
-      .maybeSingle();
-
-    const profileData: any = {
+    const profileData: Partial<UserProfile> = {
       id: userId,
       email,
       updated_at: now,
@@ -98,7 +91,14 @@ export const userProfile = {
       profileData.digest_opt_in = digestOptIn;
     }
 
-    if (!existing) {
+    // Check if user already exists to set joined_at
+    const { data: existing, error: fetchError } = await supabase
+      .from("users")
+      .select("id")
+      .eq("id", userId)
+      .maybeSingle();
+
+    if (!existing && !fetchError) {
       profileData.joined_at = now;
     }
 
@@ -114,7 +114,7 @@ export const userProfile = {
     return { data, error };
   },
 
-  // ✅ Get user profile by ID
+  // 📄 Get profile by ID
   getProfile: async (userId: string) => {
     const { data, error } = await supabase
       .from("users")
@@ -125,11 +125,14 @@ export const userProfile = {
     return { data, error };
   },
 
-  // ✅ Update digest opt-in preference
+  // 📨 Update digest preference
   updateDigestPreference: async (userId: string, digestOptIn: boolean) => {
     const { data, error } = await supabase
       .from("users")
-      .update({ digest_opt_in: digestOptIn, updated_at: new Date().toISOString() })
+      .update({
+        digest_opt_in: digestOptIn,
+        updated_at: new Date().toISOString(),
+      })
       .eq("id", userId)
       .select()
       .single();
@@ -137,7 +140,7 @@ export const userProfile = {
     return { data, error };
   },
 
-  // ✅ Fetch all digest-subscribed users (for newsletters)
+  // 📬 Get all users who opted in for digests
   getDigestOptInUsers: async () => {
     const { data, error } = await supabase
       .from("users")
