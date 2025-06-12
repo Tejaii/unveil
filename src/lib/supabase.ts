@@ -33,7 +33,7 @@ export const auth = {
     const { data, error } = await supabase.auth.signInWithOtp({
       email,
       options: {
-        emailRedirectTo: `${https://vercel.com/tejaiis-projects/unveil-ong2}/auth/callback`,
+        emailRedirectTo: "https://vercel.com/tejaiis-projects/unveil-ong2/auth/callback",
       },
     });
 
