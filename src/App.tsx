@@ -8,6 +8,7 @@ import { ThemeProvider, useTheme } from "next-themes";
 
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import SignIn from "./pages/SignIn";
 import Profile from "./pages/profile";
 import AuthCallback from "./pages/auth/callback";
 import { SearchDialog } from "./components/SearchDialog";
@@ -61,7 +62,8 @@ const App = () => {
               <BrowserRouter>
                 <Routes>
                   <Route path="/" element={<Index />} />
-                  <Route path="/profile" element={<Profile />} />
+                  <Route path="/signin" element={<SignIn />} />
+                  <Route path="/profile" element={<AuthGuard element={<Profile />} />} />
                   <Route path="/auth/callback" element={<AuthCallback />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>

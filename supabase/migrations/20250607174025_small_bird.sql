@@ -1,7 +1,7 @@
 /*
   # Create users table for Unveil authentication
 
-  1. New Tables
+ 1. New Tables
     - `users`
       - `id` (uuid, primary key, references auth.users)
       - `email` (text, unique, not null)
@@ -9,10 +9,11 @@
       - `is_campus_user` (boolean, default false)
       - `joined_at` (timestamp, default now())
       - `updated_at` (timestamp, default now())
+ - `topics` (text[], nullable)
 
   2. Security
-    - Enable RLS on `users` table
-    - Add policy for users to read/write their own data only
+ - Enable RLS on `users` table
+ - Add policy for users to read/write their own data only
     - Add policy for service role to read digest opt-in users
 
   3. Functions
@@ -27,7 +28,8 @@ CREATE TABLE IF NOT EXISTS users (
   digest_opt_in boolean DEFAULT false,
   is_campus_user boolean DEFAULT false,
   joined_at timestamptz DEFAULT now(),
-  updated_at timestamptz DEFAULT now()
+  updated_at timestamptz DEFAULT now(),
+  topics text[] NULL
 );
 
 -- Enable RLS
