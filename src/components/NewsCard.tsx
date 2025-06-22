@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { topicFeeds } from '@/components/constants/topicFeeds';
 import { NewsCard } from './NewsCard';
-import Parser from 'rss-parser'; // npm install rss-parser
-
-const parser = new Parser();
 
 export const NewsFeed = ({ userProfile }) => {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Get selected topics either from userProfile or localStorage for guests
   const getSelectedTopics = () => {
     if (userProfile?.topics?.length) return userProfile.topics;
-
     const guestTopics = localStorage.getItem('unveil_guest_topics');
     return guestTopics ? JSON.parse(guestTopics) : [];
   };
@@ -23,22 +18,19 @@ export const NewsFeed = ({ userProfile }) => {
       const selectedTopics = getSelectedTopics();
       let rssUrls = [];
 
-      // Collect RSS feed URLs for selected topics from topicFeeds
       selectedTopics.forEach(topic => {
         if (topicFeeds[topic]) {
           rssUrls.push(...topicFeeds[topic]);
         }
       });
 
-      // Randomize and limit to 5 feeds
       const randomFeeds = rssUrls.sort(() => 0.5 - Math.random()).slice(0, 5);
-
       const allArticles = [];
 
       for (const feedUrl of randomFeeds) {
         try {
-          // Fetch through your backend proxy endpoint
-          const feed = await parser.parseURL(`/api/rss-proxy?url=${encodeURIComponent(feedUrl)}`);
+          const res = await fetch(`/api/rss-proxy?url=${encodeURIComponent(feedUrl)}`);
+          const feed = await res.json();
 
           feed.items.slice(0, 3).forEach(item => {
             allArticles.push({
