@@ -1,21 +1,21 @@
-// File: /api/rss-proxy.ts
-import type { VercelRequest, VercelResponse } from '@vercel/node';
-import fetch from 'node-fetch';
+// /src/pages/api/rss-proxy.ts
+import type { NextApiRequest, NextApiResponse } from 'next';
+import Parser from 'rss-parser';
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+const parser = new Parser();
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const feedUrl = req.query.url as string;
 
   if (!feedUrl) {
-    return res.status(400).json({ error: 'Missing URL parameter' });
+    return res.status(400).json({ error: 'Missing RSS feed URL' });
   }
 
   try {
-    const response = await fetch(feedUrl);
-    const xml = await response.text();
-
-    res.setHeader('Content-Type', 'application/xml');
-    return res.status(200).send(xml);
-  } catch (err) {
-    return res.status(500).json({ error: 'Failed to fetch RSS feed' });
+    const feed = await parser.parseURL(feedUrl);
+    res.status(200).json(feed);
+  } catch (error) {
+    console.error('Failed to parse RSS:', error);
+    res.status(500).json({ error: 'Failed to parse RSS feed' });
   }
 }
