@@ -1,50 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NewsCard } from './NewsCard';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import { Brain, Sparkles, ChevronDown, Calendar } from 'lucide-react';
-
-const mockArticles = [
-  {
-    id: 1,
-    title: "Revolutionary AI Model Achieves Human-Level Reasoning in Complex Tasks",
-    source: "TechCrunch",
-    date: "2024-01-15T10:30:00Z",
-    summary: "Researchers at Stanford University have developed a new AI model that demonstrates unprecedented reasoning capabilities, potentially revolutionizing how machines understand and solve complex problems.",
-    category: "AI & Machine Learning",
-    sentiment: "positive",
-    readTime: "4 min read",
-    image: "/api/placeholder/400/200"
-  },
-  {
-    id: 2,
-    title: "Global Climate Summit Reaches Historic Agreement on Carbon Reduction",
-    source: "Reuters",
-    date: "2024-01-15T08:15:00Z",
-    summary: "World leaders agree on ambitious new targets for carbon reduction, with innovative funding mechanisms for developing nations and breakthrough clean energy initiatives.",
-    category: "Climate",
-    sentiment: "positive",
-    readTime: "6 min read",
-    image: "/api/placeholder/400/200"
-  },
-  {
-    id: 3,
-    title: "Market Volatility Continues as Tech Stocks Face Regulatory Pressure",
-    source: "Financial Times",
-    date: "2024-01-15T07:45:00Z",
-    summary: "Major technology companies experience significant stock price fluctuations following new regulatory proposals from the European Union regarding AI governance and data privacy.",
-    category: "Finance",
-    sentiment: "negative",
-    readTime: "3 min read",
-    image: "/api/placeholder/400/200"
-  }
-];
+import { topicFeeds } from '@/components/constants/topicFeeds';
 
 export const NewsFeed = ({ userProfile }) => {
   const [aiEnhanced, setAiEnhanced] = useState(true);
   const [briefingExpanded, setBriefingExpanded] = useState(false);
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const getSelectedTopics = () => {
+    if (userProfile?.topics?.length) return userProfile.topics;
+    const guestTopics = localStorage.getItem('unveil_guest_topics');
+    return guestTopics ? JSON.parse(guestTopics) : [];
+  };
 
   const getTodaysBriefing = () => {
     return [
@@ -54,6 +27,52 @@ export const NewsFeed = ({ userProfile }) => {
       "New study reveals promising results for renewable energy storage solutions"
     ];
   };
+
+  useEffect(() => {
+    const fetchArticles = async () => {
+      setLoading(true);
+      const selectedTopics = getSelectedTopics();
+      let rssUrls = [];
+
+      selectedTopics.forEach(topic => {
+        if (topicFeeds[topic]) {
+          rssUrls.push(...topicFeeds[topic]);
+        }
+      });
+
+      const randomFeeds = rssUrls.sort(() => 0.5 - Math.random()).slice(0, 5);
+      const fetchedArticles = [];
+
+      for (const feedUrl of randomFeeds) {
+        try {
+          const res = await fetch(`/api/rss-proxy?url=${encodeURIComponent(feedUrl)}`);
+          const feed = await res.json();
+
+          feed.items.slice(0, 3).forEach(item => {
+            fetchedArticles.push({
+              title: item.title,
+              summary: item.contentSnippet || item.content || '',
+              url: item.link,
+              date: item.pubDate,
+              source: feed.title,
+              image: item.enclosure?.url || '',
+              category: selectedTopics.find(topic =>
+                topicFeeds[topic]?.includes(feedUrl)
+              ) || 'General',
+              sentiment: 'neutral',
+            });
+          });
+        } catch (err) {
+          console.error('Error fetching RSS feed:', feedUrl, err);
+        }
+      }
+
+      setArticles(fetchedArticles.sort(() => 0.5 - Math.random()));
+      setLoading(false);
+    };
+
+    fetchArticles();
+  }, [userProfile]);
 
   return (
     <div className="max-w-4xl mx-auto p-4 space-y-6">
@@ -115,17 +134,21 @@ export const NewsFeed = ({ userProfile }) => {
 
       {/* News Feed */}
       <div className="space-y-4">
-        {mockArticles.map((article) => (
-          <NewsCard 
-            key={article.id} 
-            article={article} 
-            aiEnhanced={aiEnhanced}
-            userProfile={userProfile}
-          />
-        ))}
+        {loading ? (
+          <div className="text-center py-10 text-gray-500">Loading personalized news...</div>
+        ) : (
+          articles.map((article, index) => (
+            <NewsCard
+              key={index}
+              article={article}
+              aiEnhanced={aiEnhanced}
+              userProfile={userProfile}
+            />
+          ))
+        )}
       </div>
 
-      {/* Load More */}
+      {/* Load More (optional placeholder button) */}
       <div className="text-center py-8">
         <Button 
           variant="outline" 
