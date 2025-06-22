@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NewsCard } from './NewsCard';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import { Brain, Sparkles, ChevronDown, Calendar } from 'lucide-react';
-import { topicFeeds } from '@/components/constants/topicFeeds';
+import { topicFeeds } from '@/components/constants/topicFeeds'; // make sure path is right
 
 export const NewsFeed = ({ userProfile }) => {
   const [aiEnhanced, setAiEnhanced] = useState(true);
@@ -13,66 +13,49 @@ export const NewsFeed = ({ userProfile }) => {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const getSelectedTopics = () => {
-    if (userProfile?.topics?.length) return userProfile.topics;
-    const guestTopics = localStorage.getItem('unveil_guest_topics');
-    return guestTopics ? JSON.parse(guestTopics) : [];
-  };
+  const selectedCategory = 'AI & Machine Learning'; // ← You can later get this from user profile
+  const feeds = topicFeeds[selectedCategory];
 
-  const getTodaysBriefing = () => {
-    return [
-      "AI breakthrough in reasoning capabilities shows 40% improvement over previous models",
-      "Global climate agreement secures $100B fund for clean energy transitions",
-      "Tech sector volatility continues with 15% average decline in major stocks",
-      "New study reveals promising results for renewable energy storage solutions"
-    ];
-  };
+  const getTodaysBriefing = () => [
+    "AI breakthrough in reasoning capabilities shows 40% improvement...",
+    "Global climate agreement secures $100B...",
+    "Tech sector volatility continues...",
+    "Promising results for renewable storage...",
+  ];
 
   useEffect(() => {
     const fetchArticles = async () => {
       setLoading(true);
-      const selectedTopics = getSelectedTopics();
-      let rssUrls = [];
+      try {
+        const allArticles = [];
 
-      selectedTopics.forEach(topic => {
-        if (topicFeeds[topic]) {
-          rssUrls.push(...topicFeeds[topic]);
+        for (let i = 0; i < Math.min(3, feeds.length); i++) { // Limit to 3 feeds for performance
+          const res = await fetch(`/api/rss-proxy?url=${encodeURIComponent(feeds[i])}`);
+          const data = await res.json();
+
+          allArticles.push(...data.map((item: any) => ({
+            title: item.title,
+            summary: item.contentSnippet || item.content || item.title,
+            source: item?.creator || new URL(item.link).hostname,
+            date: item.pubDate,
+            readTime: '3 min read', // You can improve this later
+            category: selectedCategory,
+            sentiment: 'neutral',   // Optionally run AI sentiment here
+            url: item.link,
+            image: item.enclosure?.url || '/placeholder.png',
+          })));
         }
-      });
 
-      const randomFeeds = rssUrls.sort(() => 0.5 - Math.random()).slice(0, 5);
-      const fetchedArticles = [];
-
-      for (const feedUrl of randomFeeds) {
-        try {
-          const res = await fetch(`/api/rss-proxy?url=${encodeURIComponent(feedUrl)}`);
-          const feed = await res.json();
-
-          feed.items.slice(0, 3).forEach(item => {
-            fetchedArticles.push({
-              title: item.title,
-              summary: item.contentSnippet || item.content || '',
-              url: item.link,
-              date: item.pubDate,
-              source: feed.title,
-              image: item.enclosure?.url || '',
-              category: selectedTopics.find(topic =>
-                topicFeeds[topic]?.includes(feedUrl)
-              ) || 'General',
-              sentiment: 'neutral',
-            });
-          });
-        } catch (err) {
-          console.error('Error fetching RSS feed:', feedUrl, err);
-        }
+        setArticles(allArticles);
+      } catch (err) {
+        console.error('Failed to load RSS feeds:', err);
+      } finally {
+        setLoading(false);
       }
-
-      setArticles(fetchedArticles.sort(() => 0.5 - Math.random()));
-      setLoading(false);
     };
 
     fetchArticles();
-  }, [userProfile]);
+  }, [feeds]);
 
   return (
     <div className="max-w-4xl mx-auto p-4 space-y-6">
@@ -82,7 +65,7 @@ export const NewsFeed = ({ userProfile }) => {
           <h1 className="text-2xl font-bold text-gray-100">For You</h1>
           <p className="text-gray-400">Personalized for {userProfile?.userType || 'you'}</p>
         </div>
-        
+
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
             <span className="text-sm text-gray-400">AI Enhanced</span>
@@ -117,7 +100,6 @@ export const NewsFeed = ({ userProfile }) => {
             </Button>
           </div>
         </CardHeader>
-        
         {briefingExpanded && (
           <CardContent className="pt-0">
             <div className="space-y-2">
@@ -135,11 +117,11 @@ export const NewsFeed = ({ userProfile }) => {
       {/* News Feed */}
       <div className="space-y-4">
         {loading ? (
-          <div className="text-center py-10 text-gray-500">Loading personalized news...</div>
+          <p className="text-gray-400">Loading articles...</p>
         ) : (
-          articles.map((article, index) => (
+          articles.map((article, idx) => (
             <NewsCard
-              key={index}
+              key={idx}
               article={article}
               aiEnhanced={aiEnhanced}
               userProfile={userProfile}
@@ -148,10 +130,10 @@ export const NewsFeed = ({ userProfile }) => {
         )}
       </div>
 
-      {/* Load More (optional placeholder button) */}
+      {/* Load More Placeholder */}
       <div className="text-center py-8">
-        <Button 
-          variant="outline" 
+        <Button
+          variant="outline"
           className="bg-[#2e2e2e] border-gray-700 hover:bg-gray-800 text-gray-300"
         >
           Load More Articles
