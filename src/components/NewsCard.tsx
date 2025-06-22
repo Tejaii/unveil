@@ -6,6 +6,7 @@ export const NewsFeed = ({ userProfile }) => {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Get topics from profile or guest localStorage
   const getSelectedTopics = () => {
     if (userProfile?.topics?.length) return userProfile.topics;
     const guestTopics = localStorage.getItem('unveil_guest_topics');
@@ -16,14 +17,16 @@ export const NewsFeed = ({ userProfile }) => {
     const fetchArticles = async () => {
       setLoading(true);
       const selectedTopics = getSelectedTopics();
-      let rssUrls = [];
+      let rssUrls: string[] = [];
 
+      // Collect relevant feed URLs
       selectedTopics.forEach(topic => {
         if (topicFeeds[topic]) {
           rssUrls.push(...topicFeeds[topic]);
         }
       });
 
+      // Shuffle and limit
       const randomFeeds = rssUrls.sort(() => 0.5 - Math.random()).slice(0, 5);
       const allArticles = [];
 
@@ -32,7 +35,7 @@ export const NewsFeed = ({ userProfile }) => {
           const res = await fetch(`/api/rss-proxy?url=${encodeURIComponent(feedUrl)}`);
           const feed = await res.json();
 
-          feed.items.slice(0, 3).forEach(item => {
+          (feed.items || []).slice(0, 3).forEach(item => {
             allArticles.push({
               title: item.title,
               summary: item.contentSnippet || item.content || '',
@@ -40,9 +43,8 @@ export const NewsFeed = ({ userProfile }) => {
               date: item.pubDate,
               source: feed.title,
               image: item.enclosure?.url || '',
-              category: selectedTopics.find(topic =>
-                topicFeeds[topic]?.includes(feedUrl)
-              ) || 'General',
+              category:
+                selectedTopics.find(topic => topicFeeds[topic]?.includes(feedUrl)) || 'General',
               sentiment: 'neutral',
             });
           });
@@ -61,9 +63,7 @@ export const NewsFeed = ({ userProfile }) => {
   return (
     <div className="space-y-4">
       {loading ? (
-        <div className="text-center py-10 text-gray-500">
-          Loading personalized news...
-        </div>
+        <div className="text-center py-10 text-gray-500">Loading personalized news...</div>
       ) : articles.length ? (
         articles.map((article, index) => (
           <NewsCard key={index} article={article} />
