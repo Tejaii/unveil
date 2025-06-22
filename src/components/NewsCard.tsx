@@ -1,76 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import { topicFeeds } from '@/components/constants/topicFeeds';
-import { NewsCard } from './NewsCard';
 
-export const NewsFeed = ({ userProfile }) => {
-  const [articles, setArticles] = useState([]);
-  const [loading, setLoading] = useState(true);
+import React from 'react';
 
-  // Get topics from profile or guest localStorage
-  const getSelectedTopics = () => {
-    if (userProfile?.topics?.length) return userProfile.topics;
-    const guestTopics = localStorage.getItem('unveil_guest_topics');
-    return guestTopics ? JSON.parse(guestTopics) : [];
-  };
-
-  useEffect(() => {
-    const fetchArticles = async () => {
-      setLoading(true);
-      const selectedTopics = getSelectedTopics();
-      let rssUrls: string[] = [];
-
-      // Collect relevant feed URLs
-      selectedTopics.forEach(topic => {
-        if (topicFeeds[topic]) {
-          rssUrls.push(...topicFeeds[topic]);
-        }
-      });
-
-      // Shuffle and limit
-      const randomFeeds = rssUrls.sort(() => 0.5 - Math.random()).slice(0, 5);
-      const allArticles = [];
-
-      for (const feedUrl of randomFeeds) {
-        try {
-          const res = await fetch(`/api/rss-proxy?url=${encodeURIComponent(feedUrl)}`);
-          const feed = await res.json();
-
-          (feed.items || []).slice(0, 3).forEach(item => {
-            allArticles.push({
-              title: item.title,
-              summary: item.contentSnippet || item.content || '',
-              url: item.link,
-              date: item.pubDate,
-              source: feed.title,
-              image: item.enclosure?.url || '',
-              category:
-                selectedTopics.find(topic => topicFeeds[topic]?.includes(feedUrl)) || 'General',
-              sentiment: 'neutral',
-            });
-          });
-        } catch (err) {
-          console.error('Error fetching RSS feed:', feedUrl, err);
-        }
-      }
-
-      setArticles(allArticles.sort(() => 0.5 - Math.random()));
-      setLoading(false);
-    };
-
-    fetchArticles();
-  }, [userProfile]);
-
+export const NewsCard = ({ article, aiEnhanced, userProfile }) => {
   return (
-    <div className="space-y-4">
-      {loading ? (
-        <div className="text-center py-10 text-gray-500">Loading personalized news...</div>
-      ) : articles.length ? (
-        articles.map((article, index) => (
-          <NewsCard key={index} article={article} />
-        ))
-      ) : (
-        <div className="text-center py-10 text-gray-400">
-          No articles found for your selected topics.
+    <div className="bg-[#1e1e1e] p-4 rounded-xl border border-gray-800 shadow-sm space-y-2">
+      {article.image && (
+        <img
+          src={article.image}
+          alt={article.title}
+          className="w-full h-48 object-cover rounded-md"
+        />
+      )}
+
+      <h2 className="text-xl font-semibold text-gray-100">{article.title}</h2>
+
+      <p className="text-sm text-gray-400">{article.summary}</p>
+
+      <div className="flex items-center justify-between pt-2 text-sm text-gray-500">
+        <span>{article.source}</span>
+        <span>{new Date(article.date).toLocaleDateString()}</span>
+      </div>
+
+      {aiEnhanced && (
+        <div className="text-xs text-blue-400 mt-2">
+          AI Mode: Showing enhanced content for {userProfile?.userType || 'guest'}
         </div>
       )}
     </div>
