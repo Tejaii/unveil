@@ -29,7 +29,7 @@ export const NewsFeed = ({ userProfile }) => {
       try {
         const allArticles = [];
 
-        for (let i = 0; i < Math.min(3, feeds.length); i++) { // Limit to 3 feeds for performance
+        for (let i = 0; i < Math.min(5, feeds.length); i++) { // Limit to 3 feeds for performance
           const apiUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/rss-proxy?url=${encodeURIComponent(feeds[i])}`;
           
           const headers = {
