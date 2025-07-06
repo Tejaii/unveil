@@ -1,16 +1,10 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { ArrowRight, Sparkles } from 'lucide-react';
-
-const interests = [
-  'AI & Machine Learning', 'Technology', 'Finance', 'Sports', 'Politics',
-  'Science', 'Health', 'Entertainment', 'Business', 'World News',
-  'Climate', 'Education', 'Culture', 'Gaming', 'Startups'
-];
+import { topicFeeds } from '@/components/constants/topicFeeds';
 
 const readingDepths = [
   { id: 'headlines', label: 'Headlines Only', desc: 'Quick overview of events' },
@@ -39,6 +33,7 @@ export const Onboarding = ({ onComplete }) => {
   const [selectedSchedule, setSelectedSchedule] = useState('');
 
   const progress = (step / 3) * 100;
+  const interests = Object.keys(topicFeeds); // Use actual topic feeds
 
   const handleInterestToggle = (interest) => {
     setSelectedInterests(prev => 
@@ -56,6 +51,10 @@ export const Onboarding = ({ onComplete }) => {
       schedule: selectedSchedule,
       completedAt: new Date().toISOString()
     };
+    
+    // Save to localStorage for immediate use
+    localStorage.setItem('unveil_guest_topics', JSON.stringify(selectedInterests));
+    
     onComplete(profile);
   };
 
