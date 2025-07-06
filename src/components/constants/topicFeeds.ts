@@ -1,5 +1,6 @@
 export const topicFeeds: Record<string, string[]> = {
   "AI & Machine Learning": [
+    "https://aibusiness.com/rss.xml",
     "https://ai-techpark.com/feed/",
     "https://aws.amazon.com/blogs/machine-learning/feed/",
     "https://www.amazon.science/index.rss",
