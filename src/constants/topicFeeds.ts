@@ -1,24 +1,13 @@
 export const topicFeeds: Record<string, string[]> = {
   "AI & Machine Learning": [
     "https://aibusiness.com/rss.xml",
-    "https://ai-techpark.com/feed/",
-    "https://aws.amazon.com/blogs/machine-learning/feed/",
-    "https://www.amazon.science/index.rss",
     "https://bair.berkeley.edu/blog/feed.xml",
-    "https://www.technologyreview.com/feed/",
-    "https://thegradient.pub/rss/",
-    "https://www.techrepublic.com/rssfeeds/topic/artificial-intelligence/",
     "https://www.sciencedaily.com/rss/computers_math/artificial_intelligence.xml",
   ],
   Technology: [
-    "https://techcrunch.com/feed/",
-    "https://www.wired.com/feed/rss",
-    "https://www.cnet.com/rss/news/",
+
     "https://www.computerweekly.com/rss/RSS-Feed.xml",
-    "https://www.techrepublic.com/rssfeeds/topic/tech-industry/",
-    "https://www.techrepublic.com/rssfeeds/topic/tech-and-work/",
-    "https://www.techrepublic.com/rssfeeds/topic/technology/",
-    "https://www.ft.com/rss/home",
+
   ],
   Finance: [
     "https://www.ft.com/rss/home",
@@ -39,39 +28,29 @@ export const topicFeeds: Record<string, string[]> = {
     "https://discover.sportsengineplay.com/rss",
   ],
   Politics: [
-    "https://apnews.com/hub/politics?outputType=rss",
+
     "https://rss.politico.com/politics-news.xml",
     "http://www.nytimes.com/services/xml/rss/nyt/Politics.xml",
-    "http://feeds.feedburner.com/AtlanticPoliticsChannel",
-    "https://feeds.washingtonpost.com/rss/politics",
     "https://www.cfr.org/rss/politics-and-government.xml",
     "https://news.un.org/feed/subscribe/en/news/all/rss.xml",
-    "https://www.chathamhouse.org/rss/whats-new",
-    "https://www.crisisgroup.org/rss-0",
-    "https://theintercept.com/politics/feed/",
+
   ],
   Science: [
     "https://www.sciencedaily.com/rss/all.xml",
     "https://www.sciencedaily.com/rss/top/science.xml",
     "https://www.sciencedaily.com/rss/top/technology.xml",
     "https://www.sciencedaily.com/rss/top/environment.xml",
-    "https://feeds.nature.com/nature/rss/current",
-    "https://www.nature.com/nature-current-issue.rss",
     "https://www.sciencemag.org/rss/current.xml",
     "https://www.sciencedaily.com/rss/earth_climate.xml",
   ],
   Health: [
-    "https://www.who.int/news",
-    "https://www.who.int/news-room/feature-stories",
+
     "https://medlineplus.gov/healthtopics.xml",
-    "https://feeds.feedburner.com/StrategyBusiness-HealthCare",
-    "https://www.healthline.com/health-news",
+
   ],
   Entertainment: [
     "https://www.tmz.com/rss.xml",
-    "https://www.etonline.com/news/rss",
-    "https://variety.com/feed/",
-    "https://ew.com/all/rss/",
+
   ],
   Business: [
     "https://www.businessinsider.com/rss",
@@ -87,16 +66,10 @@ export const topicFeeds: Record<string, string[]> = {
   "World News": [
     "http://feeds.bbci.co.uk/news/world/rss.xml",
     "https://www.aljazeera.com/xml/rss/all.xml",
-    "https://feeds.nbcnews.com/nbcnews/public/world",
-    "https://abcnews.go.com/abcnews/internationalheadlines",
-    "http://rss.cnn.com/rss/edition_world.rss",
+
   ],
   Climate: [
     "https://www.climate.gov/feeds/news.xml",
-    "https://www.ncei.noaa.gov/access/monitoring/dyk/sotc-rss",
-    "https://yaleclimateconnections.org/feed/",
-    "https://feeds.feedburner.com/strategybusiness-esg",
-    "https://insideclimatenews.org/rss",
     "https://www.nhc.noaa.gov/gtwo.xml",
     "https://mosdac.gov.in/isrocast.xml",
     "https://mosdac.gov.in/3dimager.xml",
@@ -108,26 +81,16 @@ export const topicFeeds: Record<string, string[]> = {
     "https://rss.arxiv.org/rss/cs.CY",
   ],
   Culture: [
-    "https://www.newyorker.com/feed/culture",
+
     "https://feeds.npr.org/1008/rss.xml",
-    "https://www.theguardian.com/uk/culture/rss",
     "https://feeds.bbci.co.uk/news/entertainment_and_arts/rss.xml",
     "https://rss.nytimes.com/services/xml/rss/nyt/Arts.xml",
-    "https://hyperallergic.com/feed/",
-    "https://aeon.co/feed.rss",
   ],
   Gaming: [
-    "https://www.ign.com/rss/articles/feed?tags=games",
-    "http://gamespot.com/feeds/mashup/",
     "https://www.polygon.com/rss/index.xml",
-    "https://kotaku.com/rss",
-    "https://www.pcgamer.com/rss/",
-    "http://rockpapershotgun.com/feed",
-    "https://www.eurogamer.net/feed",
-    "https://www.nintendolife.com/feeds/news",
-    "https://www.destructoid.com/feed/",
+
   ],
-  "Startups": [
+  Startups: [
     "https://techcrunch.com/category/startups/feed/",
     "https://venturebeat.com/category/entrepreneur/feed/",
     "https://yourstory.com/feed",
