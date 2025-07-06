@@ -30,7 +30,20 @@ export const NewsFeed = ({ userProfile }) => {
         const allArticles = [];
 
         for (let i = 0; i < Math.min(3, feeds.length); i++) { // Limit to 3 feeds for performance
-          const res = await fetch(`/api/rss-proxy?url=${encodeURIComponent(feeds[i])}`);
+          const apiUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/rss-proxy?url=${encodeURIComponent(feeds[i])}`;
+          
+          const headers = {
+            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+            'Content-Type': 'application/json',
+          };
+
+          const res = await fetch(apiUrl, { headers });
+          
+          if (!res.ok) {
+            console.error(`Failed to fetch from ${feeds[i]}: ${res.status}`);
+            continue;
+          }
+
           const data = await res.json();
 
           allArticles.push(...data.map((item: any) => ({
