@@ -89,7 +89,8 @@ export const NewsFeed = ({ userProfile }) => {
                 category: topic,
                 sentiment: 'neutral',
                 url: item.link,
-                image: item.enclosure?.url || `https://images.pexels.com/photos/518543/pexels-photo-518543.jpeg?auto=compress&cs=tinysrgb&w=400`,
+                // Only include image if it exists in the RSS feed
+                image: item.enclosure?.url || null,
               }));
 
               allArticles.push(...topicArticles);

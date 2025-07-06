@@ -9,6 +9,12 @@ export const NewsCard = ({ article, aiEnhanced, userProfile }) => {
     }
   };
 
+  // Check if we have a valid image URL that's not a placeholder
+  const hasValidImage = article.image && 
+    article.image !== '' && 
+    !article.image.includes('pexels.com') && // Remove placeholder images
+    !article.image.includes('placeholder');
+
   return (
     <div 
       className="bg-[#1e1e1e] p-6 rounded-xl border border-gray-800 shadow-sm space-y-4 hover:bg-[#252525] transition-colors cursor-pointer group"
@@ -58,7 +64,7 @@ export const NewsCard = ({ article, aiEnhanced, userProfile }) => {
           </div>
         </div>
 
-        {article.image && (
+        {hasValidImage && (
           <div className="flex-shrink-0">
             <img
               src={article.image}
