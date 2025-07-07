@@ -5,54 +5,50 @@
 @layer base {
   :root {
     /* Light mode colors */
-    --background: #FFFFFF;
-    --tile-background: #F5F5E5;
-    --tile-text: #000000;
-    --header-bg: #EDEDED;
-    --button-bg: #FFFFFF;
-    --button-text: #000000;
-    --container-border: #B0B0FF;
-    
-    /* Additional semantic colors */
-    --foreground: #000000;
+    --background: #FAFAFA;
+    --card: #FFFFFF;
+    --foreground: #1A1A1A;
     --muted: #6B7280;
     --muted-foreground: #4B5563;
-    --accent: #F5F5E5;
-    --accent-foreground: #000000;
+    --border: #D6D6E7;
+    --input: #D6D6E7;
+    --ring: #4B6CFF;
+    --primary: #4B6CFF;
+    --primary-foreground: #FFFFFF;
+    --secondary: #F3F4F6;
+    --secondary-foreground: #1A1A1A;
+    --accent: #F9FAFB;
+    --accent-foreground: #1A1A1A;
     --destructive: #EF4444;
     --destructive-foreground: #FFFFFF;
-    --ring: #B0B0FF;
-    --input: #E5E7EB;
     
-    --radius: 0.5rem;
+    --radius: 0.75rem;
   }
 
   .dark {
     /* Dark mode colors */
-    --background: #000000;
-    --tile-background: #C8C8AE;
-    --tile-text: #000000;
-    --header-bg: #1A1A1A;
-    --button-bg: #1A1A1A;
-    --button-text: #FFFFFF;
-    --container-border: #3D3DFF;
-    
-    /* Additional semantic colors for dark mode */
-    --foreground: #FFFFFF;
+    --background: #121212;
+    --card: #1E1E1E;
+    --foreground: #FAFAFA;
     --muted: #9CA3AF;
     --muted-foreground: #D1D5DB;
-    --accent: #C8C8AE;
-    --accent-foreground: #000000;
+    --border: #3A3A4A;
+    --input: #3A3A4A;
+    --ring: #7D9CFF;
+    --primary: #7D9CFF;
+    --primary-foreground: #121212;
+    --secondary: #2A2A2A;
+    --secondary-foreground: #FAFAFA;
+    --accent: #262626;
+    --accent-foreground: #FAFAFA;
     --destructive: #DC2626;
-    --destructive-foreground: #FFFFFF;
-    --ring: #3D3DFF;
-    --input: #374151;
+    --destructive-foreground: #FAFAFA;
   }
 }
 
 @layer base {
   * {
-    @apply border-container-border transition-colors duration-300 ease-in-out;
+    @apply border-border;
   }
 
   html {
@@ -60,43 +56,31 @@
   }
 
   body {
-    @apply bg-background text-foreground transition-all duration-300 ease-in-out;
+    @apply bg-background text-foreground;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   }
 
-  /* Smooth transitions for theme switching */
+  /* Smooth transitions for all elements */
   *, *::before, *::after {
-    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    transition: all 0.3s ease;
   }
 }
 
 /* Custom utility classes */
 @layer utilities {
-  .bg-tile {
-    background-color: var(--tile-background);
+  .shadow-soft {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   }
   
-  .text-tile {
-    color: var(--tile-text);
+  .shadow-soft-lg {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
   
-  .bg-header {
-    background-color: var(--header-bg);
+  .dark .shadow-soft {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
   }
   
-  .bg-button {
-    background-color: var(--button-bg);
-  }
-  
-  .text-button {
-    color: var(--button-text);
-  }
-  
-  .border-container {
-    border-color: var(--container-border);
-  }
-  
-  .ring-container {
-    --tw-ring-color: var(--container-border);
+  .dark .shadow-soft-lg {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
   }
 }

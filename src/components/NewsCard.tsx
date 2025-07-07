@@ -17,7 +17,7 @@ export const NewsCard = ({ article, aiEnhanced, userProfile }) => {
 
   return (
     <div 
-      className="bg-tile-background p-6 rounded-xl border border-container-border shadow-sm space-y-4 hover:shadow-md transition-all duration-300 cursor-pointer group"
+      className="bg-card p-6 rounded-lg shadow-soft space-y-4 hover:shadow-soft-lg cursor-pointer group border-0"
       onClick={handleClick}
     >
       <div className="flex items-start justify-between gap-4">
@@ -25,21 +25,21 @@ export const NewsCard = ({ article, aiEnhanced, userProfile }) => {
           <div className="flex items-center gap-2 flex-wrap">
             <Badge 
               variant="outline" 
-              className="bg-button-bg text-button-text border-container-border text-xs transition-colors"
+              className="bg-secondary text-secondary-foreground border-border text-xs"
             >
               {article.category}
             </Badge>
             {aiEnhanced && (
               <Badge 
                 variant="outline" 
-                className="bg-blue-50 text-blue-600 border-blue-200 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-700/50 text-xs transition-colors"
+                className="bg-primary/10 text-primary border-primary/20 text-xs"
               >
                 AI Enhanced
               </Badge>
             )}
           </div>
 
-          <h2 className="text-xl font-semibold text-tile-text leading-tight group-hover:text-foreground transition-colors">
+          <h2 className="text-xl font-semibold text-foreground leading-tight group-hover:text-primary">
             {article.title}
           </h2>
 
@@ -60,7 +60,7 @@ export const NewsCard = ({ article, aiEnhanced, userProfile }) => {
               <span>{new Date(article.date).toLocaleDateString()}</span>
             </div>
             
-            <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors" />
+            <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary" />
           </div>
         </div>
 
@@ -69,7 +69,7 @@ export const NewsCard = ({ article, aiEnhanced, userProfile }) => {
             <img
               src={article.image}
               alt={article.title}
-              className="w-24 h-24 object-cover rounded-lg border border-container-border transition-all duration-300"
+              className="w-24 h-24 object-cover rounded-lg"
               onError={(e) => {
                 e.target.style.display = 'none';
               }}
@@ -79,7 +79,7 @@ export const NewsCard = ({ article, aiEnhanced, userProfile }) => {
       </div>
 
       {aiEnhanced && (
-        <div className="text-xs text-blue-600 bg-blue-50 dark:bg-blue-900/20 dark:text-blue-400 p-2 rounded border border-blue-200 dark:border-blue-800/30 transition-colors">
+        <div className="text-xs text-primary bg-primary/5 p-2 rounded border border-primary/10">
           <span className="font-medium">AI Insight:</span> This article aligns with your interest in {article.category.toLowerCase()} and matches your {userProfile?.userType || 'user'} profile.
         </div>
       )}
