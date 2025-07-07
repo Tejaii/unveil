@@ -24,37 +24,37 @@ export const TopNavigation = ({ onMenuClick, onViewChange, currentView }) => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#1e1e1e] border-b border-gray-800 shadow-sm">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-header-bg border-b border-container-border shadow-sm transition-all duration-300">
       <div className="flex items-center justify-between px-4 py-3">
         <div className="flex items-center gap-4">
           <Button
             variant="ghost"
             size="sm"
             onClick={onMenuClick}
-            className="text-gray-300 hover:bg-gray-800"
+            className="text-foreground hover:bg-tile-background transition-colors"
           >
             <Menu className="w-5 h-5" />
           </Button>
           
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-r from-gray-700 to-gray-800 flex items-center justify-center">
-              <span className="text-gray-200 font-bold text-sm">U</span>
+            <div className="w-8 h-8 rounded-full bg-gradient-to-r from-container-border to-blue-500 flex items-center justify-center">
+              <span className="text-white font-bold text-sm">U</span>
             </div>
-            <h1 className="text-xl font-bold text-gray-100 hidden sm:block">Unveil</h1>
+            <h1 className="text-xl font-bold text-foreground hidden sm:block">Unveil</h1>
           </div>
         </div>
 
         {!isMobile && (
           <Button
             variant="outline"
-            className="flex-1 max-w-md mx-4 justify-between bg-[#2e2e2e] border-gray-700 text-gray-300"
+            className="flex-1 max-w-md mx-4 justify-between bg-button-bg border-container-border text-button-text hover:bg-tile-background transition-colors"
             onClick={toggleSearch}
           >
             <div className="flex items-center gap-2">
-              <Search className="w-4 h-4 text-gray-400" />
-              <span className="text-gray-400">Search...</span>
+              <Search className="w-4 h-4 text-muted-foreground" />
+              <span className="text-muted-foreground">Search...</span>
             </div>
-            <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border border-gray-700 bg-[#1e1e1e] px-1.5 font-mono text-[10px] font-medium text-gray-400 opacity-100">
+            <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border border-container-border bg-tile-background px-1.5 font-mono text-[10px] font-medium text-tile-text opacity-100">
               <span className="text-xs">⌘</span>K
             </kbd>
           </Button>
@@ -65,7 +65,7 @@ export const TopNavigation = ({ onMenuClick, onViewChange, currentView }) => {
             variant="ghost"
             size="sm"
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="text-gray-300 hover:bg-gray-800"
+            className="text-foreground hover:bg-tile-background transition-colors"
           >
             {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
           </Button>
@@ -73,7 +73,7 @@ export const TopNavigation = ({ onMenuClick, onViewChange, currentView }) => {
           <Button
             variant="ghost"
             size="sm"
-            className="text-gray-300 hover:bg-gray-800"
+            className="text-foreground hover:bg-tile-background transition-colors"
           >
             <Bell className="w-4 h-4" />
           </Button>
@@ -86,14 +86,14 @@ export const TopNavigation = ({ onMenuClick, onViewChange, currentView }) => {
         <div className="px-4 pb-3">
           <Button
             variant="outline"
-            className="w-full justify-between bg-[#2e2e2e] border-gray-700 text-gray-300"
+            className="w-full justify-between bg-button-bg border-container-border text-button-text hover:bg-tile-background transition-colors"
             onClick={toggleSearch}
           >
             <div className="flex items-center gap-2">
-              <Search className="w-4 h-4 text-gray-400" />
-              <span className="text-gray-400">Search...</span>
+              <Search className="w-4 h-4 text-muted-foreground" />
+              <span className="text-muted-foreground">Search...</span>
             </div>
-            <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border border-gray-700 bg-[#1e1e1e] px-1.5 font-mono text-[10px] font-medium text-gray-400 opacity-100">
+            <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border border-container-border bg-tile-background px-1.5 font-mono text-[10px] font-medium text-tile-text opacity-100">
               <span className="text-xs">⌘</span>K
             </kbd>
           </Button>

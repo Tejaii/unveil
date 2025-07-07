@@ -132,32 +132,32 @@ export const NewsFeed = ({ userProfile }) => {
       {/* Header Controls */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-100">For You</h1>
-          <p className="text-gray-400">
+          <h1 className="text-2xl font-bold text-foreground">For You</h1>
+          <p className="text-muted-foreground">
             Personalized for {userProfile?.userType || 'you'} • {selectedTopics.length} topics
           </p>
         </div>
 
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
-            <span className="text-sm text-gray-400">AI Enhanced</span>
+            <span className="text-sm text-muted-foreground">AI Enhanced</span>
             <Switch 
               checked={aiEnhanced} 
               onCheckedChange={setAiEnhanced}
-              className="data-[state=checked]:bg-gray-700"
+              className="data-[state=checked]:bg-container-border"
             />
-            <Brain className="w-4 h-4 text-gray-400" />
+            <Brain className="w-4 h-4 text-muted-foreground" />
           </div>
         </div>
       </div>
 
       {/* Topic Preferences */}
-      <Card className="bg-[#1e1e1e] border-gray-800">
+      <Card className="bg-tile-background border-container-border transition-colors">
         <CardHeader>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Settings className="w-5 h-5 text-gray-300" />
-              <CardTitle className="text-lg text-gray-100">Your Topics</CardTitle>
+              <Settings className="w-5 h-5 text-tile-text" />
+              <CardTitle className="text-lg text-tile-text">Your Topics</CardTitle>
             </div>
           </div>
         </CardHeader>
@@ -169,8 +169,8 @@ export const NewsFeed = ({ userProfile }) => {
                 variant={selectedTopics.includes(topic) ? "default" : "outline"}
                 className={`cursor-pointer transition-all ${
                   selectedTopics.includes(topic)
-                    ? 'bg-gray-700 text-gray-100 hover:bg-gray-600'
-                    : 'bg-gray-800 text-gray-300 border-gray-600 hover:bg-gray-700'
+                    ? 'bg-container-border text-white hover:bg-blue-600'
+                    : 'bg-button-bg text-button-text border-container-border hover:bg-tile-background'
                 }`}
                 onClick={() => handleTopicToggle(topic)}
               >
@@ -178,20 +178,20 @@ export const NewsFeed = ({ userProfile }) => {
               </Badge>
             ))}
           </div>
-          <p className="text-xs text-gray-500 mt-2">
+          <p className="text-xs text-muted-foreground mt-2">
             Click topics to customize your feed • {selectedTopics.length} selected
           </p>
         </CardContent>
       </Card>
 
       {/* Today's Briefing */}
-      <Card className="bg-[#1e1e1e] border-gray-800">
+      <Card className="bg-tile-background border-container-border transition-colors">
         <CardHeader>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Calendar className="w-5 h-5 text-gray-300" />
-              <CardTitle className="text-lg text-gray-100">Today's Briefing</CardTitle>
-              <Badge variant="secondary" className="bg-gray-800 text-gray-300">
+              <Calendar className="w-5 h-5 text-tile-text" />
+              <CardTitle className="text-lg text-tile-text">Today's Briefing</CardTitle>
+              <Badge variant="secondary" className="bg-button-bg text-button-text border-container-border">
                 {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
               </Badge>
             </div>
@@ -199,7 +199,7 @@ export const NewsFeed = ({ userProfile }) => {
               variant="ghost"
               size="sm"
               onClick={() => setBriefingExpanded(!briefingExpanded)}
-              className="text-gray-400 hover:bg-gray-800"
+              className="text-muted-foreground hover:bg-button-bg transition-colors"
             >
               <ChevronDown className={`w-4 h-4 transition-transform ${briefingExpanded ? 'rotate-180' : ''}`} />
             </Button>
@@ -210,8 +210,8 @@ export const NewsFeed = ({ userProfile }) => {
             <div className="space-y-2">
               {getTodaysBriefing().map((item, index) => (
                 <div key={index} className="flex items-start gap-2">
-                  <Sparkles className="w-4 h-4 text-gray-500 mt-0.5 flex-shrink-0" />
-                  <p className="text-sm text-gray-300">{item}</p>
+                  <Sparkles className="w-4 h-4 text-muted-foreground mt-0.5 flex-shrink-0" />
+                  <p className="text-sm text-tile-text">{item}</p>
                 </div>
               ))}
             </div>
@@ -224,10 +224,10 @@ export const NewsFeed = ({ userProfile }) => {
         {loading ? (
           <div className="space-y-4">
             {[...Array(3)].map((_, i) => (
-              <div key={i} className="bg-[#1e1e1e] p-4 rounded-xl border border-gray-800 animate-pulse">
-                <div className="h-4 bg-gray-700 rounded w-3/4 mb-2"></div>
-                <div className="h-3 bg-gray-700 rounded w-1/2 mb-2"></div>
-                <div className="h-3 bg-gray-700 rounded w-1/4"></div>
+              <div key={i} className="bg-tile-background p-4 rounded-xl border border-container-border animate-pulse transition-colors">
+                <div className="h-4 bg-muted rounded w-3/4 mb-2"></div>
+                <div className="h-3 bg-muted rounded w-1/2 mb-2"></div>
+                <div className="h-3 bg-muted rounded w-1/4"></div>
               </div>
             ))}
           </div>
@@ -241,10 +241,10 @@ export const NewsFeed = ({ userProfile }) => {
             />
           ))
         ) : (
-          <Card className="bg-[#1e1e1e] border-gray-800">
+          <Card className="bg-tile-background border-container-border transition-colors">
             <CardContent className="p-8 text-center">
-              <p className="text-gray-400 mb-4">No articles found for your selected topics.</p>
-              <p className="text-sm text-gray-500">Try selecting different topics above.</p>
+              <p className="text-muted-foreground mb-4">No articles found for your selected topics.</p>
+              <p className="text-sm text-muted-foreground">Try selecting different topics above.</p>
             </CardContent>
           </Card>
         )}
@@ -255,7 +255,7 @@ export const NewsFeed = ({ userProfile }) => {
         <div className="text-center py-8">
           <Button
             variant="outline"
-            className="bg-[#2e2e2e] border-gray-700 hover:bg-gray-800 text-gray-300"
+            className="bg-button-bg border-container-border hover:bg-tile-background text-button-text transition-colors"
             onClick={() => window.location.reload()}
           >
             Refresh Feed

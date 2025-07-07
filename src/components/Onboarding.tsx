@@ -59,40 +59,40 @@ export const Onboarding = ({ onComplete }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-gray-50/80 to-gray-100/80 backdrop-blur-sm">
-      <Card className="w-full max-w-2xl bg-white/70 backdrop-blur-lg border-gray-200/50 shadow-2xl">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-background">
+      <Card className="w-full max-w-2xl bg-tile-background border-container-border shadow-2xl transition-colors">
         <CardHeader className="text-center space-y-4">
           <div className="flex items-center justify-center gap-2">
-            <Sparkles className="w-8 h-8 text-gray-700" />
-            <h1 className="text-3xl font-bold text-gray-900">Unveil</h1>
+            <Sparkles className="w-8 h-8 text-container-border" />
+            <h1 className="text-3xl font-bold text-tile-text">Unveil</h1>
           </div>
-          <p className="text-gray-600">Personalize your AI-powered news experience</p>
+          <p className="text-muted-foreground">Personalize your AI-powered news experience</p>
           <Progress value={progress} className="w-full h-2" />
-          <p className="text-sm text-gray-500">Step {step} of 3</p>
+          <p className="text-sm text-muted-foreground">Step {step} of 3</p>
         </CardHeader>
 
         <CardContent className="space-y-6">
           {step === 1 && (
             <div className="space-y-6">
               <div className="text-center">
-                <h2 className="text-2xl font-semibold text-gray-900 mb-2">What describes you best?</h2>
-                <p className="text-gray-600">This helps us tailor your content zones</p>
+                <h2 className="text-2xl font-semibold text-tile-text mb-2">What describes you best?</h2>
+                <p className="text-muted-foreground">This helps us tailor your content zones</p>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {userTypes.map((type) => (
                   <Card
                     key={type.id}
-                    className={`cursor-pointer transition-all duration-200 hover:scale-105 ${
+                    className={`cursor-pointer transition-all duration-200 hover:scale-105 border-container-border ${
                       selectedType === type.id 
-                        ? 'ring-2 ring-gray-400 bg-gray-50/80' 
-                        : 'bg-white/50 hover:bg-gray-50/60'
+                        ? 'ring-2 ring-container-border bg-button-bg' 
+                        : 'bg-background hover:bg-tile-background'
                     }`}
                     onClick={() => setSelectedType(type.id)}
                   >
                     <CardContent className="p-4">
-                      <h3 className="font-semibold text-gray-900">{type.label}</h3>
-                      <p className="text-sm text-gray-600 mt-1">{type.desc}</p>
+                      <h3 className="font-semibold text-tile-text">{type.label}</h3>
+                      <p className="text-sm text-muted-foreground mt-1">{type.desc}</p>
                     </CardContent>
                   </Card>
                 ))}
@@ -102,7 +102,7 @@ export const Onboarding = ({ onComplete }) => {
                 <Button 
                   onClick={() => setStep(2)}
                   disabled={!selectedType}
-                  className="bg-gray-900 hover:bg-gray-800 text-white"
+                  className="bg-container-border hover:bg-blue-600 text-white transition-colors"
                 >
                   Next <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
@@ -113,8 +113,8 @@ export const Onboarding = ({ onComplete }) => {
           {step === 2 && (
             <div className="space-y-6">
               <div className="text-center">
-                <h2 className="text-2xl font-semibold text-gray-900 mb-2">What interests you?</h2>
-                <p className="text-gray-600">Select topics you'd like to follow (choose 3-8)</p>
+                <h2 className="text-2xl font-semibold text-tile-text mb-2">What interests you?</h2>
+                <p className="text-muted-foreground">Select topics you'd like to follow (choose 3-8)</p>
               </div>
               
               <div className="flex flex-wrap gap-2">
@@ -124,8 +124,8 @@ export const Onboarding = ({ onComplete }) => {
                     variant={selectedInterests.includes(interest) ? "default" : "outline"}
                     className={`cursor-pointer px-3 py-2 transition-all duration-200 hover:scale-105 ${
                       selectedInterests.includes(interest)
-                        ? 'bg-gray-900 text-white'
-                        : 'bg-white/70 text-gray-700 hover:bg-gray-100/80'
+                        ? 'bg-container-border text-white'
+                        : 'bg-button-bg text-button-text border-container-border hover:bg-tile-background'
                     }`}
                     onClick={() => handleInterestToggle(interest)}
                   >
@@ -138,14 +138,14 @@ export const Onboarding = ({ onComplete }) => {
                 <Button 
                   variant="outline" 
                   onClick={() => setStep(1)}
-                  className="bg-white/70 border-gray-300"
+                  className="bg-button-bg border-container-border text-button-text hover:bg-tile-background transition-colors"
                 >
                   Back
                 </Button>
                 <Button 
                   onClick={() => setStep(3)}
                   disabled={selectedInterests.length < 3}
-                  className="bg-gray-900 hover:bg-gray-800 text-white"
+                  className="bg-container-border hover:bg-blue-600 text-white transition-colors"
                 >
                   Next <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
@@ -156,29 +156,29 @@ export const Onboarding = ({ onComplete }) => {
           {step === 3 && (
             <div className="space-y-6">
               <div className="text-center">
-                <h2 className="text-2xl font-semibold text-gray-900 mb-2">Reading Preferences</h2>
-                <p className="text-gray-600">How do you prefer to consume news?</p>
+                <h2 className="text-2xl font-semibold text-tile-text mb-2">Reading Preferences</h2>
+                <p className="text-muted-foreground">How do you prefer to consume news?</p>
               </div>
               
               <div className="space-y-4">
                 <div>
-                  <h3 className="font-medium text-gray-900 mb-3">Reading Depth</h3>
+                  <h3 className="font-medium text-tile-text mb-3">Reading Depth</h3>
                   <div className="space-y-2">
                     {readingDepths.map((depth) => (
                       <Card
                         key={depth.id}
-                        className={`cursor-pointer transition-all duration-200 ${
+                        className={`cursor-pointer transition-all duration-200 border-container-border ${
                           selectedDepth === depth.id 
-                            ? 'ring-2 ring-gray-400 bg-gray-50/80' 
-                            : 'bg-white/50 hover:bg-gray-50/60'
+                            ? 'ring-2 ring-container-border bg-button-bg' 
+                            : 'bg-background hover:bg-tile-background'
                         }`}
                         onClick={() => setSelectedDepth(depth.id)}
                       >
                         <CardContent className="p-3">
                           <div className="flex justify-between items-center">
                             <div>
-                              <h4 className="font-medium text-gray-900">{depth.label}</h4>
-                              <p className="text-sm text-gray-600">{depth.desc}</p>
+                              <h4 className="font-medium text-tile-text">{depth.label}</h4>
+                              <p className="text-sm text-muted-foreground">{depth.desc}</p>
                             </div>
                           </div>
                         </CardContent>
@@ -188,23 +188,23 @@ export const Onboarding = ({ onComplete }) => {
                 </div>
 
                 <div>
-                  <h3 className="font-medium text-gray-900 mb-3">Reading Schedule</h3>
+                  <h3 className="font-medium text-tile-text mb-3">Reading Schedule</h3>
                   <div className="space-y-2">
                     {schedules.map((schedule) => (
                       <Card
                         key={schedule.id}
-                        className={`cursor-pointer transition-all duration-200 ${
+                        className={`cursor-pointer transition-all duration-200 border-container-border ${
                           selectedSchedule === schedule.id 
-                            ? 'ring-2 ring-gray-400 bg-gray-50/80' 
-                            : 'bg-white/50 hover:bg-gray-50/60'
+                            ? 'ring-2 ring-container-border bg-button-bg' 
+                            : 'bg-background hover:bg-tile-background'
                         }`}
                         onClick={() => setSelectedSchedule(schedule.id)}
                       >
                         <CardContent className="p-3">
                           <div className="flex justify-between items-center">
                             <div>
-                              <h4 className="font-medium text-gray-900">{schedule.label}</h4>
-                              <p className="text-sm text-gray-600">{schedule.desc}</p>
+                              <h4 className="font-medium text-tile-text">{schedule.label}</h4>
+                              <p className="text-sm text-muted-foreground">{schedule.desc}</p>
                             </div>
                           </div>
                         </CardContent>
@@ -218,14 +218,14 @@ export const Onboarding = ({ onComplete }) => {
                 <Button 
                   variant="outline" 
                   onClick={() => setStep(2)}
-                  className="bg-white/70 border-gray-300"
+                  className="bg-button-bg border-container-border text-button-text hover:bg-tile-background transition-colors"
                 >
                   Back
                 </Button>
                 <Button 
                   onClick={handleComplete}
                   disabled={!selectedDepth || !selectedSchedule}
-                  className="bg-gray-900 hover:bg-gray-800 text-white"
+                  className="bg-container-border hover:bg-blue-600 text-white transition-colors"
                 >
                   Complete Setup <Sparkles className="ml-2 w-4 h-4" />
                 </Button>

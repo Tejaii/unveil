@@ -4,71 +4,55 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
-
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 5.9% 10%;
-
+    /* Light mode colors */
+    --background: #FFFFFF;
+    --tile-background: #F5F5E5;
+    --tile-text: #000000;
+    --header-bg: #EDEDED;
+    --button-bg: #FFFFFF;
+    --button-text: #000000;
+    --container-border: #B0B0FF;
+    
+    /* Additional semantic colors */
+    --foreground: #000000;
+    --muted: #6B7280;
+    --muted-foreground: #4B5563;
+    --accent: #F5F5E5;
+    --accent-foreground: #000000;
+    --destructive: #EF4444;
+    --destructive-foreground: #FFFFFF;
+    --ring: #B0B0FF;
+    --input: #E5E7EB;
+    
     --radius: 0.5rem;
   }
 
   .dark {
-    --background: 240 10% 4%;
-    --foreground: 0 0% 98%;
-
-    --card: 240 10% 8%;
-    --card-foreground: 0 0% 98%;
-
-    --popover: 240 10% 8%;
-    --popover-foreground: 0 0% 98%;
-
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-
-    --secondary: 240 10% 12%;
-    --secondary-foreground: 0 0% 98%;
-
-    --muted: 240 10% 12%;
-    --muted-foreground: 240 5% 64.9%;
-
-    --accent: 240 10% 12%;
-    --accent-foreground: 0 0% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 240 10% 12%;
-    --input: 240 10% 12%;
-    --ring: 240 10% 12%;
+    /* Dark mode colors */
+    --background: #000000;
+    --tile-background: #C8C8AE;
+    --tile-text: #000000;
+    --header-bg: #1A1A1A;
+    --button-bg: #1A1A1A;
+    --button-text: #FFFFFF;
+    --container-border: #3D3DFF;
+    
+    /* Additional semantic colors for dark mode */
+    --foreground: #FFFFFF;
+    --muted: #9CA3AF;
+    --muted-foreground: #D1D5DB;
+    --accent: #C8C8AE;
+    --accent-foreground: #000000;
+    --destructive: #DC2626;
+    --destructive-foreground: #FFFFFF;
+    --ring: #3D3DFF;
+    --input: #374151;
   }
 }
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-container-border transition-colors duration-300 ease-in-out;
   }
 
   html {
@@ -76,6 +60,43 @@
   }
 
   body {
-    @apply bg-background text-foreground overflow-y-auto;
+    @apply bg-background text-foreground transition-all duration-300 ease-in-out;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  }
+
+  /* Smooth transitions for theme switching */
+  *, *::before, *::after {
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  }
+}
+
+/* Custom utility classes */
+@layer utilities {
+  .bg-tile {
+    background-color: var(--tile-background);
+  }
+  
+  .text-tile {
+    color: var(--tile-text);
+  }
+  
+  .bg-header {
+    background-color: var(--header-bg);
+  }
+  
+  .bg-button {
+    background-color: var(--button-bg);
+  }
+  
+  .text-button {
+    color: var(--button-text);
+  }
+  
+  .border-container {
+    border-color: var(--container-border);
+  }
+  
+  .ring-container {
+    --tw-ring-color: var(--container-border);
   }
 }
