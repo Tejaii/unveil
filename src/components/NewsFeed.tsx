@@ -144,7 +144,7 @@ export const NewsFeed = ({ userProfile }) => {
             <Switch 
               checked={aiEnhanced} 
               onCheckedChange={setAiEnhanced}
-              className="data-[state=checked]:bg-container-border"
+              className="data-[state=checked]:bg-primary"
             />
             <Brain className="w-4 h-4 text-muted-foreground" />
           </div>
@@ -152,12 +152,12 @@ export const NewsFeed = ({ userProfile }) => {
       </div>
 
       {/* Topic Preferences */}
-      <Card className="bg-tile-background border-container-border transition-colors">
+      <Card className="bg-card shadow-soft border-0">
         <CardHeader>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Settings className="w-5 h-5 text-tile-text" />
-              <CardTitle className="text-lg text-tile-text">Your Topics</CardTitle>
+              <Settings className="w-5 h-5 text-foreground" />
+              <CardTitle className="text-lg text-foreground">Your Topics</CardTitle>
             </div>
           </div>
         </CardHeader>
@@ -167,10 +167,10 @@ export const NewsFeed = ({ userProfile }) => {
               <Badge
                 key={topic}
                 variant={selectedTopics.includes(topic) ? "default" : "outline"}
-                className={`cursor-pointer transition-all ${
+                className={`cursor-pointer ${
                   selectedTopics.includes(topic)
-                    ? 'bg-container-border text-white hover:bg-blue-600'
-                    : 'bg-button-bg text-button-text border-container-border hover:bg-tile-background'
+                    ? 'bg-primary text-primary-foreground hover:bg-primary/90'
+                    : 'bg-secondary text-secondary-foreground border-border hover:bg-accent'
                 }`}
                 onClick={() => handleTopicToggle(topic)}
               >
@@ -185,13 +185,13 @@ export const NewsFeed = ({ userProfile }) => {
       </Card>
 
       {/* Today's Briefing */}
-      <Card className="bg-tile-background border-container-border transition-colors">
+      <Card className="bg-card shadow-soft border-0">
         <CardHeader>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Calendar className="w-5 h-5 text-tile-text" />
-              <CardTitle className="text-lg text-tile-text">Today's Briefing</CardTitle>
-              <Badge variant="secondary" className="bg-button-bg text-button-text border-container-border">
+              <Calendar className="w-5 h-5 text-foreground" />
+              <CardTitle className="text-lg text-foreground">Today's Briefing</CardTitle>
+              <Badge variant="secondary" className="bg-secondary text-secondary-foreground">
                 {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
               </Badge>
             </div>
@@ -199,9 +199,9 @@ export const NewsFeed = ({ userProfile }) => {
               variant="ghost"
               size="sm"
               onClick={() => setBriefingExpanded(!briefingExpanded)}
-              className="text-muted-foreground hover:bg-button-bg transition-colors"
+              className="text-muted-foreground hover:bg-accent"
             >
-              <ChevronDown className={`w-4 h-4 transition-transform ${briefingExpanded ? 'rotate-180' : ''}`} />
+              <ChevronDown className={`w-4 h-4 ${briefingExpanded ? 'rotate-180' : ''}`} />
             </Button>
           </div>
         </CardHeader>
@@ -211,7 +211,7 @@ export const NewsFeed = ({ userProfile }) => {
               {getTodaysBriefing().map((item, index) => (
                 <div key={index} className="flex items-start gap-2">
                   <Sparkles className="w-4 h-4 text-muted-foreground mt-0.5 flex-shrink-0" />
-                  <p className="text-sm text-tile-text">{item}</p>
+                  <p className="text-sm text-foreground">{item}</p>
                 </div>
               ))}
             </div>
@@ -224,7 +224,7 @@ export const NewsFeed = ({ userProfile }) => {
         {loading ? (
           <div className="space-y-4">
             {[...Array(3)].map((_, i) => (
-              <div key={i} className="bg-tile-background p-4 rounded-xl border border-container-border animate-pulse transition-colors">
+              <div key={i} className="bg-card p-4 rounded-lg shadow-soft animate-pulse border-0">
                 <div className="h-4 bg-muted rounded w-3/4 mb-2"></div>
                 <div className="h-3 bg-muted rounded w-1/2 mb-2"></div>
                 <div className="h-3 bg-muted rounded w-1/4"></div>
@@ -241,7 +241,7 @@ export const NewsFeed = ({ userProfile }) => {
             />
           ))
         ) : (
-          <Card className="bg-tile-background border-container-border transition-colors">
+          <Card className="bg-card shadow-soft border-0">
             <CardContent className="p-8 text-center">
               <p className="text-muted-foreground mb-4">No articles found for your selected topics.</p>
               <p className="text-sm text-muted-foreground">Try selecting different topics above.</p>
@@ -255,7 +255,7 @@ export const NewsFeed = ({ userProfile }) => {
         <div className="text-center py-8">
           <Button
             variant="outline"
-            className="bg-button-bg border-container-border hover:bg-tile-background text-button-text transition-colors"
+            className="bg-card border-border hover:bg-accent text-foreground"
             onClick={() => window.location.reload()}
           >
             Refresh Feed

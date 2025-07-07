@@ -60,11 +60,11 @@ export const Onboarding = ({ onComplete }) => {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-background">
-      <Card className="w-full max-w-2xl bg-tile-background border-container-border shadow-2xl transition-colors">
+      <Card className="w-full max-w-2xl bg-card shadow-soft-lg border-0">
         <CardHeader className="text-center space-y-4">
           <div className="flex items-center justify-center gap-2">
-            <Sparkles className="w-8 h-8 text-container-border" />
-            <h1 className="text-3xl font-bold text-tile-text">Unveil</h1>
+            <Sparkles className="w-8 h-8 text-primary" />
+            <h1 className="text-3xl font-bold text-foreground">Unveil</h1>
           </div>
           <p className="text-muted-foreground">Personalize your AI-powered news experience</p>
           <Progress value={progress} className="w-full h-2" />
@@ -75,7 +75,7 @@ export const Onboarding = ({ onComplete }) => {
           {step === 1 && (
             <div className="space-y-6">
               <div className="text-center">
-                <h2 className="text-2xl font-semibold text-tile-text mb-2">What describes you best?</h2>
+                <h2 className="text-2xl font-semibold text-foreground mb-2">What describes you best?</h2>
                 <p className="text-muted-foreground">This helps us tailor your content zones</p>
               </div>
               
@@ -83,15 +83,15 @@ export const Onboarding = ({ onComplete }) => {
                 {userTypes.map((type) => (
                   <Card
                     key={type.id}
-                    className={`cursor-pointer transition-all duration-200 hover:scale-105 border-container-border ${
+                    className={`cursor-pointer transition-all duration-200 hover:scale-105 border-0 shadow-soft ${
                       selectedType === type.id 
-                        ? 'ring-2 ring-container-border bg-button-bg' 
-                        : 'bg-background hover:bg-tile-background'
+                        ? 'ring-2 ring-primary bg-accent' 
+                        : 'bg-card hover:bg-accent'
                     }`}
                     onClick={() => setSelectedType(type.id)}
                   >
                     <CardContent className="p-4">
-                      <h3 className="font-semibold text-tile-text">{type.label}</h3>
+                      <h3 className="font-semibold text-foreground">{type.label}</h3>
                       <p className="text-sm text-muted-foreground mt-1">{type.desc}</p>
                     </CardContent>
                   </Card>
@@ -102,7 +102,7 @@ export const Onboarding = ({ onComplete }) => {
                 <Button 
                   onClick={() => setStep(2)}
                   disabled={!selectedType}
-                  className="bg-container-border hover:bg-blue-600 text-white transition-colors"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground"
                 >
                   Next <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
@@ -113,7 +113,7 @@ export const Onboarding = ({ onComplete }) => {
           {step === 2 && (
             <div className="space-y-6">
               <div className="text-center">
-                <h2 className="text-2xl font-semibold text-tile-text mb-2">What interests you?</h2>
+                <h2 className="text-2xl font-semibold text-foreground mb-2">What interests you?</h2>
                 <p className="text-muted-foreground">Select topics you'd like to follow (choose 3-8)</p>
               </div>
               
@@ -124,8 +124,8 @@ export const Onboarding = ({ onComplete }) => {
                     variant={selectedInterests.includes(interest) ? "default" : "outline"}
                     className={`cursor-pointer px-3 py-2 transition-all duration-200 hover:scale-105 ${
                       selectedInterests.includes(interest)
-                        ? 'bg-container-border text-white'
-                        : 'bg-button-bg text-button-text border-container-border hover:bg-tile-background'
+                        ? 'bg-primary text-primary-foreground'
+                        : 'bg-secondary text-secondary-foreground border-border hover:bg-accent'
                     }`}
                     onClick={() => handleInterestToggle(interest)}
                   >
@@ -138,14 +138,14 @@ export const Onboarding = ({ onComplete }) => {
                 <Button 
                   variant="outline" 
                   onClick={() => setStep(1)}
-                  className="bg-button-bg border-container-border text-button-text hover:bg-tile-background transition-colors"
+                  className="bg-card border-border text-foreground hover:bg-accent"
                 >
                   Back
                 </Button>
                 <Button 
                   onClick={() => setStep(3)}
                   disabled={selectedInterests.length < 3}
-                  className="bg-container-border hover:bg-blue-600 text-white transition-colors"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground"
                 >
                   Next <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
@@ -156,28 +156,28 @@ export const Onboarding = ({ onComplete }) => {
           {step === 3 && (
             <div className="space-y-6">
               <div className="text-center">
-                <h2 className="text-2xl font-semibold text-tile-text mb-2">Reading Preferences</h2>
+                <h2 className="text-2xl font-semibold text-foreground mb-2">Reading Preferences</h2>
                 <p className="text-muted-foreground">How do you prefer to consume news?</p>
               </div>
               
               <div className="space-y-4">
                 <div>
-                  <h3 className="font-medium text-tile-text mb-3">Reading Depth</h3>
+                  <h3 className="font-medium text-foreground mb-3">Reading Depth</h3>
                   <div className="space-y-2">
                     {readingDepths.map((depth) => (
                       <Card
                         key={depth.id}
-                        className={`cursor-pointer transition-all duration-200 border-container-border ${
+                        className={`cursor-pointer transition-all duration-200 border-0 shadow-soft ${
                           selectedDepth === depth.id 
-                            ? 'ring-2 ring-container-border bg-button-bg' 
-                            : 'bg-background hover:bg-tile-background'
+                            ? 'ring-2 ring-primary bg-accent' 
+                            : 'bg-card hover:bg-accent'
                         }`}
                         onClick={() => setSelectedDepth(depth.id)}
                       >
                         <CardContent className="p-3">
                           <div className="flex justify-between items-center">
                             <div>
-                              <h4 className="font-medium text-tile-text">{depth.label}</h4>
+                              <h4 className="font-medium text-foreground">{depth.label}</h4>
                               <p className="text-sm text-muted-foreground">{depth.desc}</p>
                             </div>
                           </div>
@@ -188,22 +188,22 @@ export const Onboarding = ({ onComplete }) => {
                 </div>
 
                 <div>
-                  <h3 className="font-medium text-tile-text mb-3">Reading Schedule</h3>
+                  <h3 className="font-medium text-foreground mb-3">Reading Schedule</h3>
                   <div className="space-y-2">
                     {schedules.map((schedule) => (
                       <Card
                         key={schedule.id}
-                        className={`cursor-pointer transition-all duration-200 border-container-border ${
+                        className={`cursor-pointer transition-all duration-200 border-0 shadow-soft ${
                           selectedSchedule === schedule.id 
-                            ? 'ring-2 ring-container-border bg-button-bg' 
-                            : 'bg-background hover:bg-tile-background'
+                            ? 'ring-2 ring-primary bg-accent' 
+                            : 'bg-card hover:bg-accent'
                         }`}
                         onClick={() => setSelectedSchedule(schedule.id)}
                       >
                         <CardContent className="p-3">
                           <div className="flex justify-between items-center">
                             <div>
-                              <h4 className="font-medium text-tile-text">{schedule.label}</h4>
+                              <h4 className="font-medium text-foreground">{schedule.label}</h4>
                               <p className="text-sm text-muted-foreground">{schedule.desc}</p>
                             </div>
                           </div>
@@ -218,14 +218,14 @@ export const Onboarding = ({ onComplete }) => {
                 <Button 
                   variant="outline" 
                   onClick={() => setStep(2)}
-                  className="bg-button-bg border-container-border text-button-text hover:bg-tile-background transition-colors"
+                  className="bg-card border-border text-foreground hover:bg-accent"
                 >
                   Back
                 </Button>
                 <Button 
                   onClick={handleComplete}
                   disabled={!selectedDepth || !selectedSchedule}
-                  className="bg-container-border hover:bg-blue-600 text-white transition-colors"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground"
                 >
                   Complete Setup <Sparkles className="ml-2 w-4 h-4" />
                 </Button>
