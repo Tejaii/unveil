@@ -19,7 +19,7 @@ export default {
 		},
 		extend: {
 			colors: {
-				border: 'hsl(var(--border))',
+				border: 'transparent',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
 				background: 'hsl(var(--background))',
@@ -59,7 +59,7 @@ export default {
 					'primary-foreground': 'hsl(var(--primary-foreground))',
 					accent: 'hsl(var(--accent))',
 					'accent-foreground': 'hsl(var(--accent-foreground))',
-					border: 'hsl(var(--border))',
+					border: 'transparent',
 					ring: 'hsl(var(--ring))'
 				}
 			},

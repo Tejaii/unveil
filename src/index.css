@@ -4,51 +4,51 @@
 
 @layer base {
   :root {
-    /* Light mode colors - Elegant & Readable */
-    --background: #FAFAFA;
+    /* LinkedIn-inspired Light Mode */
+    --background: #F3F2EF;
     --card: #FFFFFF;
-    --foreground: #1A1A1A;
-    --muted: #6B7280;
-    --muted-foreground: #4B5563;
-    --border: #D6D6E7;
-    --input: #D6D6E7;
-    --ring: #4B6CFF;
-    --primary: #4B6CFF;
+    --foreground: #1D2226;
+    --muted: #5E5E5E;
+    --muted-foreground: #5E5E5E;
+    --border: transparent;
+    --input: #F3F2EF;
+    --ring: #0A66C2;
+    --primary: #0A66C2;
     --primary-foreground: #FFFFFF;
-    --secondary: #F0F0F0;
-    --secondary-foreground: #1A1A1A;
-    --accent: #F0F0F0;
-    --accent-foreground: #1A1A1A;
-    --destructive: #EF4444;
+    --secondary: #F3F2EF;
+    --secondary-foreground: #1D2226;
+    --accent: #F3F2EF;
+    --accent-foreground: #1D2226;
+    --destructive: #CC1016;
     --destructive-foreground: #FFFFFF;
     
-    --radius: 0.75rem;
+    --radius: 0.5rem;
   }
 
   .dark {
-    /* Dark mode colors - Soft & Elegant */
-    --background: #121212;
-    --card: #1E1E1E;
-    --foreground: #FAFAFA;
-    --muted: #9CA3AF;
-    --muted-foreground: #D1D5DB;
-    --border: #3A3A4A;
-    --input: #3A3A4A;
-    --ring: #7D9CFF;
-    --primary: #7D9CFF;
-    --primary-foreground: #121212;
-    --secondary: #2A2A2A;
-    --secondary-foreground: #FAFAFA;
+    /* LinkedIn-inspired Dark Mode */
+    --background: #1A1A1A;
+    --card: #242526;
+    --foreground: #E4E6EB;
+    --muted: #B0B3B8;
+    --muted-foreground: #B0B3B8;
+    --border: transparent;
+    --input: #1A1A1A;
+    --ring: #70B5F9;
+    --primary: #70B5F9;
+    --primary-foreground: #1A1A1A;
+    --secondary: #1A1A1A;
+    --secondary-foreground: #E4E6EB;
     --accent: #1A1A1A;
-    --accent-foreground: #FAFAFA;
-    --destructive: #DC2626;
-    --destructive-foreground: #FAFAFA;
+    --accent-foreground: #E4E6EB;
+    --destructive: #E41E3F;
+    --destructive-foreground: #E4E6EB;
   }
 }
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-transparent;
   }
 
   html {
@@ -57,30 +57,70 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    line-height: 1.6;
   }
 
   /* Smooth transitions for all elements */
   *, *::before, *::after {
     transition: all 0.3s ease;
   }
+
+  /* Remove all borders globally */
+  input, button, div, section, article, aside, nav, header, footer {
+    border: none !important;
+    outline: none !important;
+  }
+
+  /* Focus states without borders */
+  input:focus, button:focus, [tabindex]:focus {
+    box-shadow: 0 0 0 2px hsl(var(--ring)) !important;
+    border: none !important;
+  }
 }
 
 /* Custom utility classes */
 @layer utilities {
-  .shadow-soft {
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  .shadow-linkedin {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
   }
   
-  .shadow-soft-lg {
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  .shadow-linkedin-lg {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
   }
   
-  .dark .shadow-soft {
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  .shadow-linkedin-hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
   
-  .dark .shadow-soft-lg {
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  .dark .shadow-linkedin {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+  
+  .dark .shadow-linkedin-lg {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  }
+  
+  .dark .shadow-linkedin-hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Remove all borders */
+  .no-border {
+    border: none !important;
+    outline: none !important;
+  }
+
+  /* LinkedIn-style spacing */
+  .linkedin-spacing {
+    padding: 1rem 1.5rem;
+  }
+
+  .linkedin-card {
+    @apply bg-card rounded-lg shadow-linkedin p-6 mb-4;
+  }
+
+  .linkedin-button {
+    @apply bg-card text-foreground rounded-full px-6 py-2 shadow-linkedin hover:shadow-linkedin-lg;
   }
 }

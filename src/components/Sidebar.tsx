@@ -63,17 +63,17 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
         
         {/* Mobile Bottom Navigation */}
         <div 
-          className={`fixed bottom-0 left-0 right-0 z-50 bg-card/90 backdrop-blur-lg border-t border-border transition-transform duration-300 ${
+          className={`fixed bottom-0 left-0 right-0 z-50 bg-card shadow-linkedin transition-transform duration-300 ${
             isOpen ? 'translate-y-0' : 'translate-y-full'
           }`}
         >
-          <div className="flex justify-around py-2">
+          <div className="flex justify-around py-3">
             {navigationItems.map((item) => (
               <Button
                 key={item.id}
                 variant="ghost"
-                className={`flex flex-col items-center gap-1 p-2 h-auto ${
-                  currentView === item.id ? 'text-foreground bg-accent' : 'text-muted-foreground'
+                className={`flex flex-col items-center gap-1 p-3 h-auto rounded-lg ${
+                  currentView === item.id ? 'text-primary bg-accent' : 'text-muted-foreground'
                 }`}
                 onClick={() => {
                   onViewChange(item.id);
@@ -96,40 +96,40 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
       <aside 
         className={`
           fixed left-0 top-16 h-[calc(100vh-4rem)] w-64 
-          bg-card/80 backdrop-blur-lg border-r border-border 
+          bg-card shadow-linkedin
           z-50 overflow-hidden lg:translate-x-0
-          transition-all duration-300 ease-in-out
+          transition-transform duration-300 ease-in-out
           ${!isWideScreen && !isOpen ? '-translate-x-full' : 'translate-x-0'}
         `}
       >
         <div className="flex flex-col h-full overflow-hidden">
           {/* Close button - Only shown on mobile */}
           {isMobile && (
-            <div className="flex justify-between items-center p-4 lg:hidden">
+            <div className="flex justify-between items-center p-6 lg:hidden">
               <h2 className="font-semibold text-foreground">Navigation</h2>
-              <Button variant="ghost" size="sm" onClick={onClose}>
+              <Button variant="ghost" size="sm" onClick={onClose} className="rounded-full">
                 <X className="w-4 h-4" />
               </Button>
             </div>
           )}
 
           {/* Scrollable content area */}
-          <div className="flex-1 overflow-y-auto px-4 py-2">
-            <div className="space-y-6">
+          <div className="flex-1 overflow-y-auto px-4 py-6">
+            <div className="space-y-8">
               {/* Main Navigation */}
               <div>
-                <h3 className="text-sm font-medium text-muted-foreground mb-3 uppercase tracking-wide">
+                <h3 className="text-sm font-medium text-muted-foreground mb-4 px-3 uppercase tracking-wide">
                   Main
                 </h3>
-                <div className="space-y-1">
+                <div className="space-y-2">
                   {navigationItems.map((item) => (
                     <Button
                       key={item.id}
                       variant="ghost"
-                      className={`w-full justify-start text-left h-auto p-3 ${
+                      className={`w-full justify-start text-left h-auto p-4 rounded-lg ${
                         currentView === item.id
-                          ? 'bg-accent text-foreground shadow-soft'
-                          : 'text-muted-foreground hover:bg-accent hover:text-foreground'
+                          ? 'bg-accent text-primary shadow-linkedin'
+                          : 'text-foreground hover:bg-accent hover:text-foreground'
                       }`}
                       onClick={() => {
                         onViewChange(item.id);
@@ -149,15 +149,15 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
               {/* Profile Zones */}
               {profileZones.length > 0 && (
                 <div>
-                  <h3 className="text-sm font-medium text-muted-foreground mb-3 uppercase tracking-wide">
+                  <h3 className="text-sm font-medium text-muted-foreground mb-4 px-3 uppercase tracking-wide">
                     Your Zones
                   </h3>
-                  <div className="space-y-1">
+                  <div className="space-y-2">
                     {profileZones.map((zone) => (
                       <Button
                         key={zone.id}
                         variant="ghost"
-                        className="w-full justify-start text-muted-foreground hover:bg-accent hover:text-foreground h-auto p-3"
+                        className="w-full justify-start text-foreground hover:bg-accent hover:text-foreground h-auto p-4 rounded-lg"
                         onClick={() => {
                           onViewChange(zone.id);
                           if (!isWideScreen) onClose();
@@ -172,20 +172,20 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
               )}
 
               {/* Progress Card */}
-              <Card className="bg-card border-border shadow-soft">
+              <Card className="bg-card shadow-linkedin">
                 <CardContent className="p-4">
-                  <div className="flex items-center gap-3 mb-3">
+                  <div className="flex items-center gap-3 mb-4">
                     <Clock className="w-5 h-5 text-muted-foreground" />
                     <h4 className="font-medium text-foreground">Today's Progress</h4>
                   </div>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
+                  <div className="space-y-3 text-sm">
+                    <div className="flex justify-between items-center">
                       <span className="text-muted-foreground">Articles read</span>
-                      <Badge variant="secondary" className="bg-secondary text-secondary-foreground">12</Badge>
+                      <Badge className="bg-primary text-primary-foreground rounded-full">12</Badge>
                     </div>
-                    <div className="flex justify-between">
+                    <div className="flex justify-between items-center">
                       <span className="text-muted-foreground">Reading streak</span>
-                      <Badge variant="secondary" className="bg-secondary text-secondary-foreground">7 days</Badge>
+                      <Badge className="bg-primary text-primary-foreground rounded-full">7 days</Badge>
                     </div>
                   </div>
                 </CardContent>
@@ -194,10 +194,10 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
           </div>
 
           {/* Settings Button */}
-          <div className="p-4 border-t border-border">
+          <div className="p-4">
             <Button
               variant="ghost"
-              className="w-full justify-start text-muted-foreground hover:bg-accent hover:text-foreground"
+              className="w-full justify-start text-foreground hover:bg-accent hover:text-foreground rounded-lg p-4"
               onClick={() => {
                 onViewChange('settings');
                 if (!isWideScreen) onClose();

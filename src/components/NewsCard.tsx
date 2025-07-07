@@ -17,29 +17,23 @@ export const NewsCard = ({ article, aiEnhanced, userProfile }) => {
 
   return (
     <div 
-      className="bg-card p-6 rounded-lg shadow-soft space-y-4 hover:shadow-soft-lg cursor-pointer group border-0"
+      className="bg-card p-6 rounded-lg shadow-linkedin hover:shadow-linkedin-hover cursor-pointer group transition-all duration-300"
       onClick={handleClick}
     >
       <div className="flex items-start justify-between gap-4">
-        <div className="flex-1 space-y-3">
+        <div className="flex-1 space-y-4">
           <div className="flex items-center gap-2 flex-wrap">
-            <Badge 
-              variant="outline" 
-              className="bg-secondary text-secondary-foreground border-border text-xs"
-            >
+            <Badge className="bg-accent text-foreground rounded-full px-3 py-1 text-xs font-medium">
               {article.category}
             </Badge>
             {aiEnhanced && (
-              <Badge 
-                variant="outline" 
-                className="bg-primary/10 text-primary border-primary/20 text-xs"
-              >
+              <Badge className="bg-primary/10 text-primary rounded-full px-3 py-1 text-xs font-medium">
                 AI Enhanced
               </Badge>
             )}
           </div>
 
-          <h2 className="text-xl font-semibold text-foreground leading-tight group-hover:text-primary">
+          <h2 className="text-xl font-semibold text-foreground leading-tight group-hover:text-primary transition-colors">
             {article.title}
           </h2>
 
@@ -60,7 +54,7 @@ export const NewsCard = ({ article, aiEnhanced, userProfile }) => {
               <span>{new Date(article.date).toLocaleDateString()}</span>
             </div>
             
-            <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary" />
+            <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
           </div>
         </div>
 
@@ -69,7 +63,7 @@ export const NewsCard = ({ article, aiEnhanced, userProfile }) => {
             <img
               src={article.image}
               alt={article.title}
-              className="w-24 h-24 object-cover rounded-lg"
+              className="w-24 h-24 object-cover rounded-lg shadow-linkedin"
               onError={(e) => {
                 e.target.style.display = 'none';
               }}
@@ -79,7 +73,7 @@ export const NewsCard = ({ article, aiEnhanced, userProfile }) => {
       </div>
 
       {aiEnhanced && (
-        <div className="text-xs text-primary bg-primary/5 p-2 rounded border border-primary/10">
+        <div className="mt-4 text-xs text-primary bg-primary/5 p-3 rounded-lg">
           <span className="font-medium">AI Insight:</span> This article aligns with your interest in {article.category.toLowerCase()} and matches your {userProfile?.userType || 'user'} profile.
         </div>
       )}

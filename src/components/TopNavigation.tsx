@@ -24,40 +24,42 @@ export const TopNavigation = ({ onMenuClick, onViewChange, currentView }) => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-card border-b border-border shadow-soft">
-      <div className="flex items-center justify-between px-4 py-3">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-card shadow-linkedin">
+      <div className="flex items-center justify-between px-6 py-3">
         <div className="flex items-center gap-4">
           <Button
             variant="ghost"
             size="sm"
             onClick={onMenuClick}
-            className="text-foreground hover:bg-accent"
+            className="text-foreground hover:bg-accent rounded-full p-2"
           >
             <Menu className="w-5 h-5" />
           </Button>
           
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-r from-primary to-blue-500 flex items-center justify-center">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-primary to-blue-500 flex items-center justify-center">
               <span className="text-primary-foreground font-bold text-sm">U</span>
             </div>
-            <h1 className="text-xl font-bold text-foreground hidden sm:block">Unveil</h1>
+            <h1 className="text-xl font-semibold text-foreground hidden sm:block">Unveil</h1>
           </div>
         </div>
 
         {!isMobile && (
-          <Button
-            variant="outline"
-            className="flex-1 max-w-md mx-4 justify-between bg-card border-border text-muted-foreground hover:bg-accent"
-            onClick={toggleSearch}
-          >
-            <div className="flex items-center gap-2">
-              <Search className="w-4 h-4" />
-              <span>Search...</span>
+          <div className="flex-1 max-w-md mx-6">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <input
+                type="text"
+                placeholder="Search..."
+                className="w-full pl-10 pr-4 py-2 bg-accent text-foreground rounded-full shadow-linkedin focus:shadow-linkedin-lg placeholder-muted-foreground"
+                onClick={toggleSearch}
+                readOnly
+              />
+              <kbd className="absolute right-3 top-1/2 transform -translate-y-1/2 inline-flex h-5 select-none items-center gap-1 rounded bg-muted/20 px-1.5 font-mono text-[10px] font-medium text-muted-foreground">
+                <span className="text-xs">⌘</span>K
+              </kbd>
             </div>
-            <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border border-border bg-accent px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
-              <span className="text-xs">⌘</span>K
-            </kbd>
-          </Button>
+          </div>
         )}
 
         <div className="flex items-center gap-2">
@@ -65,7 +67,7 @@ export const TopNavigation = ({ onMenuClick, onViewChange, currentView }) => {
             variant="ghost"
             size="sm"
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="text-foreground hover:bg-accent"
+            className="text-foreground hover:bg-accent rounded-full p-2"
           >
             {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
           </Button>
@@ -73,7 +75,7 @@ export const TopNavigation = ({ onMenuClick, onViewChange, currentView }) => {
           <Button
             variant="ghost"
             size="sm"
-            className="text-foreground hover:bg-accent"
+            className="text-foreground hover:bg-accent rounded-full p-2"
           >
             <Bell className="w-4 h-4" />
           </Button>
@@ -83,20 +85,17 @@ export const TopNavigation = ({ onMenuClick, onViewChange, currentView }) => {
       </div>
 
       {isMobile && (
-        <div className="px-4 pb-3">
-          <Button
-            variant="outline"
-            className="w-full justify-between bg-card border-border text-muted-foreground hover:bg-accent"
-            onClick={toggleSearch}
-          >
-            <div className="flex items-center gap-2">
-              <Search className="w-4 h-4" />
-              <span>Search...</span>
-            </div>
-            <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border border-border bg-accent px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
-              <span className="text-xs">⌘</span>K
-            </kbd>
-          </Button>
+        <div className="px-6 pb-3">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <input
+              type="text"
+              placeholder="Search..."
+              className="w-full pl-10 pr-4 py-2 bg-accent text-foreground rounded-full shadow-linkedin focus:shadow-linkedin-lg placeholder-muted-foreground"
+              onClick={toggleSearch}
+              readOnly
+            />
+          </div>
         </div>
       )}
     </nav>
