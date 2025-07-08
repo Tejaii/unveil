@@ -46,23 +46,23 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-md bg-card border-border">
+      <DialogContent className="sm:max-w-md glass-modal shadow-floating-lg rounded-2xl border-0">
         <DialogHeader className="text-center">
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-r from-gray-700 to-gray-800 flex items-center justify-center">
-              <Sparkles className="w-4 h-4 text-gray-200" />
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-bright-periwinkle to-deep-blue-violet flex items-center justify-center shadow-floating">
+              <Sparkles className="w-6 h-6 text-white" />
             </div>
-            <DialogTitle className="text-xl font-bold text-foreground">Welcome to Unveil</DialogTitle>
+            <DialogTitle className="text-2xl font-bold text-deep-blue-violet">Welcome to Unveil</DialogTitle>
           </div>
-          <p className="text-muted-foreground">
+          <p className="text-dusty-blue-grey text-lg">
             Sign in with your email to get personalized AI-curated news
           </p>
         </DialogHeader>
 
         {!sent ? (
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="email" className="text-foreground">Email address</Label>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="space-y-3">
+              <Label htmlFor="email" className="text-deep-blue-violet font-medium">Email address</Label>
               <Input
                 id="email"
                 type="email"
@@ -70,12 +70,12 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="bg-background border-border text-foreground"
+                className="bg-light-slate/50 border-0 text-deep-blue-violet rounded-2xl p-4 placeholder-dusty-blue-grey focus:shadow-floating-lg"
               />
             </div>
 
             {error && (
-              <Alert variant="destructive">
+              <Alert variant="destructive" className="rounded-2xl border-0">
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
             )}
@@ -83,40 +83,40 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
             <Button
               type="submit"
               disabled={loading || !email}
-              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+              className="w-full btn-primary"
             >
               {loading ? (
                 <>
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  <Loader2 className="w-5 h-5 mr-2 animate-spin" />
                   Sending magic link...
                 </>
               ) : (
                 <>
-                  <Mail className="w-4 h-4 mr-2" />
+                  <Mail className="w-5 h-5 mr-2" />
                   Send magic link
                 </>
               )}
             </Button>
 
-            <p className="text-xs text-muted-foreground text-center">
+            <p className="text-xs text-dusty-blue-grey text-center">
               We'll send you a secure link to sign in without a password
             </p>
           </form>
         ) : (
-          <div className="text-center space-y-4">
+          <div className="text-center space-y-6">
             <div className="flex justify-center">
-              <CheckCircle className="w-12 h-12 text-green-500" />
+              <CheckCircle className="w-16 h-16 text-bright-periwinkle" />
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-foreground mb-2">Check your email</h3>
-              <p className="text-muted-foreground">
+              <h3 className="text-xl font-bold text-deep-blue-violet mb-3">Check your email</h3>
+              <p className="text-dusty-blue-grey text-lg">
                 We've sent a magic link to <strong>{email}</strong>
               </p>
-              <p className="text-sm text-muted-foreground mt-2">
+              <p className="text-dusty-blue-grey mt-3">
                 Click the link in your email to sign in to Unveil
               </p>
             </div>
-            <Button variant="outline" onClick={handleClose} className="w-full">
+            <Button variant="outline" onClick={handleClose} className="w-full btn-secondary">
               Got it
             </Button>
           </div>

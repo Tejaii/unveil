@@ -19,54 +19,60 @@ export default {
 		},
 		extend: {
 			colors: {
+				// Custom color palette
+				'deep-blue-violet': '#3D52A0',
+				'bright-periwinkle': '#7091E6',
+				'dusty-blue-grey': '#8697C4',
+				'light-slate': '#ADBBD4',
+				'lilac-mist': '#EDE8F5',
+				'active-pill': '#D4DCF0',
+				
 				border: 'transparent',
-				input: 'hsl(var(--input))',
-				ring: 'hsl(var(--ring))',
-				background: 'hsl(var(--background))',
-				foreground: 'hsl(var(--foreground))',
+				input: '#ADBBD4',
+				ring: '#7091E6',
+				background: '#EDE8F5',
+				foreground: '#3D52A0',
 				primary: {
-					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
+					DEFAULT: '#7091E6',
+					foreground: '#FFFFFF'
 				},
 				secondary: {
-					DEFAULT: 'hsl(var(--secondary))',
-					foreground: 'hsl(var(--secondary-foreground))'
+					DEFAULT: '#8697C4',
+					foreground: '#FFFFFF'
 				},
 				destructive: {
-					DEFAULT: 'hsl(var(--destructive))',
-					foreground: 'hsl(var(--destructive-foreground))'
+					DEFAULT: '#ef4444',
+					foreground: '#FFFFFF'
 				},
 				muted: {
-					DEFAULT: 'hsl(var(--muted))',
-					foreground: 'hsl(var(--muted-foreground))'
+					DEFAULT: '#8697C4',
+					foreground: '#8697C4'
 				},
 				accent: {
-					DEFAULT: 'hsl(var(--accent))',
-					foreground: 'hsl(var(--accent-foreground))'
+					DEFAULT: '#D4DCF0',
+					foreground: '#3D52A0'
 				},
 				popover: {
-					DEFAULT: 'hsl(var(--card))',
-					foreground: 'hsl(var(--foreground))'
+					DEFAULT: '#ADBBD4',
+					foreground: '#3D52A0'
 				},
 				card: {
-					DEFAULT: 'hsl(var(--card))',
-					foreground: 'hsl(var(--foreground))'
+					DEFAULT: '#ADBBD4',
+					foreground: '#3D52A0'
 				},
-				sidebar: {
-					DEFAULT: 'hsl(var(--card))',
-					foreground: 'hsl(var(--foreground))',
-					primary: 'hsl(var(--primary))',
-					'primary-foreground': 'hsl(var(--primary-foreground))',
-					accent: 'hsl(var(--accent))',
-					'accent-foreground': 'hsl(var(--accent-foreground))',
-					border: 'transparent',
-					ring: 'hsl(var(--ring))'
-				}
 			},
 			borderRadius: {
-				lg: 'var(--radius)',
-				md: 'calc(var(--radius) - 2px)',
-				sm: 'calc(var(--radius) - 4px)'
+				lg: '1rem',
+				md: 'calc(1rem - 2px)',
+				sm: 'calc(1rem - 4px)'
+			},
+			boxShadow: {
+				'floating': '0px 4px 12px rgba(61, 82, 160, 0.15)',
+				'floating-lg': '0px 8px 24px rgba(61, 82, 160, 0.2)',
+				'floating-hover': '0px 12px 32px rgba(61, 82, 160, 0.25)',
+			},
+			backdropBlur: {
+				'xs': '2px',
 			},
 			keyframes: {
 				'accordion-down': {

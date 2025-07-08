@@ -4,45 +4,53 @@
 
 @layer base {
   :root {
-    /* LinkedIn-inspired Light Mode */
-    --background: #F3F2EF;
-    --card: #FFFFFF;
-    --foreground: #1D2226;
-    --muted: #5E5E5E;
-    --muted-foreground: #5E5E5E;
+    /* Custom Color Palette */
+    --deep-blue-violet: #3D52A0;
+    --bright-periwinkle: #7091E6;
+    --dusty-blue-grey: #8697C4;
+    --light-slate: #ADBBD4;
+    --lilac-mist: #EDE8F5;
+    --active-pill: #D4DCF0;
+    
+    /* Theme Variables */
+    --background: var(--lilac-mist);
+    --card: var(--light-slate);
+    --foreground: var(--deep-blue-violet);
+    --muted: var(--dusty-blue-grey);
+    --muted-foreground: var(--dusty-blue-grey);
     --border: transparent;
-    --input: #F3F2EF;
-    --ring: #0A66C2;
-    --primary: #0A66C2;
+    --input: var(--light-slate);
+    --ring: var(--bright-periwinkle);
+    --primary: var(--bright-periwinkle);
     --primary-foreground: #FFFFFF;
-    --secondary: #F3F2EF;
-    --secondary-foreground: #1D2226;
-    --accent: #F3F2EF;
-    --accent-foreground: #1D2226;
-    --destructive: #CC1016;
+    --secondary: var(--dusty-blue-grey);
+    --secondary-foreground: #FFFFFF;
+    --accent: var(--active-pill);
+    --accent-foreground: var(--deep-blue-violet);
+    --destructive: #ef4444;
     --destructive-foreground: #FFFFFF;
     
-    --radius: 0.5rem;
+    --radius: 1rem;
   }
 
   .dark {
-    /* LinkedIn-inspired Dark Mode */
-    --background: #1A1A1A;
-    --card: #242526;
-    --foreground: #E4E6EB;
-    --muted: #B0B3B8;
-    --muted-foreground: #B0B3B8;
+    /* Dark mode with same palette but adjusted opacity */
+    --background: #1a1625;
+    --card: #2a2438;
+    --foreground: var(--lilac-mist);
+    --muted: var(--dusty-blue-grey);
+    --muted-foreground: var(--dusty-blue-grey);
     --border: transparent;
-    --input: #1A1A1A;
-    --ring: #70B5F9;
-    --primary: #70B5F9;
-    --primary-foreground: #1A1A1A;
-    --secondary: #1A1A1A;
-    --secondary-foreground: #E4E6EB;
-    --accent: #1A1A1A;
-    --accent-foreground: #E4E6EB;
-    --destructive: #E41E3F;
-    --destructive-foreground: #E4E6EB;
+    --input: #2a2438;
+    --ring: var(--bright-periwinkle);
+    --primary: var(--bright-periwinkle);
+    --primary-foreground: #FFFFFF;
+    --secondary: var(--dusty-blue-grey);
+    --secondary-foreground: #FFFFFF;
+    --accent: #3a3450;
+    --accent-foreground: var(--lilac-mist);
+    --destructive: #ef4444;
+    --destructive-foreground: #FFFFFF;
   }
 }
 
@@ -56,9 +64,13 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-[#EDE8F5] text-[#3D52A0];
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
     line-height: 1.6;
+  }
+
+  .dark body {
+    @apply bg-[#1a1625] text-[#EDE8F5];
   }
 
   /* Smooth transitions for all elements */
@@ -74,53 +86,111 @@
 
   /* Focus states without borders */
   input:focus, button:focus, [tabindex]:focus {
-    box-shadow: 0 0 0 2px hsl(var(--ring)) !important;
+    box-shadow: 0 0 0 2px #7091E6 !important;
     border: none !important;
   }
 }
 
 /* Custom utility classes */
 @layer utilities {
-  .shadow-linkedin {
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  .shadow-floating {
+    box-shadow: 0px 4px 12px rgba(61, 82, 160, 0.15);
   }
   
-  .shadow-linkedin-lg {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  .shadow-floating-lg {
+    box-shadow: 0px 8px 24px rgba(61, 82, 160, 0.2);
   }
   
-  .shadow-linkedin-hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  .shadow-floating-hover {
+    box-shadow: 0px 12px 32px rgba(61, 82, 160, 0.25);
   }
   
-  .dark .shadow-linkedin {
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  .dark .shadow-floating {
+    box-shadow: 0px 4px 12px rgba(112, 145, 230, 0.2);
   }
   
-  .dark .shadow-linkedin-lg {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  .dark .shadow-floating-lg {
+    box-shadow: 0px 8px 24px rgba(112, 145, 230, 0.25);
   }
   
-  .dark .shadow-linkedin-hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  .dark .shadow-floating-hover {
+    box-shadow: 0px 12px 32px rgba(112, 145, 230, 0.3);
   }
 
-  /* Remove all borders */
-  .no-border {
-    border: none !important;
-    outline: none !important;
+  /* Glassmorphism effects */
+  .glass-nav {
+    background: rgba(237, 232, 245, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
   }
 
-  /* LinkedIn-style spacing */
-  .linkedin-spacing {
-    padding: 1rem 1.5rem;
+  .glass-modal {
+    background: rgba(237, 232, 245, 0.3);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
   }
 
-  .linkedin-card {
-    @apply bg-card rounded-lg shadow-linkedin p-6 mb-4;
+  .glass-card {
+    background: rgba(173, 187, 212, 0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
 
-  .linkedin-button {
-    @apply bg-card text-foreground rounded-full px-6 py-2 shadow-linkedin hover:shadow-linkedin-lg;
+  /* Custom color classes */
+  .bg-deep-blue-violet { background-color: #3D52A0; }
+  .bg-bright-periwinkle { background-color: #7091E6; }
+  .bg-dusty-blue-grey { background-color: #8697C4; }
+  .bg-light-slate { background-color: #ADBBD4; }
+  .bg-lilac-mist { background-color: #EDE8F5; }
+  .bg-active-pill { background-color: #D4DCF0; }
+
+  .text-deep-blue-violet { color: #3D52A0; }
+  .text-bright-periwinkle { color: #7091E6; }
+  .text-dusty-blue-grey { color: #8697C4; }
+  .text-light-slate { color: #ADBBD4; }
+  .text-lilac-mist { color: #EDE8F5; }
+
+  /* Button styles */
+  .btn-primary {
+    @apply bg-bright-periwinkle text-white rounded-2xl px-6 py-3 shadow-floating hover:shadow-floating-hover;
+    background-color: #7091E6;
+  }
+
+  .btn-primary:hover {
+    background-color: #5a79d0;
+  }
+
+  .btn-secondary {
+    @apply bg-dusty-blue-grey text-white rounded-2xl px-6 py-3 shadow-floating hover:shadow-floating-hover;
+    background-color: #8697C4;
+  }
+
+  .btn-secondary:hover {
+    background-color: #6d7ca8;
+  }
+
+  /* Card styles */
+  .card-floating {
+    @apply bg-light-slate rounded-2xl shadow-floating hover:shadow-floating-hover;
+    background-color: #ADBBD4;
+  }
+
+  /* Pill badges */
+  .pill-badge {
+    @apply bg-active-pill text-deep-blue-violet rounded-full px-4 py-2 text-sm font-medium;
+    background-color: #D4DCF0;
+    color: #3D52A0;
+  }
+
+  /* Active menu item */
+  .menu-active {
+    @apply bg-active-pill text-deep-blue-violet rounded-2xl;
+    background-color: #D4DCF0;
+    color: #3D52A0;
+  }
+
+  /* Gradient backgrounds */
+  .gradient-hero {
+    background: linear-gradient(135deg, #7091E6 0%, #EDE8F5 100%);
   }
 }

@@ -59,44 +59,44 @@ export const Onboarding = ({ onComplete }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 bg-background">
-      <Card className="w-full max-w-2xl bg-card shadow-linkedin-lg">
-        <CardHeader className="text-center space-y-6 pb-8">
-          <div className="flex items-center justify-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-primary to-blue-500 flex items-center justify-center">
-              <Sparkles className="w-6 h-6 text-white" />
+    <div className="min-h-screen flex items-center justify-center p-8 bg-lilac-mist">
+      <Card className="w-full max-w-3xl card-floating">
+        <CardHeader className="text-center space-y-8 pb-10">
+          <div className="flex items-center justify-center gap-4">
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-bright-periwinkle to-deep-blue-violet flex items-center justify-center shadow-floating">
+              <Sparkles className="w-8 h-8 text-white" />
             </div>
-            <h1 className="text-3xl font-semibold text-foreground">Unveil</h1>
+            <h1 className="text-4xl font-bold text-deep-blue-violet">Unveil</h1>
           </div>
-          <p className="text-muted-foreground text-lg">Personalize your AI-powered news experience</p>
-          <div className="space-y-2">
-            <Progress value={progress} className="w-full h-2 bg-accent" />
-            <p className="text-sm text-muted-foreground">Step {step} of 3</p>
+          <p className="text-dusty-blue-grey text-xl">Personalize your AI-powered news experience</p>
+          <div className="space-y-3">
+            <Progress value={progress} className="w-full h-3 bg-active-pill" />
+            <p className="text-dusty-blue-grey">Step {step} of 3</p>
           </div>
         </CardHeader>
 
-        <CardContent className="space-y-8 pb-8">
+        <CardContent className="space-y-10 pb-10">
           {step === 1 && (
-            <div className="space-y-8">
+            <div className="space-y-10">
               <div className="text-center">
-                <h2 className="text-2xl font-semibold text-foreground mb-3">What describes you best?</h2>
-                <p className="text-muted-foreground">This helps us tailor your content zones</p>
+                <h2 className="text-3xl font-bold text-deep-blue-violet mb-4">What describes you best?</h2>
+                <p className="text-dusty-blue-grey text-lg">This helps us tailor your content zones</p>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {userTypes.map((type) => (
                   <Card
                     key={type.id}
-                    className={`cursor-pointer transition-all duration-200 hover:shadow-linkedin-hover ${
+                    className={`cursor-pointer transition-all duration-200 hover:shadow-floating-hover ${
                       selectedType === type.id 
-                        ? 'shadow-linkedin-lg bg-accent ring-2 ring-primary' 
-                        : 'bg-card shadow-linkedin hover:bg-accent'
+                        ? 'shadow-floating-lg bg-active-pill ring-2 ring-bright-periwinkle' 
+                        : 'card-floating hover:bg-active-pill'
                     }`}
                     onClick={() => setSelectedType(type.id)}
                   >
-                    <CardContent className="p-6">
-                      <h3 className="font-semibold text-foreground mb-2">{type.label}</h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{type.desc}</p>
+                    <CardContent className="p-8">
+                      <h3 className="font-bold text-deep-blue-violet mb-3 text-lg">{type.label}</h3>
+                      <p className="text-dusty-blue-grey leading-relaxed">{type.desc}</p>
                     </CardContent>
                   </Card>
                 ))}
@@ -106,29 +106,29 @@ export const Onboarding = ({ onComplete }) => {
                 <Button 
                   onClick={() => setStep(2)}
                   disabled={!selectedType}
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-8 py-3 shadow-linkedin"
+                  className="btn-primary"
                 >
-                  Next <ArrowRight className="ml-2 w-4 h-4" />
+                  Next <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
               </div>
             </div>
           )}
 
           {step === 2 && (
-            <div className="space-y-8">
+            <div className="space-y-10">
               <div className="text-center">
-                <h2 className="text-2xl font-semibold text-foreground mb-3">What interests you?</h2>
-                <p className="text-muted-foreground">Select topics you'd like to follow (choose 3-8)</p>
+                <h2 className="text-3xl font-bold text-deep-blue-violet mb-4">What interests you?</h2>
+                <p className="text-dusty-blue-grey text-lg">Select topics you'd like to follow (choose 3-8)</p>
               </div>
               
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-4">
                 {interests.map((interest) => (
                   <Badge
                     key={interest}
-                    className={`cursor-pointer px-4 py-3 rounded-full transition-all duration-200 hover:shadow-linkedin ${
+                    className={`cursor-pointer px-6 py-4 rounded-full transition-all duration-200 hover:shadow-floating text-base font-medium ${
                       selectedInterests.includes(interest)
-                        ? 'bg-primary text-primary-foreground shadow-linkedin'
-                        : 'bg-accent text-foreground hover:bg-primary hover:text-primary-foreground'
+                        ? 'bg-bright-periwinkle text-white shadow-floating'
+                        : 'bg-active-pill text-deep-blue-violet hover:bg-bright-periwinkle hover:text-white'
                     }`}
                     onClick={() => handleInterestToggle(interest)}
                   >
@@ -141,45 +141,45 @@ export const Onboarding = ({ onComplete }) => {
                 <Button 
                   variant="ghost" 
                   onClick={() => setStep(1)}
-                  className="text-foreground hover:bg-accent rounded-full px-6"
+                  className="text-dusty-blue-grey hover:bg-active-pill rounded-2xl px-8"
                 >
                   Back
                 </Button>
                 <Button 
                   onClick={() => setStep(3)}
                   disabled={selectedInterests.length < 3}
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-8 py-3 shadow-linkedin"
+                  className="btn-primary"
                 >
-                  Next <ArrowRight className="ml-2 w-4 h-4" />
+                  Next <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
               </div>
             </div>
           )}
 
           {step === 3 && (
-            <div className="space-y-8">
+            <div className="space-y-10">
               <div className="text-center">
-                <h2 className="text-2xl font-semibold text-foreground mb-3">Reading Preferences</h2>
-                <p className="text-muted-foreground">How do you prefer to consume news?</p>
+                <h2 className="text-3xl font-bold text-deep-blue-violet mb-4">Reading Preferences</h2>
+                <p className="text-dusty-blue-grey text-lg">How do you prefer to consume news?</p>
               </div>
               
-              <div className="space-y-6">
+              <div className="space-y-8">
                 <div>
-                  <h3 className="font-medium text-foreground mb-4">Reading Depth</h3>
-                  <div className="space-y-3">
+                  <h3 className="font-semibold text-deep-blue-violet mb-6 text-xl">Reading Depth</h3>
+                  <div className="space-y-4">
                     {readingDepths.map((depth) => (
                       <Card
                         key={depth.id}
                         className={`cursor-pointer transition-all duration-200 ${
                           selectedDepth === depth.id 
-                            ? 'shadow-linkedin-lg bg-accent ring-2 ring-primary' 
-                            : 'bg-card shadow-linkedin hover:bg-accent hover:shadow-linkedin-hover'
+                            ? 'shadow-floating-lg bg-active-pill ring-2 ring-bright-periwinkle' 
+                            : 'card-floating hover:bg-active-pill hover:shadow-floating-hover'
                         }`}
                         onClick={() => setSelectedDepth(depth.id)}
                       >
-                        <CardContent className="p-4">
-                          <h4 className="font-medium text-foreground mb-1">{depth.label}</h4>
-                          <p className="text-sm text-muted-foreground">{depth.desc}</p>
+                        <CardContent className="p-6">
+                          <h4 className="font-semibold text-deep-blue-violet mb-2 text-lg">{depth.label}</h4>
+                          <p className="text-dusty-blue-grey">{depth.desc}</p>
                         </CardContent>
                       </Card>
                     ))}
@@ -187,21 +187,21 @@ export const Onboarding = ({ onComplete }) => {
                 </div>
 
                 <div>
-                  <h3 className="font-medium text-foreground mb-4">Reading Schedule</h3>
-                  <div className="space-y-3">
+                  <h3 className="font-semibold text-deep-blue-violet mb-6 text-xl">Reading Schedule</h3>
+                  <div className="space-y-4">
                     {schedules.map((schedule) => (
                       <Card
                         key={schedule.id}
                         className={`cursor-pointer transition-all duration-200 ${
                           selectedSchedule === schedule.id 
-                            ? 'shadow-linkedin-lg bg-accent ring-2 ring-primary' 
-                            : 'bg-card shadow-linkedin hover:bg-accent hover:shadow-linkedin-hover'
+                            ? 'shadow-floating-lg bg-active-pill ring-2 ring-bright-periwinkle' 
+                            : 'card-floating hover:bg-active-pill hover:shadow-floating-hover'
                         }`}
                         onClick={() => setSelectedSchedule(schedule.id)}
                       >
-                        <CardContent className="p-4">
-                          <h4 className="font-medium text-foreground mb-1">{schedule.label}</h4>
-                          <p className="text-sm text-muted-foreground">{schedule.desc}</p>
+                        <CardContent className="p-6">
+                          <h4 className="font-semibold text-deep-blue-violet mb-2 text-lg">{schedule.label}</h4>
+                          <p className="text-dusty-blue-grey">{schedule.desc}</p>
                         </CardContent>
                       </Card>
                     ))}
@@ -213,16 +213,16 @@ export const Onboarding = ({ onComplete }) => {
                 <Button 
                   variant="ghost" 
                   onClick={() => setStep(2)}
-                  className="text-foreground hover:bg-accent rounded-full px-6"
+                  className="text-dusty-blue-grey hover:bg-active-pill rounded-2xl px-8"
                 >
                   Back
                 </Button>
                 <Button 
                   onClick={handleComplete}
                   disabled={!selectedDepth || !selectedSchedule}
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-8 py-3 shadow-linkedin"
+                  className="btn-primary"
                 >
-                  Complete Setup <Sparkles className="ml-2 w-4 h-4" />
+                  Complete Setup <Sparkles className="ml-2 w-5 h-5" />
                 </Button>
               </div>
             </div>

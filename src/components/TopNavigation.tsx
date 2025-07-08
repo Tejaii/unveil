@@ -24,60 +24,60 @@ export const TopNavigation = ({ onMenuClick, onViewChange, currentView }) => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-card shadow-linkedin">
-      <div className="flex items-center justify-between px-6 py-3">
+    <nav className="fixed top-0 left-0 right-0 z-50 glass-nav shadow-floating">
+      <div className="flex items-center justify-between px-6 py-4">
         <div className="flex items-center gap-4">
           <Button
             variant="ghost"
             size="sm"
             onClick={onMenuClick}
-            className="text-foreground hover:bg-accent rounded-full p-2"
+            className="text-bright-periwinkle hover:bg-active-pill rounded-2xl p-3"
           >
             <Menu className="w-5 h-5" />
           </Button>
           
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-primary to-blue-500 flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-sm">U</span>
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-bright-periwinkle to-deep-blue-violet flex items-center justify-center shadow-floating">
+              <span className="text-white font-bold text-lg">U</span>
             </div>
-            <h1 className="text-xl font-semibold text-foreground hidden sm:block">Unveil</h1>
+            <h1 className="text-2xl font-bold text-deep-blue-violet hidden sm:block">Unveil</h1>
           </div>
         </div>
 
         {!isMobile && (
           <div className="flex-1 max-w-md mx-6">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-dusty-blue-grey" />
               <input
                 type="text"
-                placeholder="Search..."
-                className="w-full pl-10 pr-4 py-2 bg-accent text-foreground rounded-full shadow-linkedin focus:shadow-linkedin-lg placeholder-muted-foreground"
+                placeholder="Search articles..."
+                className="w-full pl-12 pr-16 py-3 bg-light-slate/50 text-deep-blue-violet rounded-2xl shadow-floating focus:shadow-floating-lg placeholder-dusty-blue-grey backdrop-blur-sm"
                 onClick={toggleSearch}
                 readOnly
               />
-              <kbd className="absolute right-3 top-1/2 transform -translate-y-1/2 inline-flex h-5 select-none items-center gap-1 rounded bg-muted/20 px-1.5 font-mono text-[10px] font-medium text-muted-foreground">
+              <kbd className="absolute right-4 top-1/2 transform -translate-y-1/2 inline-flex h-6 select-none items-center gap-1 rounded-lg bg-active-pill px-2 font-mono text-xs font-medium text-deep-blue-violet">
                 <span className="text-xs">⌘</span>K
               </kbd>
             </div>
           </div>
         )}
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <Button
             variant="ghost"
             size="sm"
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="text-foreground hover:bg-accent rounded-full p-2"
+            className="text-bright-periwinkle hover:bg-active-pill rounded-2xl p-3"
           >
-            {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
           </Button>
           
           <Button
             variant="ghost"
             size="sm"
-            className="text-foreground hover:bg-accent rounded-full p-2"
+            className="text-bright-periwinkle hover:bg-active-pill rounded-2xl p-3"
           >
-            <Bell className="w-4 h-4" />
+            <Bell className="w-5 h-5" />
           </Button>
 
           <AuthButton />
@@ -85,13 +85,13 @@ export const TopNavigation = ({ onMenuClick, onViewChange, currentView }) => {
       </div>
 
       {isMobile && (
-        <div className="px-6 pb-3">
+        <div className="px-6 pb-4">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-dusty-blue-grey" />
             <input
               type="text"
-              placeholder="Search..."
-              className="w-full pl-10 pr-4 py-2 bg-accent text-foreground rounded-full shadow-linkedin focus:shadow-linkedin-lg placeholder-muted-foreground"
+              placeholder="Search articles..."
+              className="w-full pl-12 pr-4 py-3 bg-light-slate/50 text-deep-blue-violet rounded-2xl shadow-floating focus:shadow-floating-lg placeholder-dusty-blue-grey backdrop-blur-sm"
               onClick={toggleSearch}
               readOnly
             />

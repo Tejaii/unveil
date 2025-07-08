@@ -17,44 +17,44 @@ export const NewsCard = ({ article, aiEnhanced, userProfile }) => {
 
   return (
     <div 
-      className="bg-card p-6 rounded-lg shadow-linkedin hover:shadow-linkedin-hover cursor-pointer group transition-all duration-300"
+      className="card-floating p-8 cursor-pointer group transition-all duration-300 hover:shadow-floating-hover"
       onClick={handleClick}
     >
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex-1 space-y-4">
-          <div className="flex items-center gap-2 flex-wrap">
-            <Badge className="bg-accent text-foreground rounded-full px-3 py-1 text-xs font-medium">
+      <div className="flex items-start justify-between gap-6">
+        <div className="flex-1 space-y-5">
+          <div className="flex items-center gap-3 flex-wrap">
+            <Badge className="pill-badge">
               {article.category}
             </Badge>
             {aiEnhanced && (
-              <Badge className="bg-primary/10 text-primary rounded-full px-3 py-1 text-xs font-medium">
+              <Badge className="bg-bright-periwinkle/20 text-bright-periwinkle rounded-full px-4 py-2 text-sm font-medium">
                 AI Enhanced
               </Badge>
             )}
           </div>
 
-          <h2 className="text-xl font-semibold text-foreground leading-tight group-hover:text-primary transition-colors">
+          <h2 className="text-2xl font-bold text-deep-blue-violet leading-tight group-hover:text-bright-periwinkle transition-colors">
             {article.title}
           </h2>
 
-          <p className="text-sm text-muted-foreground line-clamp-3 leading-relaxed">
+          <p className="text-dusty-blue-grey line-clamp-3 leading-relaxed text-lg">
             {article.summary}
           </p>
 
-          <div className="flex items-center justify-between pt-2">
-            <div className="flex items-center gap-4 text-sm text-muted-foreground">
-              <div className="flex items-center gap-1">
-                <User className="w-3 h-3" />
-                <span>{article.source}</span>
+          <div className="flex items-center justify-between pt-4">
+            <div className="flex items-center gap-6 text-dusty-blue-grey">
+              <div className="flex items-center gap-2">
+                <User className="w-4 h-4" />
+                <span className="font-medium">{article.source}</span>
               </div>
-              <div className="flex items-center gap-1">
-                <Clock className="w-3 h-3" />
+              <div className="flex items-center gap-2">
+                <Clock className="w-4 h-4" />
                 <span>{article.readTime}</span>
               </div>
               <span>{new Date(article.date).toLocaleDateString()}</span>
             </div>
             
-            <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+            <ExternalLink className="w-5 h-5 text-dusty-blue-grey group-hover:text-bright-periwinkle transition-colors" />
           </div>
         </div>
 
@@ -63,7 +63,7 @@ export const NewsCard = ({ article, aiEnhanced, userProfile }) => {
             <img
               src={article.image}
               alt={article.title}
-              className="w-24 h-24 object-cover rounded-lg shadow-linkedin"
+              className="w-32 h-32 object-cover rounded-2xl shadow-floating"
               onError={(e) => {
                 e.target.style.display = 'none';
               }}
@@ -73,8 +73,8 @@ export const NewsCard = ({ article, aiEnhanced, userProfile }) => {
       </div>
 
       {aiEnhanced && (
-        <div className="mt-4 text-xs text-primary bg-primary/5 p-3 rounded-lg">
-          <span className="font-medium">AI Insight:</span> This article aligns with your interest in {article.category.toLowerCase()} and matches your {userProfile?.userType || 'user'} profile.
+        <div className="mt-6 text-sm text-bright-periwinkle bg-bright-periwinkle/10 p-4 rounded-2xl">
+          <span className="font-semibold">AI Insight:</span> This article aligns with your interest in {article.category.toLowerCase()} and matches your {userProfile?.userType || 'user'} profile.
         </div>
       )}
     </div>

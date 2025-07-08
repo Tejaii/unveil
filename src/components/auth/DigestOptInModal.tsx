@@ -23,56 +23,56 @@ export const DigestOptInModal: React.FC<DigestOptInModalProps> = ({ isOpen, onCl
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md bg-card border-border">
+      <DialogContent className="sm:max-w-md glass-modal shadow-floating-lg rounded-2xl border-0">
         <DialogHeader className="text-center">
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center">
-              <Bell className="w-5 h-5 text-white" />
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-bright-periwinkle to-deep-blue-violet flex items-center justify-center shadow-floating">
+              <Bell className="w-6 h-6 text-white" />
             </div>
-            <DialogTitle className="text-xl font-bold text-foreground">Stay Informed</DialogTitle>
+            <DialogTitle className="text-2xl font-bold text-deep-blue-violet">Stay Informed</DialogTitle>
           </div>
-          <p className="text-muted-foreground">
+          <p className="text-dusty-blue-grey text-lg">
             Would you like to receive daily AI-curated digests from Unveil?
           </p>
         </DialogHeader>
 
-        <div className="space-y-4">
+        <div className="space-y-6">
           {/* Features */}
-          <div className="bg-secondary/50 rounded-lg p-4 space-y-3">
-            <div className="flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-blue-500" />
-              <span className="text-sm font-medium text-foreground">AI-curated content</span>
+          <div className="bg-active-pill/50 rounded-2xl p-6 space-y-4">
+            <div className="flex items-center gap-3">
+              <Sparkles className="w-5 h-5 text-bright-periwinkle" />
+              <span className="font-medium text-deep-blue-violet">AI-curated content</span>
             </div>
-            <div className="flex items-center gap-2">
-              <Mail className="w-4 h-4 text-green-500" />
-              <span className="text-sm font-medium text-foreground">Daily digest emails</span>
+            <div className="flex items-center gap-3">
+              <Mail className="w-5 h-5 text-bright-periwinkle" />
+              <span className="font-medium text-deep-blue-violet">Daily digest emails</span>
             </div>
-            <div className="flex items-center gap-2">
-              <X className="w-4 h-4 text-gray-500" />
-              <span className="text-sm font-medium text-foreground">Unsubscribe anytime</span>
+            <div className="flex items-center gap-3">
+              <X className="w-5 h-5 text-dusty-blue-grey" />
+              <span className="font-medium text-deep-blue-violet">Unsubscribe anytime</span>
             </div>
           </div>
 
           {/* Campus user badge */}
           {profile?.is_campus_user && (
             <div className="flex justify-center">
-              <Badge variant="outline" className="bg-blue-50/80 text-blue-700 border-blue-200/50 dark:bg-blue-900/20 dark:text-blue-400 dark:border-blue-800/50">
+              <Badge className="pill-badge">
                 🎓 IITH Campus User
               </Badge>
             </div>
           )}
 
           {/* Action buttons */}
-          <div className="space-y-2">
+          <div className="space-y-3">
             <Button
               onClick={() => handleOptIn(true)}
               disabled={loading}
-              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
+              className="w-full btn-primary"
             >
               {loading ? (
-                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                <Loader2 className="w-5 h-5 mr-2 animate-spin" />
               ) : (
-                <Bell className="w-4 h-4 mr-2" />
+                <Bell className="w-5 h-5 mr-2" />
               )}
               Yes, send me digests
             </Button>
@@ -80,14 +80,13 @@ export const DigestOptInModal: React.FC<DigestOptInModalProps> = ({ isOpen, onCl
             <Button
               onClick={() => handleOptIn(false)}
               disabled={loading}
-              variant="outline"
-              className="w-full border-border text-muted-foreground hover:bg-secondary/50"
+              className="w-full btn-secondary"
             >
               No, not now
             </Button>
           </div>
 
-          <p className="text-xs text-muted-foreground text-center">
+          <p className="text-xs text-dusty-blue-grey text-center">
             You can change this preference anytime in your settings
           </p>
         </div>
