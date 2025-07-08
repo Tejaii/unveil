@@ -39,7 +39,7 @@ export const topicFeeds: Record<string, string[]> = {
     "https://discover.sportsengineplay.com/rss",
   ],
   Politics: [
-    "https://apnews.com/hub/politics?outputType=rss",
+    "https://apnews.com/apf-politics.rss",
     "https://rss.politico.com/politics-news.xml",
     "http://www.nytimes.com/services/xml/rss/nyt/Politics.xml",
     "http://feeds.feedburner.com/AtlanticPoliticsChannel",
