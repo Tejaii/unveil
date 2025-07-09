@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Search, Settings, Sun, Moon } from 'lucide-react';
+import { Search, Settings, Sun, Moon, Menu } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { AuthButton } from './auth/AuthButton';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 export const TopNavigation = ({ onMenuClick, onViewChange, currentView }) => {
   const [searchValue, setSearchValue] = useState('');
   const { theme, setTheme } = useTheme();
+  const isMobile = useIsMobile();
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -23,12 +24,25 @@ export const TopNavigation = ({ onMenuClick, onViewChange, currentView }) => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass-nav">
       <div className="flex items-center justify-between px-6 py-4">
-        {/* Logo */}
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center">
-            <span className="text-white font-bold text-sm">U</span>
+        {/* Left Section */}
+        <div className="flex items-center gap-4">
+          {/* Menu Button for Mobile */}
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={onMenuClick}
+            className="text-muted-foreground hover:text-foreground rounded-lg p-2 lg:hidden"
+          >
+            <Menu className="w-5 h-5" />
+          </Button>
+
+          {/* Logo */}
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center">
+              <span className="text-white font-bold text-sm">U</span>
+            </div>
+            <h1 className="text-xl font-bold text-foreground hidden sm:block">Unveil</h1>
           </div>
-          <h1 className="text-xl font-bold text-foreground hidden sm:block">Unveil</h1>
         </div>
 
         {/* Search Bar */}
@@ -38,13 +52,15 @@ export const TopNavigation = ({ onMenuClick, onViewChange, currentView }) => {
             <input
               type="text"
               placeholder="Search articles..."
-              className="w-full pl-12 pr-4 py-3 bg-input text-foreground rounded-xl placeholder-muted-foreground focus:ring-2 focus:ring-accent"
+              className="w-full pl-12 pr-16 py-3 bg-input text-foreground rounded-xl placeholder-muted-foreground focus:ring-2 focus:ring-accent"
               onClick={toggleSearch}
               readOnly
             />
-            <kbd className="absolute right-4 top-1/2 transform -translate-y-1/2 inline-flex h-5 select-none items-center gap-1 rounded bg-muted px-1.5 font-mono text-xs font-medium text-muted-foreground">
-              <span className="text-xs">⌘</span>K
-            </kbd>
+            {!isMobile && (
+              <kbd className="absolute right-4 top-1/2 transform -translate-y-1/2 inline-flex h-5 select-none items-center gap-1 rounded bg-muted px-1.5 font-mono text-xs font-medium text-muted-foreground">
+                <span className="text-xs">⌘</span>K
+              </kbd>
+            )}
           </div>
         </div>
 
@@ -62,7 +78,7 @@ export const TopNavigation = ({ onMenuClick, onViewChange, currentView }) => {
           <Button
             variant="ghost"
             size="sm"
-            className="text-muted-foreground hover:text-foreground rounded-lg p-2"
+            className="text-muted-foreground hover:text-foreground rounded-lg p-2 hidden sm:flex"
           >
             <Settings className="w-5 h-5" />
           </Button>

@@ -9,9 +9,9 @@ import {
 import { useIsMobile } from '@/hooks/use-mobile';
 
 const navigationItems = [
-  { id: 'feed', label: 'For You', icon: Home, desc: 'Personalized feed' },
-  { id: 'discover', label: 'Discover', icon: Compass, desc: 'Explore new content' },
-  { id: 'insights', label: 'AI Insights', icon: Brain, desc: 'AI analysis' },
+  { id: 'feed', label: 'For You', icon: Home },
+  { id: 'discover', label: 'Discover', icon: Compass },
+  { id: 'insights', label: 'AI Insights', icon: Brain },
 ];
 
 const filterCategories = [
@@ -80,7 +80,7 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
       <aside 
         className={`
           fixed left-0 top-20 h-[calc(100vh-5rem)] w-72 
-          bg-background z-50 overflow-hidden lg:translate-x-0
+          sidebar-bg z-50 overflow-hidden lg:translate-x-0
           transition-transform duration-300 ease-in-out
           ${!isWideScreen && !isOpen ? '-translate-x-full' : 'translate-x-0'}
         `}
@@ -120,10 +120,7 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
                       }}
                     >
                       <item.icon className="w-5 h-5 mr-3" />
-                      <div>
-                        <div className="font-medium text-base">{item.label}</div>
-                        <div className="text-sm opacity-75">{item.desc}</div>
-                      </div>
+                      <span className="font-medium">{item.label}</span>
                     </Button>
                   ))}
                 </div>
@@ -153,7 +150,7 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
               </div>
 
               {/* Progress Card */}
-              <Card className="news-card">
+              <Card className="bg-card rounded-xl card-shadow">
                 <CardContent className="p-4">
                   <div className="flex items-center gap-3 mb-4">
                     <Clock className="w-5 h-5 text-accent" />

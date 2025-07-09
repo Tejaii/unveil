@@ -152,7 +152,7 @@ export const NewsFeed = ({ userProfile }) => {
       </div>
 
       {/* Topic Preferences */}
-      <Card className="news-card">
+      <Card className="bg-card rounded-xl card-shadow">
         <CardHeader className="pb-4">
           <div className="flex items-center gap-3">
             <Settings className="w-5 h-5 text-accent" />
@@ -182,7 +182,7 @@ export const NewsFeed = ({ userProfile }) => {
       </Card>
 
       {/* Today's Briefing */}
-      <Card className="news-card">
+      <Card className="bg-card rounded-xl card-shadow">
         <CardHeader className="pb-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -221,7 +221,7 @@ export const NewsFeed = ({ userProfile }) => {
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[...Array(6)].map((_, i) => (
-              <div key={i} className="news-card animate-pulse">
+              <div key={i} className="bg-card rounded-xl p-6 card-shadow animate-pulse">
                 <div className="h-6 bg-muted rounded w-1/3 mb-4"></div>
                 <div className="h-4 bg-muted rounded w-3/4 mb-2"></div>
                 <div className="h-4 bg-muted rounded w-1/2 mb-4"></div>
@@ -242,7 +242,7 @@ export const NewsFeed = ({ userProfile }) => {
             ))}
           </div>
         ) : (
-          <Card className="news-card">
+          <Card className="bg-card rounded-xl card-shadow">
             <CardContent className="p-12 text-center">
               <p className="text-muted-foreground mb-4">No articles found for your selected topics.</p>
               <p className="text-muted-foreground">Try selecting different topics above.</p>

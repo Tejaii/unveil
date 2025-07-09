@@ -59,7 +59,7 @@ export const MainApp = ({ userProfile }) => {
       </div>
 
       {/* Footer */}
-      <footer className="bg-background border-t border-transparent py-6 mt-12">
+      <footer className="bg-background py-6 mt-12">
         <div className="max-w-6xl mx-auto px-6 text-center">
           <p className="text-muted-foreground text-sm">
             Unveil: Smart News for Smart Minds
