@@ -4,7 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import {
   Home, TrendingUp, Brain, Settings,
-  X, Clock, User, Calendar, Compass
+  X, Clock, User, Calendar, Compass, Zap
 } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 
@@ -14,31 +14,15 @@ const navigationItems = [
   { id: 'insights', label: 'AI Insights', icon: Brain, desc: 'AI analysis' },
 ];
 
-const getProfileZones = (userType: string) => {
-  const zones = {
-    student: [
-      { id: 'campus', label: 'Campus Central', icon: Calendar },
-      { id: 'research', label: 'Research Hub', icon: Brain },
-    ],
-    developer: [
-      { id: 'techstack', label: 'Tech Stack', icon: Brain },
-      { id: 'opensource', label: 'Open Source', icon: Calendar },
-    ],
-    consumer: [
-      { id: 'lifestyle', label: 'Lifestyle', icon: User },
-      { id: 'finance', label: 'Finance Flow', icon: TrendingUp },
-    ],
-    enthusiast: [
-      { id: 'global', label: 'Global Watch', icon: TrendingUp },
-      { id: 'analysis', label: 'Deep Analysis', icon: Brain },
-    ]
-  };
-  return zones[userType] || [];
-};
+const filterCategories = [
+  { id: 'trending', label: 'Trending', icon: TrendingUp },
+  { id: 'technology', label: 'Technology', icon: Zap },
+  { id: 'ai', label: 'AI', icon: Brain },
+  { id: 'health', label: 'Health', icon: User },
+];
 
 export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfile, isWideScreen }) => {
   const isMobile = useIsMobile();
-  const profileZones = getProfileZones(userProfile?.userType);
 
   // Auto-close sidebar on resize to desktop (unless wide screen)
   useEffect(() => {
@@ -53,7 +37,7 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
   if (isMobile) {
     return (
       <>
-        {/* Mobile Overlay - Only shown when sidebar is open */}
+        {/* Mobile Overlay */}
         {isOpen && (
           <div 
             className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40" 
@@ -63,7 +47,7 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
         
         {/* Mobile Bottom Navigation */}
         <div 
-          className={`fixed bottom-0 left-0 right-0 z-50 bg-light-slate/80 backdrop-blur-md shadow-floating-lg transition-transform duration-300 ${
+          className={`fixed bottom-0 left-0 right-0 z-50 glass-nav transition-transform duration-300 ${
             isOpen ? 'translate-y-0' : 'translate-y-full'
           }`}
         >
@@ -72,15 +56,15 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
               <Button
                 key={item.id}
                 variant="ghost"
-                className={`flex flex-col items-center gap-2 p-4 h-auto rounded-2xl ${
-                  currentView === item.id ? 'menu-active' : 'text-dusty-blue-grey hover:bg-active-pill'
+                className={`flex flex-col items-center gap-2 p-4 h-auto rounded-xl ${
+                  currentView === item.id ? 'text-accent bg-secondary' : 'text-muted-foreground hover:text-foreground'
                 }`}
                 onClick={() => {
                   onViewChange(item.id);
                   onClose();
                 }}
               >
-                <item.icon className="w-6 h-6" />
+                <item.icon className="w-5 h-5" />
                 <span className="text-xs font-medium">{item.label}</span>
               </Button>
             ))}
@@ -96,8 +80,7 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
       <aside 
         className={`
           fixed left-0 top-20 h-[calc(100vh-5rem)] w-72 
-          bg-lilac-mist/50 backdrop-blur-md shadow-floating
-          z-50 overflow-hidden lg:translate-x-0
+          bg-background z-50 overflow-hidden lg:translate-x-0
           transition-transform duration-300 ease-in-out
           ${!isWideScreen && !isOpen ? '-translate-x-full' : 'translate-x-0'}
         `}
@@ -106,8 +89,8 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
           {/* Close button - Only shown on mobile */}
           {isMobile && (
             <div className="flex justify-between items-center p-6 lg:hidden">
-              <h2 className="font-semibold text-deep-blue-violet">Navigation</h2>
-              <Button variant="ghost" size="sm" onClick={onClose} className="rounded-2xl">
+              <h2 className="font-semibold text-foreground">Navigation</h2>
+              <Button variant="ghost" size="sm" onClick={onClose} className="rounded-xl">
                 <X className="w-5 h-5" />
               </Button>
             </div>
@@ -118,27 +101,27 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
             <div className="space-y-8">
               {/* Main Navigation */}
               <div>
-                <h3 className="text-sm font-medium text-dusty-blue-grey mb-6 px-4 uppercase tracking-wide">
+                <h3 className="text-sm font-medium text-muted-foreground mb-4 px-3 uppercase tracking-wide">
                   Main
                 </h3>
-                <div className="space-y-3">
+                <div className="space-y-2">
                   {navigationItems.map((item) => (
                     <Button
                       key={item.id}
                       variant="ghost"
-                      className={`w-full justify-start text-left h-auto p-5 rounded-2xl transition-all ${
+                      className={`w-full justify-start text-left h-auto p-4 rounded-xl transition-all ${
                         currentView === item.id
-                          ? 'menu-active shadow-floating'
-                          : 'text-dusty-blue-grey hover:bg-active-pill hover:text-deep-blue-violet'
+                          ? 'text-accent bg-secondary'
+                          : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
                       }`}
                       onClick={() => {
                         onViewChange(item.id);
                         if (!isWideScreen) onClose();
                       }}
                     >
-                      <item.icon className="w-6 h-6 mr-4" />
+                      <item.icon className="w-5 h-5 mr-3" />
                       <div>
-                        <div className="font-semibold text-base">{item.label}</div>
+                        <div className="font-medium text-base">{item.label}</div>
                         <div className="text-sm opacity-75">{item.desc}</div>
                       </div>
                     </Button>
@@ -146,45 +129,43 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
                 </div>
               </div>
 
-              {/* Profile Zones */}
-              {profileZones.length > 0 && (
-                <div>
-                  <h3 className="text-sm font-medium text-dusty-blue-grey mb-6 px-4 uppercase tracking-wide">
-                    Your Zones
-                  </h3>
-                  <div className="space-y-3">
-                    {profileZones.map((zone) => (
-                      <Button
-                        key={zone.id}
-                        variant="ghost"
-                        className="w-full justify-start text-dusty-blue-grey hover:bg-active-pill hover:text-deep-blue-violet h-auto p-5 rounded-2xl"
-                        onClick={() => {
-                          onViewChange(zone.id);
-                          if (!isWideScreen) onClose();
-                        }}
-                      >
-                        <zone.icon className="w-6 h-6 mr-4" />
-                        <span className="font-semibold">{zone.label}</span>
-                      </Button>
-                    ))}
-                  </div>
+              {/* Filter Categories */}
+              <div>
+                <h3 className="text-sm font-medium text-muted-foreground mb-4 px-3 uppercase tracking-wide">
+                  Categories
+                </h3>
+                <div className="space-y-2">
+                  {filterCategories.map((category) => (
+                    <Button
+                      key={category.id}
+                      variant="ghost"
+                      className="w-full justify-start text-muted-foreground hover:text-foreground hover:bg-secondary h-auto p-4 rounded-xl"
+                      onClick={() => {
+                        onViewChange(category.id);
+                        if (!isWideScreen) onClose();
+                      }}
+                    >
+                      <category.icon className="w-5 h-5 mr-3" />
+                      <span className="font-medium">{category.label}</span>
+                    </Button>
+                  ))}
                 </div>
-              )}
+              </div>
 
               {/* Progress Card */}
-              <Card className="card-floating">
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-3 mb-6">
-                    <Clock className="w-6 h-6 text-bright-periwinkle" />
-                    <h4 className="font-semibold text-deep-blue-violet text-lg">Today's Progress</h4>
+              <Card className="news-card">
+                <CardContent className="p-4">
+                  <div className="flex items-center gap-3 mb-4">
+                    <Clock className="w-5 h-5 text-accent" />
+                    <h4 className="font-semibold text-foreground">Today's Progress</h4>
                   </div>
-                  <div className="space-y-4 text-sm">
+                  <div className="space-y-3 text-sm">
                     <div className="flex justify-between items-center">
-                      <span className="text-dusty-blue-grey">Articles read</span>
+                      <span className="text-muted-foreground">Articles read</span>
                       <Badge className="pill-badge">12</Badge>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-dusty-blue-grey">Reading streak</span>
+                      <span className="text-muted-foreground">Reading streak</span>
                       <Badge className="pill-badge">7 days</Badge>
                     </div>
                   </div>
@@ -197,14 +178,14 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
           <div className="p-6">
             <Button
               variant="ghost"
-              className="w-full justify-start text-dusty-blue-grey hover:bg-active-pill hover:text-deep-blue-violet rounded-2xl p-5"
+              className="w-full justify-start text-muted-foreground hover:text-foreground hover:bg-secondary rounded-xl p-4"
               onClick={() => {
                 onViewChange('settings');
                 if (!isWideScreen) onClose();
               }}
             >
-              <Settings className="w-6 h-6 mr-4" />
-              <span className="font-semibold">Settings</span>
+              <Settings className="w-5 h-5 mr-3" />
+              <span className="font-medium">Settings</span>
             </Button>
           </div>
         </div>

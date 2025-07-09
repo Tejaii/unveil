@@ -50,13 +50,22 @@ export const MainApp = ({ userProfile }) => {
         />
         
         <main className={`flex-1 transition-all duration-300 ${
-          (!isMobile && (isWideScreen || sidebarOpen)) ? 'ml-64' : 'ml-0'
+          (!isMobile && (isWideScreen || sidebarOpen)) ? 'ml-72' : 'ml-0'
         }`}>
-          <div className="pt-16 pb-20 md:pb-4 max-w-4xl mx-auto">
+          <div className="pt-20 pb-20 md:pb-4">
             {renderContent()}
           </div>
         </main>
       </div>
+
+      {/* Footer */}
+      <footer className="bg-background border-t border-transparent py-6 mt-12">
+        <div className="max-w-6xl mx-auto px-6 text-center">
+          <p className="text-muted-foreground text-sm">
+            Unveil: Smart News for Smart Minds
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }

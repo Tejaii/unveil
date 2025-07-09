@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
-import { Brain, Sparkles, ChevronDown, Calendar, Settings } from 'lucide-react';
+import { Brain, Sparkles, ChevronDown, Calendar, Settings, RefreshCw } from 'lucide-react';
 import { topicFeeds } from '@/components/constants/topicFeeds';
 import { useAuth } from './auth/AuthProvider';
 
@@ -128,46 +128,46 @@ export const NewsFeed = ({ userProfile }) => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto p-8 space-y-8">
+    <div className="max-w-6xl mx-auto p-6 space-y-8">
       {/* Header Controls */}
-      <div className="flex items-center justify-between mb-10">
+      <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-deep-blue-violet">For You</h1>
-          <p className="text-dusty-blue-grey mt-2 text-lg">
+          <h1 className="text-3xl font-bold text-foreground">For You</h1>
+          <p className="text-muted-foreground mt-2">
             Personalized for {userProfile?.userType || 'you'} • {selectedTopics.length} topics
           </p>
         </div>
 
         <div className="flex items-center gap-6">
-          <div className="flex items-center gap-4">
-            <span className="text-dusty-blue-grey font-medium">AI Enhanced</span>
+          <div className="flex items-center gap-3">
+            <span className="text-muted-foreground font-medium">AI Enhanced</span>
             <Switch 
               checked={aiEnhanced} 
               onCheckedChange={setAiEnhanced}
-              className="data-[state=checked]:bg-bright-periwinkle"
+              className="data-[state=checked]:bg-accent"
             />
-            <Brain className="w-5 h-5 text-bright-periwinkle" />
+            <Brain className="w-5 h-5 text-accent" />
           </div>
         </div>
       </div>
 
       {/* Topic Preferences */}
-      <Card className="card-floating">
-        <CardHeader className="pb-6">
-          <div className="flex items-center gap-4">
-            <Settings className="w-6 h-6 text-bright-periwinkle" />
-            <CardTitle className="text-xl text-deep-blue-violet">Your Topics</CardTitle>
+      <Card className="news-card">
+        <CardHeader className="pb-4">
+          <div className="flex items-center gap-3">
+            <Settings className="w-5 h-5 text-accent" />
+            <CardTitle className="text-foreground">Your Topics</CardTitle>
           </div>
         </CardHeader>
         <CardContent className="pt-0">
-          <div className="flex flex-wrap gap-3 mb-6">
+          <div className="flex flex-wrap gap-3 mb-4">
             {Object.keys(topicFeeds).map((topic) => (
               <Badge
                 key={topic}
-                className={`cursor-pointer px-6 py-3 rounded-full transition-all text-sm font-medium ${
+                className={`cursor-pointer px-4 py-2 rounded-full transition-all font-medium ${
                   selectedTopics.includes(topic)
-                    ? 'bg-bright-periwinkle text-white shadow-floating'
-                    : 'bg-active-pill text-deep-blue-violet hover:bg-bright-periwinkle hover:text-white'
+                    ? 'bg-accent text-primary-foreground'
+                    : 'pill-badge hover:bg-accent hover:text-primary-foreground'
                 }`}
                 onClick={() => handleTopicToggle(topic)}
               >
@@ -175,19 +175,19 @@ export const NewsFeed = ({ userProfile }) => {
               </Badge>
             ))}
           </div>
-          <p className="text-sm text-dusty-blue-grey">
+          <p className="text-sm text-muted-foreground">
             Click topics to customize your feed • {selectedTopics.length} selected
           </p>
         </CardContent>
       </Card>
 
       {/* Today's Briefing */}
-      <Card className="card-floating">
-        <CardHeader className="pb-6">
+      <Card className="news-card">
+        <CardHeader className="pb-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <Calendar className="w-6 h-6 text-bright-periwinkle" />
-              <CardTitle className="text-xl text-deep-blue-violet">Today's Briefing</CardTitle>
+            <div className="flex items-center gap-3">
+              <Calendar className="w-5 h-5 text-accent" />
+              <CardTitle className="text-foreground">Today's Briefing</CardTitle>
               <Badge className="pill-badge">
                 {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
               </Badge>
@@ -196,7 +196,7 @@ export const NewsFeed = ({ userProfile }) => {
               variant="ghost"
               size="sm"
               onClick={() => setBriefingExpanded(!briefingExpanded)}
-              className="text-dusty-blue-grey hover:bg-active-pill rounded-2xl"
+              className="text-muted-foreground hover:text-foreground rounded-lg"
             >
               <ChevronDown className={`w-5 h-5 transition-transform ${briefingExpanded ? 'rotate-180' : ''}`} />
             </Button>
@@ -204,11 +204,11 @@ export const NewsFeed = ({ userProfile }) => {
         </CardHeader>
         {briefingExpanded && (
           <CardContent className="pt-0">
-            <div className="space-y-4">
+            <div className="space-y-3">
               {getTodaysBriefing().map((item, index) => (
-                <div key={index} className="flex items-start gap-4">
-                  <Sparkles className="w-5 h-5 text-bright-periwinkle mt-1 flex-shrink-0" />
-                  <p className="text-dusty-blue-grey leading-relaxed">{item}</p>
+                <div key={index} className="flex items-start gap-3">
+                  <Sparkles className="w-4 h-4 text-accent mt-1 flex-shrink-0" />
+                  <p className="text-muted-foreground leading-relaxed">{item}</p>
                 </div>
               ))}
             </div>
@@ -219,41 +219,46 @@ export const NewsFeed = ({ userProfile }) => {
       {/* News Feed */}
       <div className="space-y-6">
         {loading ? (
-          <div className="space-y-6">
-            {[...Array(3)].map((_, i) => (
-              <div key={i} className="card-floating p-8 animate-pulse">
-                <div className="h-6 bg-active-pill rounded-2xl w-3/4 mb-4"></div>
-                <div className="h-4 bg-active-pill rounded-2xl w-1/2 mb-4"></div>
-                <div className="h-4 bg-active-pill rounded-2xl w-1/4"></div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[...Array(6)].map((_, i) => (
+              <div key={i} className="news-card animate-pulse">
+                <div className="h-6 bg-muted rounded w-1/3 mb-4"></div>
+                <div className="h-4 bg-muted rounded w-3/4 mb-2"></div>
+                <div className="h-4 bg-muted rounded w-1/2 mb-4"></div>
+                <div className="h-32 bg-muted rounded mb-4"></div>
+                <div className="h-4 bg-muted rounded w-1/4"></div>
               </div>
             ))}
           </div>
         ) : articles.length > 0 ? (
-          articles.map((article, idx) => (
-            <NewsCard
-              key={`${article.url}-${idx}`}
-              article={article}
-              aiEnhanced={aiEnhanced}
-              userProfile={userProfile}
-            />
-          ))
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {articles.map((article, idx) => (
+              <NewsCard
+                key={`${article.url}-${idx}`}
+                article={article}
+                aiEnhanced={aiEnhanced}
+                userProfile={userProfile}
+              />
+            ))}
+          </div>
         ) : (
-          <Card className="card-floating">
-            <CardContent className="p-16 text-center">
-              <p className="text-dusty-blue-grey mb-6 text-lg">No articles found for your selected topics.</p>
-              <p className="text-dusty-blue-grey">Try selecting different topics above.</p>
+          <Card className="news-card">
+            <CardContent className="p-12 text-center">
+              <p className="text-muted-foreground mb-4">No articles found for your selected topics.</p>
+              <p className="text-muted-foreground">Try selecting different topics above.</p>
             </CardContent>
           </Card>
         )}
       </div>
 
-      {/* Load More Placeholder */}
+      {/* Load More */}
       {articles.length > 0 && (
-        <div className="text-center py-12">
+        <div className="text-center py-8">
           <Button
             className="btn-primary"
             onClick={() => window.location.reload()}
           >
+            <RefreshCw className="w-4 h-4 mr-2" />
             Refresh Feed
           </Button>
         </div>

@@ -46,15 +46,15 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-md glass-modal shadow-floating-lg rounded-2xl border-0">
+      <DialogContent className="sm:max-w-md glass-modal rounded-2xl border-0">
         <DialogHeader className="text-center">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-bright-periwinkle to-deep-blue-violet flex items-center justify-center shadow-floating">
+            <div className="w-12 h-12 rounded-xl bg-accent flex items-center justify-center">
               <Sparkles className="w-6 h-6 text-white" />
             </div>
-            <DialogTitle className="text-2xl font-bold text-deep-blue-violet">Welcome to Unveil</DialogTitle>
+            <DialogTitle className="text-2xl font-bold text-foreground">Welcome to Unveil</DialogTitle>
           </div>
-          <p className="text-dusty-blue-grey text-lg">
+          <p className="text-muted-foreground">
             Sign in with your email to get personalized AI-curated news
           </p>
         </DialogHeader>
@@ -62,7 +62,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
         {!sent ? (
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-3">
-              <Label htmlFor="email" className="text-deep-blue-violet font-medium">Email address</Label>
+              <Label htmlFor="email" className="text-foreground font-medium">Email address</Label>
               <Input
                 id="email"
                 type="email"
@@ -70,12 +70,12 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="bg-light-slate/50 border-0 text-deep-blue-violet rounded-2xl p-4 placeholder-dusty-blue-grey focus:shadow-floating-lg"
+                className="bg-input text-foreground rounded-xl p-4 placeholder-muted-foreground focus:ring-2 focus:ring-accent"
               />
             </div>
 
             {error && (
-              <Alert variant="destructive" className="rounded-2xl border-0">
+              <Alert variant="destructive" className="rounded-xl">
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
             )}
@@ -98,21 +98,21 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
               )}
             </Button>
 
-            <p className="text-xs text-dusty-blue-grey text-center">
+            <p className="text-xs text-muted-foreground text-center">
               We'll send you a secure link to sign in without a password
             </p>
           </form>
         ) : (
           <div className="text-center space-y-6">
             <div className="flex justify-center">
-              <CheckCircle className="w-16 h-16 text-bright-periwinkle" />
+              <CheckCircle className="w-16 h-16 text-accent" />
             </div>
             <div>
-              <h3 className="text-xl font-bold text-deep-blue-violet mb-3">Check your email</h3>
-              <p className="text-dusty-blue-grey text-lg">
+              <h3 className="text-xl font-bold text-foreground mb-3">Check your email</h3>
+              <p className="text-muted-foreground">
                 We've sent a magic link to <strong>{email}</strong>
               </p>
-              <p className="text-dusty-blue-grey mt-3">
+              <p className="text-muted-foreground mt-3">
                 Click the link in your email to sign in to Unveil
               </p>
             </div>
