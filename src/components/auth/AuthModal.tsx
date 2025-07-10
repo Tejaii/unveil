@@ -116,7 +116,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                 Click the link in your email to sign in to Unveil
               </p>
             </div>
-            <Button variant="outline" onClick={handleClose} className="w-full btn-secondary">
             <Button variant="outline" onClick={handleClose} className="w-full btn-secondary border-0">
               Got it
             </Button>
