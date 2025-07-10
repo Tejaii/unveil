@@ -152,7 +152,7 @@ export const NewsFeed = ({ userProfile }) => {
       </div>
 
       {/* Topic Preferences */}
-      <Card className="bg-card rounded-xl card-shadow">
+      <Card className="bg-card rounded-xl card-shadow border-0">
         <CardHeader className="pb-4">
           <div className="flex items-center gap-3">
             <Settings className="w-5 h-5 text-accent" />
@@ -166,9 +166,9 @@ export const NewsFeed = ({ userProfile }) => {
                 key={topic}
                 className={`cursor-pointer px-4 py-2 rounded-full transition-all font-medium ${
                   selectedTopics.includes(topic)
-                    ? 'bg-accent text-primary-foreground'
-                    : 'pill-badge hover:bg-accent hover:text-primary-foreground'
-                }`}
+                    ? 'bg-accent text-primary-foreground border-0'
+                    : 'pill-badge border-0'
+                } dark:border-0`}
                 onClick={() => handleTopicToggle(topic)}
               >
                 {topic}
@@ -182,7 +182,7 @@ export const NewsFeed = ({ userProfile }) => {
       </Card>
 
       {/* Today's Briefing */}
-      <Card className="bg-card rounded-xl card-shadow">
+      <Card className="bg-card rounded-xl card-shadow border-0">
         <CardHeader className="pb-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -196,7 +196,7 @@ export const NewsFeed = ({ userProfile }) => {
               variant="ghost"
               size="sm"
               onClick={() => setBriefingExpanded(!briefingExpanded)}
-              className="text-muted-foreground hover:text-foreground rounded-lg"
+              className="text-muted-foreground hover:text-foreground rounded-lg border-0"
             >
               <ChevronDown className={`w-5 h-5 transition-transform ${briefingExpanded ? 'rotate-180' : ''}`} />
             </Button>
@@ -242,7 +242,7 @@ export const NewsFeed = ({ userProfile }) => {
             ))}
           </div>
         ) : (
-          <Card className="bg-card rounded-xl card-shadow">
+          <Card className="bg-card rounded-xl card-shadow border-0">
             <CardContent className="p-12 text-center">
               <p className="text-muted-foreground mb-4">No articles found for your selected topics.</p>
               <p className="text-muted-foreground">Try selecting different topics above.</p>
@@ -255,7 +255,7 @@ export const NewsFeed = ({ userProfile }) => {
       {articles.length > 0 && (
         <div className="text-center py-8">
           <Button
-            className="btn-primary"
+            className="btn-primary border-0"
             onClick={() => window.location.reload()}
           >
             <RefreshCw className="w-4 h-4 mr-2" />

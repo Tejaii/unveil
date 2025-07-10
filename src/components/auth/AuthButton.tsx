@@ -18,7 +18,7 @@ export const AuthButton: React.FC = () => {
         <Button
           onClick={() => setShowAuthModal(true)}
           variant="outline"
-          className="bg-background border-border text-foreground hover:bg-secondary/50"
+          className="bg-background text-foreground hover:bg-secondary/50 border-0"
         >
           <User className="w-4 h-4 mr-2" />
           Sign In
@@ -34,7 +34,7 @@ export const AuthButton: React.FC = () => {
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="h-8 w-8 rounded-full p-0">
+          <Button variant="ghost" className="h-8 w-8 rounded-full p-0 border-0">
             <Avatar className="h-8 w-8">
               <AvatarFallback className="bg-secondary text-foreground text-sm">
                 {userInitial}
@@ -43,6 +43,7 @@ export const AuthButton: React.FC = () => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-56 bg-card border-border">
+        <DropdownMenuContent align="end" className="w-56 bg-card border-0">
           <div className="px-2 py-1.5">
             <p className="text-sm font-medium text-foreground">{user.email}</p>
             {profile?.is_campus_user && (
@@ -52,19 +53,20 @@ export const AuthButton: React.FC = () => {
           <DropdownMenuSeparator className="bg-border" />
           <DropdownMenuItem 
             onClick={() => setShowDigestModal(true)}
-            className="text-foreground hover:bg-secondary/50 cursor-pointer"
+            className="text-foreground hover:bg-secondary/50 cursor-pointer border-0"
           >
             <Mail className="mr-2 h-4 w-4" />
             Digest Settings
           </DropdownMenuItem>
           <DropdownMenuItem className="text-foreground hover:bg-secondary/50 cursor-pointer">
+          <DropdownMenuItem className="text-foreground hover:bg-secondary/50 cursor-pointer border-0">
             <Settings className="mr-2 h-4 w-4" />
             Settings
           </DropdownMenuItem>
           <DropdownMenuSeparator className="bg-border" />
           <DropdownMenuItem 
             onClick={signOut}
-            className="text-foreground hover:bg-secondary/50 cursor-pointer"
+            className="text-foreground hover:bg-secondary/50 cursor-pointer border-0"
           >
             <LogOut className="mr-2 h-4 w-4" />
             Sign Out

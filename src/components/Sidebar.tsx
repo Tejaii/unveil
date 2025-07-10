@@ -56,9 +56,9 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
               <Button
                 key={item.id}
                 variant="ghost"
-                className={`flex flex-col items-center gap-2 p-4 h-auto rounded-xl ${
-                  currentView === item.id ? 'text-accent bg-secondary' : 'text-muted-foreground hover:text-foreground'
-                }`}
+                    ? 'text-accent bg-secondary border-0'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-secondary border-0'
+                } border-0`}
                 onClick={() => {
                   onViewChange(item.id);
                   onClose();
@@ -136,7 +136,7 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
                     <Button
                       key={category.id}
                       variant="ghost"
-                      className="w-full justify-start text-muted-foreground hover:text-foreground hover:bg-secondary h-auto p-4 rounded-xl"
+                      className="w-full justify-start text-muted-foreground hover:text-foreground hover:bg-secondary h-auto p-4 rounded-xl border-0"
                       onClick={() => {
                         onViewChange(category.id);
                         if (!isWideScreen) onClose();
@@ -150,7 +150,7 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
               </div>
 
               {/* Progress Card */}
-              <Card className="bg-card rounded-xl card-shadow">
+              <Card className="bg-card rounded-xl card-shadow border-0">
                 <CardContent className="p-4">
                   <div className="flex items-center gap-3 mb-4">
                     <Clock className="w-5 h-5 text-accent" />
@@ -159,11 +159,11 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
                   <div className="space-y-3 text-sm">
                     <div className="flex justify-between items-center">
                       <span className="text-muted-foreground">Articles read</span>
-                      <Badge className="pill-badge">12</Badge>
+                      <Badge className="pill-badge border-0">12</Badge>
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-muted-foreground">Reading streak</span>
-                      <Badge className="pill-badge">7 days</Badge>
+                      <Badge className="pill-badge border-0">7 days</Badge>
                     </div>
                   </div>
                 </CardContent>
@@ -175,7 +175,7 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
           <div className="p-6">
             <Button
               variant="ghost"
-              className="w-full justify-start text-muted-foreground hover:text-foreground hover:bg-secondary rounded-xl p-4"
+              className="w-full justify-start text-muted-foreground hover:text-foreground hover:bg-secondary rounded-xl p-4 border-0"
               onClick={() => {
                 onViewChange('settings');
                 if (!isWideScreen) onClose();

@@ -70,7 +70,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="bg-input text-foreground rounded-xl p-4 placeholder-muted-foreground focus:ring-2 focus:ring-accent"
+                className="bg-input text-foreground rounded-xl p-4 placeholder-muted-foreground focus:ring-2 focus:ring-accent border-0"
               />
             </div>
 
@@ -83,7 +83,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
             <Button
               type="submit"
               disabled={loading || !email}
-              className="w-full btn-primary"
+              className="w-full btn-primary border-0"
             >
               {loading ? (
                 <>
@@ -117,6 +117,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
               </p>
             </div>
             <Button variant="outline" onClick={handleClose} className="w-full btn-secondary">
+            <Button variant="outline" onClick={handleClose} className="w-full btn-secondary border-0">
               Got it
             </Button>
           </div>

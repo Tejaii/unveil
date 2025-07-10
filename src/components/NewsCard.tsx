@@ -17,18 +17,18 @@ export const NewsCard = ({ article, aiEnhanced, userProfile }) => {
 
   return (
     <div 
-      className="news-card group"
+      className="news-card group border-0"
       onClick={handleClick}
     >
-      <div className="news-card-accent">
+      <div className="space-y-4">
         <div className="flex flex-col gap-4">
           {/* Header */}
           <div className="flex items-center justify-between">
-            <Badge className="pill-badge">
+            <Badge className="pill-badge border-0">
               {article.category}
             </Badge>
             {aiEnhanced && (
-              <Badge className="bg-accent/20 text-accent rounded-full px-3 py-1 text-xs font-medium">
+              <Badge className="dark:bg-accent/10 dark:text-accent bg-accent/20 text-accent rounded-full px-3 py-1 text-xs font-medium border-0">
                 AI Enhanced
               </Badge>
             )}
@@ -73,7 +73,7 @@ export const NewsCard = ({ article, aiEnhanced, userProfile }) => {
           </div>
 
           {aiEnhanced && (
-            <div className="mt-4 text-sm text-accent bg-accent/10 p-4 rounded-lg">
+            <div className="mt-4 text-sm text-accent dark:bg-accent/5 bg-accent/10 p-4 rounded-lg border-0">
               <span className="font-semibold">AI Insight:</span> This article aligns with your interest in {article.category.toLowerCase()} and matches your {userProfile?.userType || 'user'} profile.
             </div>
           )}

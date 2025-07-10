@@ -31,7 +31,7 @@ export const TopNavigation = ({ onMenuClick, onViewChange, currentView }) => {
             variant="ghost"
             size="sm"
             onClick={onMenuClick}
-            className="text-muted-foreground hover:text-foreground rounded-lg p-2 lg:hidden"
+            className="text-muted-foreground hover:text-foreground rounded-lg p-2 lg:hidden border-0"
           >
             <Menu className="w-5 h-5" />
           </Button>
@@ -52,7 +52,7 @@ export const TopNavigation = ({ onMenuClick, onViewChange, currentView }) => {
             <input
               type="text"
               placeholder="Search articles..."
-              className="w-full pl-12 pr-16 py-3 bg-input text-foreground rounded-xl placeholder-muted-foreground focus:ring-2 focus:ring-accent"
+              className="w-full pl-12 pr-16 py-3 bg-input text-foreground rounded-xl placeholder-muted-foreground focus:ring-2 focus:ring-accent border-0 outline-0"
               onClick={toggleSearch}
               readOnly
             />
@@ -70,7 +70,7 @@ export const TopNavigation = ({ onMenuClick, onViewChange, currentView }) => {
             variant="ghost"
             size="sm"
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="text-muted-foreground hover:text-foreground rounded-lg p-2"
+            className="text-muted-foreground hover:text-foreground rounded-lg p-2 border-0"
           >
             {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
           </Button>
@@ -78,7 +78,7 @@ export const TopNavigation = ({ onMenuClick, onViewChange, currentView }) => {
           <Button
             variant="ghost"
             size="sm"
-            className="text-muted-foreground hover:text-foreground rounded-lg p-2 hidden sm:flex"
+            className="text-muted-foreground hover:text-foreground rounded-lg p-2 hidden sm:flex border-0"
           >
             <Settings className="w-5 h-5" />
           </Button>

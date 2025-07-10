@@ -23,7 +23,7 @@ export const DigestOptInModal: React.FC<DigestOptInModalProps> = ({ isOpen, onCl
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md glass-modal shadow-floating-lg rounded-2xl border-0">
+      <DialogContent className="sm:max-w-md glass-modal rounded-2xl border-0">
         <DialogHeader className="text-center">
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-bright-periwinkle to-deep-blue-violet flex items-center justify-center shadow-floating">
@@ -38,25 +38,25 @@ export const DigestOptInModal: React.FC<DigestOptInModalProps> = ({ isOpen, onCl
 
         <div className="space-y-6">
           {/* Features */}
-          <div className="bg-active-pill/50 rounded-2xl p-6 space-y-4">
+          <div className="dark:bg-accent/5 bg-accent/10 rounded-2xl p-6 space-y-4 border-0">
             <div className="flex items-center gap-3">
-              <Sparkles className="w-5 h-5 text-bright-periwinkle" />
-              <span className="font-medium text-deep-blue-violet">AI-curated content</span>
+              <Sparkles className="w-5 h-5 text-accent" />
+              <span className="font-medium text-foreground">AI-curated content</span>
             </div>
             <div className="flex items-center gap-3">
-              <Mail className="w-5 h-5 text-bright-periwinkle" />
-              <span className="font-medium text-deep-blue-violet">Daily digest emails</span>
+              <Mail className="w-5 h-5 text-accent" />
+              <span className="font-medium text-foreground">Daily digest emails</span>
             </div>
             <div className="flex items-center gap-3">
-              <X className="w-5 h-5 text-dusty-blue-grey" />
-              <span className="font-medium text-deep-blue-violet">Unsubscribe anytime</span>
+              <X className="w-5 h-5 text-muted-foreground" />
+              <span className="font-medium text-foreground">Unsubscribe anytime</span>
             </div>
           </div>
 
           {/* Campus user badge */}
           {profile?.is_campus_user && (
             <div className="flex justify-center">
-              <Badge className="pill-badge">
+              <Badge className="pill-badge border-0">
                 🎓 IITH Campus User
               </Badge>
             </div>
@@ -67,7 +67,7 @@ export const DigestOptInModal: React.FC<DigestOptInModalProps> = ({ isOpen, onCl
             <Button
               onClick={() => handleOptIn(true)}
               disabled={loading}
-              className="w-full btn-primary"
+              className="w-full btn-primary border-0"
             >
               {loading ? (
                 <Loader2 className="w-5 h-5 mr-2 animate-spin" />
@@ -80,7 +80,7 @@ export const DigestOptInModal: React.FC<DigestOptInModalProps> = ({ isOpen, onCl
             <Button
               onClick={() => handleOptIn(false)}
               disabled={loading}
-              className="w-full btn-secondary"
+              className="w-full btn-secondary border-0"
             >
               No, not now
             </Button>
