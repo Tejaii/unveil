@@ -32,19 +32,19 @@
     /* Dark Mode Colors */
     --background: #343541;
     --sidebar: #202123;
-    --card: #444654;
+    --card: #3C3D4A;
     --foreground: #ECECF1;
     --muted-foreground: #A6A6B0;
     --accent: #10A37F;
     --border: transparent;
-    --input: #202123;
+    --input: #2B2C35;
     --ring: #10A37F;
     --primary: #10A37F;
     --primary-foreground: #FFFFFF;
-    --secondary: #202123;
+    --secondary: #2B2C35;
     --secondary-foreground: #A6A6B0;
-    --muted: #202123;
-    --popover: #444654;
+    --muted: #2B2C35;
+    --popover: #3C3D4A;
     --popover-foreground: #ECECF1;
     --destructive: #ef4444;
     --destructive-foreground: #FFFFFF;
