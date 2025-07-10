@@ -56,9 +56,11 @@ export const Sidebar = ({ isOpen, onClose, currentView, onViewChange, userProfil
               <Button
                 key={item.id}
                 variant="ghost"
+                className={`flex-col items-center gap-1 ${
+                  currentView === item.id
                     ? 'text-accent bg-secondary border-0'
                     : 'text-muted-foreground hover:text-foreground hover:bg-secondary border-0'
-                } border-0`}
+                }`}
                 onClick={() => {
                   onViewChange(item.id);
                   onClose();
