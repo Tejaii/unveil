@@ -26,7 +26,7 @@ const Discover = () => {
   );
 
   return (
-    <div className="p-6 space-y-6 max-w-4xl mx-auto">
+    <div className="max-w-6xl mx-auto p-6 space-y-6">
       <div className="flex items-center gap-2 mb-4">
         <Flame className="text-orange-600" />
         <h1 className="text-2xl font-bold text-foreground">Discover</h1>
