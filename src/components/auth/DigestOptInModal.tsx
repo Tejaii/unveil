@@ -38,7 +38,7 @@ export const DigestOptInModal: React.FC<DigestOptInModalProps> = ({ isOpen, onCl
 
         <div className="space-y-6">
           {/* Features */}
-          <div className="dark:bg-accent/5 bg-accent/10 rounded-2xl p-6 space-y-4 border-0">
+          <div className="dark:bg-[#1E4036] bg-accent/10 rounded-2xl p-6 space-y-4 border-0">
             <div className="flex items-center gap-3">
               <Sparkles className="w-5 h-5 text-accent" />
               <span className="font-medium text-foreground">AI-curated content</span>

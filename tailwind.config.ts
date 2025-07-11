@@ -27,6 +27,15 @@ export default {
 				'lilac-mist': '#EDE8F5',
 				'active-pill': '#D4DCF0',
 				
+				// Dark mode specific colors
+				'dark-bg': '#343541',
+				'dark-sidebar': '#202123',
+				'dark-card': '#3A3B47',
+				'dark-input': '#40414F',
+				'dark-text': '#ECECF1',
+				'dark-muted': '#A6A6B0',
+				'dark-accent-bg': '#1E4036',
+				
 				border: 'transparent',
 				input: '#ADBBD4',
 				ring: '#7091E6',
