@@ -52,7 +52,7 @@ export const TopNavigation = ({ onMenuClick, onViewChange, currentView }) => {
             <input
               type="text"
               placeholder="Search articles..."
-              className="w-full pl-12 pr-16 py-3 bg-input text-foreground rounded-xl placeholder-muted-foreground focus:ring-2 focus:ring-accent border-0 outline-0 dark:bg-gradient-to-r dark:from-[#7091E6] dark:to-[#3D52A0] dark:placeholder-white/70"
+              className="w-full pl-12 pr-16 py-3 bg-accent text-white rounded-xl placeholder-white/70 focus:ring-2 focus:ring-accent border-0 outline-0"
               onClick={toggleSearch}
               readOnly
             />
