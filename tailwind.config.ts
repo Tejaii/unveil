@@ -28,7 +28,7 @@ export default {
 				'active-pill': '#D4DCF0',
 				
 				// Dark mode specific colors
-				'dark-bg': '#343541',
+				'dark-bg': '#202020',
 				'dark-sidebar': '#202123',
 				'dark-card': '#3A3B47',
 				'dark-input': '#40414F',
