@@ -20,8 +20,9 @@ export const NewsCard = ({ article, aiEnhanced, userProfile }) => {
       className="news-card group border-0"
       onClick={handleClick}
     >
-      <div className="space-y-4">
-        <div className="flex flex-col gap-4">
+      <div className="flex gap-6">
+        {/* Content Section */}
+        <div className="flex-1 space-y-4">
           {/* Header */}
           <div className="flex items-center justify-between">
             <Badge className="pill-badge border-0">
@@ -45,19 +46,6 @@ export const NewsCard = ({ article, aiEnhanced, userProfile }) => {
             </p>
           </div>
 
-          {/* Image */}
-          {hasValidImage && (
-            <div className="w-full h-48 rounded-lg overflow-hidden">
-              <img
-                src={article.image}
-                alt={article.title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                }}
-              />
-            </div>
-          )}
 
           {/* Footer */}
           <div className="flex items-center gap-4 text-sm text-muted-foreground pt-2">
@@ -78,6 +66,20 @@ export const NewsCard = ({ article, aiEnhanced, userProfile }) => {
             </div>
           )}
         </div>
+
+        {/* Image Section - Right Side */}
+        {hasValidImage && (
+          <div className="w-48 h-64 rounded-lg overflow-hidden flex-shrink-0">
+            <img
+              src={article.image}
+              alt={article.title}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              onError={(e) => {
+                e.target.style.display = 'none';
+              }}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

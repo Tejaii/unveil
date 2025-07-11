@@ -46,7 +46,7 @@ const Discover = () => {
 
       <div className="w-full flex flex-col gap-6">
         {articles.map((article) => (
-          <NewsCard key={article.title} article={article} />
+          <NewsCard key={article.title} article={article} aiEnhanced={false} userProfile={null} />
         ))}
 
         {/* Infinite scroll loader */}
