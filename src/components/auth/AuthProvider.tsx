@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { User, Session } from '@supabase/supabase-js';
 import { auth, userProfile, UserProfile } from '@/lib/supabase';
+import { useNavigate } from 'react-router-dom';
 
 interface AuthContextType {
   user: User | null;
@@ -54,6 +55,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setUser(null);
     setSession(null);
     setProfile(null);
+    // Redirect to home page after sign out
+    window.location.href = '/';
   };
 
   const updateDigestPreference = async (optIn: boolean) => {
@@ -83,6 +86,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         // Create or update user profile
         await userProfile.upsertProfile(session.user.id, session.user.email!);
         await refreshProfile();
+        
+        // Redirect to main app after successful sign in
+        window.location.href = '/discover';
       }
     });
 
