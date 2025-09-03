@@ -4,9 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Loader2, Mail, Sparkles, CheckCircle, ArrowRight } from 'lucide-react';
+import { Loader2, Mail, Sparkles, CheckCircle } from 'lucide-react';
 import { useAuth } from './AuthProvider';
-import { useNavigate } from 'react-router-dom';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -19,7 +18,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
   const [sent, setSent] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { signInWithMagicLink } = useAuth();
-  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,10 +37,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
     }
   };
 
-  const handleGuestAccess = () => {
-    onClose();
-    navigate('/discover');
-  };
   const handleClose = () => {
     setEmail('');
     setSent(false);
@@ -106,28 +100,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
 
             <p className="text-xs text-muted-foreground text-center">
               We'll send you a secure link to sign in without a password
-            </p>
-            {/* Guest Access Option */}
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t border-border/50" />
-              </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-background px-2 text-muted-foreground">Or</span>
-              </div>
-            </div>
-
-            <Button
-              onClick={handleGuestAccess}
-              variant="outline"
-              className="w-full btn-secondary border-0"
-            >
-              <ArrowRight className="w-5 h-5 mr-2" />
-              Continue as Guest
-            </Button>
-
-            <p className="text-xs text-muted-foreground text-center">
-              Explore Unveil without an account • Limited features
             </p>
           </form>
         ) : (

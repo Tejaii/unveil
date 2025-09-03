@@ -1,52 +1,53 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Sparkles } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { supabase } from '@/lib/supabase';
 import { useAuth } from '../components/auth/AuthProvider';
 import { useNavigate } from 'react-router-dom';
-import { AuthModal } from '../components/auth/AuthModal';
 
 const SignIn: React.FC = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const [showAuthModal, setShowAuthModal] = React.useState(false);
 
   React.useEffect(() => {
     if (user) {
-      navigate('/');
+      navigate('/profile');
     }
   }, [user, navigate]);
 
-  if (user) {
-    return null; // Will redirect via useEffect
-  }
+  const handleGoogleSignIn = async () => {
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+        },
+      });
+      if (error) {
+        console.error('Error signing in with Google:', error.message);
+        // Optionally show a toast or error message to the user
+      }
+    } catch (error) {
+      console.error('Unexpected error during Google sign-in:', error);
+      // Optionally show a toast or error message to the user
+    }
+  };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <Card className="w-full max-w-md mx-auto bg-card rounded-2xl card-shadow border-0">
-        <CardContent className="p-12 text-center space-y-8">
-          {/* Logo and Title */}
-          <div className="space-y-6">
-            <div className="w-16 h-16 rounded-2xl bg-accent flex items-center justify-center mx-auto shadow-floating">
-              <Sparkles className="w-8 h-8 text-white" />
-            </div>
-            
-            <h1 className="text-5xl font-bold text-foreground">
-              Unveil
-            </h1>
-          </div>
-
-          {/* Sign In Button */}
-          <Button
-            onClick={() => setShowAuthModal(true)}
-            className="w-full btn-primary text-lg py-4 border-0"
-          >
-            Sign In
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 p-4">
+      <Card className="w-full max-w-sm mx-auto backdrop-filter backdrop-blur-lg bg-opacity-20 dark:bg-opacity-10 shadow-lg border border-gray-200 dark:border-gray-700">
+        <CardHeader className="text-center">
+          <CardTitle className="text-2xl font-bold">Sign In to Unveil</CardTitle>
+        </CardHeader>
+        <CardContent className="flex flex-col items-center justify-center">
+          <p className="text-sm text-muted-foreground mb-6 text-center">
+            Sign in with your Google account to access your profile.
+          </p>
+          <Button onClick={handleGoogleSignIn} className="w-full">
+            Sign in with Google
           </Button>
         </CardContent>
       </Card>
-
-      <AuthModal isOpen={showAuthModal} onClose={() => setShowAuthModal(false)} />
     </div>
   );
 };
